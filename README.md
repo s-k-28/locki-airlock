@@ -2,6 +2,8 @@
 
 AIRLOCK is the current product mode: an authenticated workstation security control room powered by SpacetimeDB. It correlates independent physical observations with Mac USB/application events, coordinates human review, and authorizes exact, short-lived protected actions before their callbacks run.
 
+The reviewed public competition source is [s-k-28/locki-airlock](https://github.com/s-k-28/locki-airlock), with [passing software CI](https://github.com/s-k-28/locki-airlock/actions/runs/42417726847).
+
 The team deployment is [locki-w91bw](https://spacetimedb.com/@dhruvhydrox/locki-w91bw). Sensitive state stays in private tables and caller-scoped views. The browser starts with a distinct identity and receives workstation access only through owner enrollment.
 
 ```bash

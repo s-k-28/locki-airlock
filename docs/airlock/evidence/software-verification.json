@@ -325,8 +325,7 @@
     "LLM lifecycle spans or model-mediated injection resistance",
     "automatic integration into a separate existing Code Quest host",
     "two-physical-computer or acoustic/hardware-event timing",
-    "elapsed 24-hour cloud retention in wall-clock time",
-    "remote CI/release completion"
+    "elapsed 24-hour cloud retention in wall-clock time"
   ],
   "model_readiness": {
     "ready": false,
@@ -334,5 +333,33 @@
     "swap_percent": 93.6,
     "model_loaded": false,
     "observed_at_utc": "2026-11-07 21:45 UTC (minute precision)"
+  },
+  "release": {
+    "public_source_repository": "https://github.com/s-k-28/locki-airlock",
+    "visibility": "public",
+    "source_snapshot_files": 340,
+    "private_git_history_included": false,
+    "secret_scan": {
+      "tool": "gitleaks 8.30.1",
+      "findings": 0,
+      "boundary": "reviewed current source-only snapshot; runtime data, recordings, models and credentials excluded"
+    },
+    "team_draft_pull_request": "https://github.com/Dhruvjain35/locked-in/pull/1",
+    "ci": {
+      "conclusion": "success",
+      "url": "https://github.com/s-k-28/locki-airlock/actions/runs/42417726847",
+      "source_commit": "2edba89873189cb7334e618c11cd910cd00204be",
+      "completed_at_utc": "2026-11-07T21:50:44Z",
+      "scope": [
+        "module types and 75 policy/datastore tests",
+        "dashboard production build",
+        "frontend/module dependency audits",
+        "70 Node adapter tests",
+        "26 Python backend tests",
+        "10 model resource-guard tests",
+        "22 camera-free edge tests"
+      ],
+      "physical_or_model_inference_claim": false
+    }
   }
 }
