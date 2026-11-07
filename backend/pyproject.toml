@@ -1,0 +1,46 @@
+[project]
+name = "locked-in-backend"
+version = "0.1.0"
+description = "LOCKED IN: AI focus companion robot (backend: perception, policy, safety, robot control, voice)"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.30",
+  "pydantic>=2.7",
+  "pydantic-settings>=2.3",
+  "numpy>=1.26",
+  "websockets>=12",
+  "httpx>=0.27",
+  "psutil>=5.9",
+]
+
+[project.optional-dependencies]
+# Each extra is optional at runtime: the app degrades to a clearly labelled
+# "unavailable" state if a package is missing instead of failing to start.
+vision = ["mediapipe>=0.10.14"]
+# whisper.cpp (pywhispercpp, Metal) is the default speech-to-text; faster-whisper is the fallback.
+voice = ["sounddevice>=0.4.6", "faster-whisper>=1.0.3", "pywhispercpp>=1.5.1"]
+# Optional conversational replies for open-ended questions; off unless a key is configured.
+llm = ["anthropic>=1.0"]
+# Milestone 5: the local language model (MLX, Apple silicon only) and the local neural voice.
+local-ai = [
+    "kokoro-onnx>=0.6.1",
+    "mlx-lm>=0.32.2 ; platform_machine == 'arm64' and sys_platform == 'darwin'",
+]
+
+[dependency-groups]
+dev = ["pytest>=8.2", "pytest-asyncio>=0.23", "ruff>=0.5"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["E501"]

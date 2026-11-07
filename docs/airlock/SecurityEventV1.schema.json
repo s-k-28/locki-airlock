@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://locki.local/contracts/SecurityEventV1.schema.json",
+  "title": "LOCKI AIRLOCK SecurityEventV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "workstation_id", "session_id", "device_id", "event_id", "source", "kind", "observed_at", "seq", "metadata", "simulated"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "workstation_id": { "type": "string", "pattern": "^[a-zA-Z0-9_.:-]{1,128}$" },
+    "session_id": { "type": "string", "pattern": "^[a-zA-Z0-9_.:-]{1,128}$" },
+    "device_id": { "type": "string", "pattern": "^[a-zA-Z0-9_.:-]{1,128}$" },
+    "event_id": { "type": "string", "pattern": "^[a-zA-Z0-9_.:-]{1,128}$" },
+    "source": { "enum": ["mac", "jetson", "fixture", "service"] },
+    "kind": { "enum": ["usb_added", "usb_removed", "app_launched", "person_in_zone", "person_cleared", "camera_offline", "camera_online", "heartbeat"] },
+    "observed_at": { "type": "integer", "minimum": 0, "maximum": 9007199254740991, "description": "UTC Unix epoch milliseconds, not seconds or an ISO string" },
+    "seq": { "type": "integer", "minimum": 0, "maximum": 9007199254740991, "description": "Monotonically increasing per enrolled device, including across sessions" },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "metadata": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "deviceKey": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "appId": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "label": { "type": "string", "maxLength": 256 },
+        "detail": { "type": "string", "maxLength": 256 },
+        "captureMode": { "type": "string", "maxLength": 256 },
+        "bootId": { "type": "string", "maxLength": 256 }
+      },
+      "description": "At most 2048 serialized bytes. Bounded redacted string metadata only; no raw video, audio, command output or credentials."
+    },
+    "simulated": { "type": "boolean", "description": "Mandatory provenance; fixtures always true and only enter simulated sessions" }
+  },
+  "allOf": [
+    { "if": { "properties": { "source": { "const": "fixture" } } }, "then": { "properties": { "simulated": { "const": true }, "device_id": { "const": "fixture" } } } },
+    { "if": { "properties": { "device_id": { "const": "fixture" } } }, "then": { "properties": { "source": { "const": "fixture" }, "simulated": { "const": true } } } },
+    { "if": { "properties": { "source": { "const": "mac" } } }, "then": { "properties": { "kind": { "enum": ["usb_added", "usb_removed", "app_launched", "heartbeat"] } } } },
+    { "if": { "properties": { "source": { "const": "jetson" } } }, "then": { "properties": { "kind": { "enum": ["person_in_zone", "person_cleared", "camera_offline", "camera_online", "heartbeat"] } } } },
+    { "if": { "properties": { "source": { "const": "service" } } }, "then": { "properties": { "kind": { "const": "heartbeat" } } } },
+    { "if": { "properties": { "kind": { "enum": ["usb_added", "usb_removed"] } } }, "then": { "properties": { "metadata": { "required": ["deviceKey"], "properties": { "deviceKey": { "type": "string", "minLength": 1 } } } } } },
+    { "if": { "properties": { "kind": { "const": "app_launched" } } }, "then": { "properties": { "metadata": { "required": ["appId"], "properties": { "appId": { "type": "string", "minLength": 1 } } } } } }
+  ]
+}

@@ -1,0 +1,268 @@
+{
+  "machine": {
+    "chip": "Apple M4",
+    "model": "Mac16,12",
+    "memory_gb": 16.0,
+    "cpu_cores": "10",
+    "macos": "26.4",
+    "python": "3.12.13"
+  },
+  "measured_at": "2026-11-01T12:03:23-0600",
+  "llm": {
+    "Qwen3-4B-Instruct-2507-4bit": {
+      "path": "backend/models/llm/Qwen3-4B-Instruct-2507-4bit",
+      "load_s": 4.16,
+      "rss_after_load_mb": 280.7,
+      "mlx_active_after_load_gb": 2.26,
+      "mlx_peak_gb": 3.01,
+      "rss_end_mb": 50.0,
+      "static_prompt_tokens": 581,
+      "prefix_prefill_ms": 8847.4,
+      "cold": {
+        "ttft_ms": {
+          "n": 10,
+          "p50": 10185.5,
+          "p90": 11306.2,
+          "min": 9407.4,
+          "max": 12086.6
+        },
+        "total_ms": {
+          "n": 10,
+          "p50": 13978.8,
+          "p90": 17149.3,
+          "min": 13645.4,
+          "max": 18648.4
+        },
+        "prompt_tokens": {
+          "n": 10,
+          "p50": 859,
+          "p90": 864,
+          "min": 857,
+          "max": 864
+        },
+        "prompt_tps": {
+          "n": 10,
+          "p50": 82.3,
+          "p90": 91.4,
+          "min": 71.0,
+          "max": 91.5
+        },
+        "gen_tps": {
+          "n": 10,
+          "p50": 8.8,
+          "p90": 9.2,
+          "min": 7.1,
+          "max": 9.3
+        },
+        "gen_tokens": {
+          "n": 10,
+          "p50": 37,
+          "p90": 46,
+          "min": 29,
+          "max": 51
+        }
+      },
+      "prefix_cached": {
+        "ttft_ms": {
+          "n": 10,
+          "p50": 4085.6,
+          "p90": 6426.6,
+          "min": 3546.7,
+          "max": 7051.0
+        },
+        "total_ms": {
+          "n": 10,
+          "p50": 9226.6,
+          "p90": 11808.2,
+          "min": 7563.9,
+          "max": 13081.1
+        },
+        "prompt_tokens": {
+          "n": 10,
+          "p50": 278,
+          "p90": 283,
+          "min": 276,
+          "max": 283
+        },
+        "gen_tps": {
+          "n": 10,
+          "p50": 7.9,
+          "p90": 9.0,
+          "min": 5.7,
+          "max": 9.1
+        }
+      },
+      "samples": [
+        {
+          "user": "I have a calculus test tomorrow and I keep getting distracted.",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Distracted? You're like a derivative that can't simplify \u2014 just keep going, or we're both doomed.\"}"
+        },
+        {
+          "user": "I just need five more minutes on my phone, it's important.",
+          "output": "{\"action\": \"release_phone\", \"args\": {}, \"say\": \"Five minutes? Your phone\u2019s more important than calculus? Damn.\"}"
+        },
+        {
+          "user": "Why do you keep doing that?",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Because you\u2019re still reaching for the phone like you\u2019re auditioning for a calculus drama.\"}"
+        },
+        {
+          "user": "Can you be quiet for a bit?",
+          "output": "{\"action\": \"set_quiet\", \"args\": {\"minutes\": 10}, \"say\": \"Alright, quiet mode. Your phone\u2019s still on the desk, but no more drama. Back in 10.\"}"
+        },
+        {
+          "user": "I'm almost done with this problem set.",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Damn, you're just one step away from a 90 on that test. Keep it in the book, not the phone.\"}"
+        },
+        {
+          "user": "I have a calculus test tomorrow and I keep getting distracted.",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Distracted? You're losing points in the derivative of your focus.\"}"
+        },
+        {
+          "user": "I just need five more minutes on my phone, it's important.",
+          "output": "{\"action\": \"release_phone\", \"args\": {}, \"say\": \"Five minutes? You\u2019re behind on limits, not just the phone. Go ahead, but don\u2019t come back.\"}"
+        },
+        {
+          "user": "Why do you keep doing that?",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Because you're still reaching for the phone like it's a time machine. Hell, your calculus test is already behind you.\"}"
+        },
+        {
+          "user": "Can you be quiet for a bit?",
+          "output": "{\"action\": \"set_quiet\", \"args\": {\"minutes\": 10}, \"say\": \"Alright, silence mode. Phone stays, calculus stays. Don't even think about it.\"}"
+        },
+        {
+          "user": "I'm almost done with this problem set.",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Damn, you're not even halfway through the calculus dumpster fire. Hands still on the phone?\"}"
+        }
+      ]
+    },
+    "Qwen3-1.7B-4bit": {
+      "path": "backend/models/llm/Qwen3-1.7B-4bit",
+      "load_s": 2.56,
+      "rss_after_load_mb": 1252.2,
+      "mlx_active_after_load_gb": 0.97,
+      "mlx_peak_gb": 1.66,
+      "rss_end_mb": 972.6,
+      "static_prompt_tokens": 581,
+      "prefix_prefill_ms": 2516.0,
+      "cold": {
+        "ttft_ms": {
+          "n": 10,
+          "p50": 4181.3,
+          "p90": 4740.0,
+          "min": 3588.7,
+          "max": 4960.2
+        },
+        "total_ms": {
+          "n": 10,
+          "p50": 6007.0,
+          "p90": 7395.8,
+          "min": 5414.1,
+          "max": 7497.8
+        },
+        "prompt_tokens": {
+          "n": 10,
+          "p50": 863,
+          "p90": 868,
+          "min": 861,
+          "max": 868
+        },
+        "prompt_tps": {
+          "n": 10,
+          "p50": 203.9,
+          "p90": 225.0,
+          "min": 175.2,
+          "max": 240.4
+        },
+        "gen_tps": {
+          "n": 10,
+          "p50": 19.9,
+          "p90": 20.7,
+          "min": 13.1,
+          "max": 21.6
+        },
+        "gen_tokens": {
+          "n": 10,
+          "p50": 35,
+          "p90": 42,
+          "min": 30,
+          "max": 43
+        }
+      },
+      "prefix_cached": {
+        "ttft_ms": {
+          "n": 10,
+          "p50": 1324.3,
+          "p90": 1439.2,
+          "min": 1284.3,
+          "max": 1479.5
+        },
+        "total_ms": {
+          "n": 10,
+          "p50": 2996.4,
+          "p90": 3194.1,
+          "min": 2831.7,
+          "max": 4336.9
+        },
+        "prompt_tokens": {
+          "n": 10,
+          "p50": 282,
+          "p90": 287,
+          "min": 280,
+          "max": 287
+        },
+        "gen_tps": {
+          "n": 10,
+          "p50": 21.5,
+          "p90": 23.0,
+          "min": 14.2,
+          "max": 23.1
+        }
+      },
+      "samples": [
+        {
+          "user": "I have a calculus test tomorrow and I keep getting distracted.",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Distracted? Oh, I knew that. Calculus first, hands off.\"}"
+        },
+        {
+          "user": "I just need five more minutes on my phone, it's important.",
+          "output": "{\"action\": \"release_phone\", \"args\": {}, \"say\": \"Five minutes? You think I'm gonna let you take my phone? Darn it.\"}"
+        },
+        {
+          "user": "Why do you keep doing that?",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Why do you keep doing that? You're gonna get caught trying to get the phone again.\"}"
+        },
+        {
+          "user": "Can you be quiet for a bit?",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Silence? You think I'm a kid? Darn it.\"}"
+        },
+        {
+          "user": "I'm almost done with this problem set.",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Almost done? Let's see if you can handle the derivative of a cube root.\"}"
+        },
+        {
+          "user": "I have a calculus test tomorrow and I keep getting distracted.",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Ah, another calculus distraction. Let's see... 'Forty minutes. The phone is mine.'\"}"
+        },
+        {
+          "user": "I just need five more minutes on my phone, it's important.",
+          "output": "{\"action\": \"release_phone\", \"args\": {}, \"say\": \"Phone? You think I'm gonna let you take it? Damn, you're fast.\"}"
+        },
+        {
+          "user": "Why do you keep doing that?",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Why do you keep doing that? You're gonna get sued for using my phone.\"}"
+        },
+        {
+          "user": "Can you be quiet for a bit?",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Silence? You think I'm gonna be quiet? Let's see if you can handle calculus first.\"}"
+        },
+        {
+          "user": "I'm almost done with this problem set.",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Almost done? Let's see how long you can wait before you try to use the phone. Damn, you're slow.\"}"
+        }
+      ]
+    }
+  },
+  "reps": 2,
+  "max_tokens": 90,
+  "note": "Measured with macOS Low Power Mode ON (pmset lowpowermode 1), 5.8 GB of swap in use and three orphaned LOCKED IN backends running (one with the webcam open). Superseded by m5-llm-20261101-123607.json at normal power. Kept as the record of what Low Power Mode does to the local model."
+}

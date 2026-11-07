@@ -1,0 +1,55 @@
+{
+  "machine": {
+    "low_power_mode": "1",
+    "gpu_busy_before_pct": "24",
+    "swap": "total = 7168.00M  used = 5587.88M  free = 1580.12M  (encrypted)",
+    "chip": "Apple M4",
+    "model": "Mac16,12",
+    "memory_gb": 16.0,
+    "cpu_cores": "10",
+    "macos": "26.4",
+    "python": "3.12.13"
+  },
+  "measured_at": "2026-11-01T12:13:58-0600",
+  "silero_model": "silero_vad_v6.onnx",
+  "cases": {
+    "white@-50dBFS": {
+      "speech_found_energy": "20/20",
+      "speech_found_silero": "20/20",
+      "false_start_energy": "0/20",
+      "false_start_silero": "0/20"
+    },
+    "white@-35dBFS": {
+      "speech_found_energy": "18/20",
+      "speech_found_silero": "20/20",
+      "false_start_energy": "0/20",
+      "false_start_silero": "0/20"
+    },
+    "keyboard@-50dBFS": {
+      "speech_found_energy": "20/20",
+      "speech_found_silero": "20/20",
+      "false_start_energy": "14/20",
+      "false_start_silero": "0/20"
+    },
+    "keyboard@-35dBFS": {
+      "speech_found_energy": "20/20",
+      "speech_found_silero": "20/20",
+      "false_start_energy": "19/20",
+      "false_start_silero": "0/20"
+    },
+    "hum@-50dBFS": {
+      "speech_found_energy": "20/20",
+      "speech_found_silero": "20/20",
+      "false_start_energy": "0/20",
+      "false_start_silero": "0/20"
+    },
+    "hum@-35dBFS": {
+      "speech_found_energy": "17/20",
+      "speech_found_silero": "20/20",
+      "false_start_energy": "0/20",
+      "false_start_silero": "0/20"
+    }
+  },
+  "silero_ms_per_32ms_frame": 0.116,
+  "energy_ms_per_30ms_block": 0.037
+}

@@ -1,0 +1,34 @@
+{
+  "name": "locked-in-dashboard",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b --noEmit",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@fontsource-variable/archivo": "5.2.6",
+    "@fontsource-variable/martian-mono": "5.2.6",
+    "@fontsource/chakra-petch": "5.2.6",
+    "lucide-react": "0.511.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "recharts": "2.15.3",
+    "spacetimedb": "2.14.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.1.7",
+    "@types/react": "18.3.23",
+    "@types/react-dom": "18.3.7",
+    "@vitejs/plugin-react": "4.4.1",
+    "tailwindcss": "4.1.7",
+    "tsx": "4.23.15",
+    "typescript": "5.8.3",
+    "vite": "6.4.5",
+    "vitest": "5.1.0"
+  }
+}

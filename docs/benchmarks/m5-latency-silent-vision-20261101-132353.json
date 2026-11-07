@@ -1,0 +1,167 @@
+{
+ "audible": false,
+ "vision_load": true,
+ "vision_frame_ms": {
+  "n": 1371,
+  "p50": 9.9,
+  "max": 208.4,
+  "min": 5.7
+ },
+ "parser_turns": {
+  "n": 2,
+  "p50": 932.9,
+  "max": 1539.0,
+  "min": 326.7
+ },
+ "model_turns": {
+  "n": 6,
+  "p50": 5876.1,
+  "max": 6876.8,
+  "min": 4000.3
+ },
+ "stt_ms": {
+  "n": 8,
+  "p50": 337.8,
+  "max": 1535.8,
+  "min": 183.7
+ },
+ "memory": {
+  "backend_rss_mb": 406.6,
+  "llm_worker": {
+   "rss_mb": 51.8,
+   "mlx_active_gb": 2.48,
+   "mlx_peak_gb": 3.05
+  }
+ },
+ "rows": [
+  {
+   "said": "Lock me in for 25 minutes.",
+   "heard": "Lock me in for 25 minutes.",
+   "expected_path": "parser",
+   "route": "reflex",
+   "stt_ms": 320.5,
+   "speech_end_to_playback_ms": 326.7,
+   "reply_source": "Cached Fish Audio",
+   "reply": "Okay. Phone's mine now. Go.",
+   "llm_first_token_ms": null,
+   "llm_total_ms": null,
+   "streamed": null,
+   "voice_render_ms": null,
+   "action": null,
+   "last_source": "Cached Fish Audio"
+  },
+  {
+   "said": "I have a calculus test tomorrow, so keep me off my phone.",
+   "heard": "I have a calculus test tomorrow, so keep me off my phone.",
+   "expected_path": "model",
+   "route": "converse",
+   "stt_ms": 183.7,
+   "speech_end_to_playback_ms": 5540.6,
+   "reply_source": "Local Kokoro voice (rendered now)",
+   "reply": "Calculus test? You\u2019re gonna survive this with me guarding the phone like a loyal robot ex-boyfriend.",
+   "llm_first_token_ms": 746.7,
+   "llm_total_ms": 2233.5,
+   "streamed": 1,
+   "voice_render_ms": 3233.0,
+   "action": "set_goal",
+   "last_source": "Local Kokoro voice (rendered now)"
+  },
+  {
+   "said": "How much time do I have left?",
+   "heard": "How much time do I have left?",
+   "expected_path": "parser",
+   "route": "converse",
+   "stt_ms": 355.0,
+   "speech_end_to_playback_ms": 4000.3,
+   "reply_source": "Local Kokoro voice (pre-rendered)",
+   "reply": "Noted.",
+   "llm_first_token_ms": 2037.2,
+   "llm_total_ms": 3641.0,
+   "streamed": 0,
+   "voice_render_ms": null,
+   "action": null,
+   "last_source": "Local Kokoro voice (pre-rendered)"
+  },
+  {
+   "said": "Why do you keep doing that?",
+   "heard": "Why do you keep doing that?",
+   "expected_path": "model",
+   "route": "converse",
+   "stt_ms": 749.9,
+   "speech_end_to_playback_ms": 5334.5,
+   "reply_source": "Local Kokoro voice (rendered now)",
+   "reply": "Because you\u2019re still reaching for the phone like it\u2019s your personal snack bar.",
+   "llm_first_token_ms": 2273.7,
+   "llm_total_ms": 3254.6,
+   "streamed": 1,
+   "voice_render_ms": 1385.1,
+   "action": null,
+   "last_source": "Local Kokoro voice (rendered now)"
+  },
+  {
+   "said": "Can you be quiet for a bit?",
+   "heard": "Can you be quiet for a bit?",
+   "expected_path": "model",
+   "route": "converse",
+   "stt_ms": 715.6,
+   "speech_end_to_playback_ms": 6228.3,
+   "reply_source": "Local Kokoro voice (rendered now)",
+   "reply": "Quiet mode activated. Phone's still got you, but at least you won\u2019t be interrupted by my dramatic flair.",
+   "llm_first_token_ms": 2505.5,
+   "llm_total_ms": 3791.8,
+   "streamed": 1,
+   "voice_render_ms": 1767.0,
+   "action": "set_quiet",
+   "last_source": "Local Kokoro voice (rendered now)"
+  },
+  {
+   "said": "Honestly I'm almost done with this problem set, like two more questions.",
+   "heard": "Honestly I'm almost done with this problem set, like two more questions.",
+   "expected_path": "model",
+   "route": "converse",
+   "stt_ms": 187.3,
+   "speech_end_to_playback_ms": 6211.6,
+   "reply_source": "Local Kokoro voice (rendered now)",
+   "reply": "Two more? Bro, you\u2019ve been reaching for the phone like it\u2019s a cheat sheet for 24 minutes. Still not done?",
+   "llm_first_token_ms": 3287.2,
+   "llm_total_ms": 4587.9,
+   "streamed": 2,
+   "voice_render_ms": null,
+   "action": null,
+   "last_source": "Not spoken"
+  },
+  {
+   "said": "Okay, what did I say I was studying for again?",
+   "heard": "Okay, what did I say I was studying for again?",
+   "expected_path": "model",
+   "route": "converse",
+   "stt_ms": 247.9,
+   "speech_end_to_playback_ms": 6876.8,
+   "reply_source": "Local Kokoro voice (rendered now)",
+   "reply": "Calculus test. You know, the one where you\u2019ll probably forget half the rules by the time you get to the last question.",
+   "llm_first_token_ms": 3428.5,
+   "llm_total_ms": 4842.1,
+   "streamed": 1,
+   "voice_render_ms": 1837.4,
+   "action": "set_style",
+   "last_source": "Local Kokoro voice (rendered now)"
+  },
+  {
+   "said": "Give me my phone back.",
+   "heard": "Give me my phone back.",
+   "expected_path": "parser",
+   "route": "reflex",
+   "stt_ms": 1535.8,
+   "speech_end_to_playback_ms": 1539.0,
+   "reply_source": "Cached Fish Audio",
+   "reply": "Fine. Robot privileges revoked.",
+   "llm_first_token_ms": null,
+   "llm_total_ms": null,
+   "streamed": null,
+   "voice_render_ms": null,
+   "action": null,
+   "last_source": "Cached Fish Audio"
+  }
+ ],
+ "measured_at": "2026-11-01T13:23:53-0600"
+}

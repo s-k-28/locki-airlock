@@ -1,0 +1,66 @@
+{
+  "machine": {
+    "low_power_mode": "0",
+    "gpu_busy_before_pct": "28",
+    "swap": "total = 7168.00M  used = 6404.94M  free = 763.06M  (encrypted)",
+    "chip": "Apple M4",
+    "model": "Mac16,12",
+    "memory_gb": 16.0,
+    "cpu_cores": "10",
+    "macos": "26.4",
+    "python": "3.12.13"
+  },
+  "measured_at": "2026-11-01T12:40:47-0600",
+  "voice": "af_bella",
+  "other_voice": "af_heart",
+  "mean": {
+    "int8_vs_fp32": 8.018,
+    "other_voice_vs_fp32": 12.923,
+    "fp32_repeat": 0.0,
+    "len_ratio": 0.993
+  },
+  "rows": [
+    {
+      "text": "Calculus tomorrow? Then the phone can wait. Forty minutes, go.",
+      "int8_vs_fp32": 6.38,
+      "other_voice_vs_fp32": 12.97,
+      "fp32_repeat": 0.0,
+      "len_ratio": 0.989
+    },
+    {
+      "text": "That's twice in five minutes. Hands off.",
+      "int8_vs_fp32": 3.68,
+      "other_voice_vs_fp32": 13.27,
+      "fp32_repeat": 0.0,
+      "len_ratio": 1.009
+    },
+    {
+      "text": "Fine, it's yours. Come back when the important thing is done.",
+      "int8_vs_fp32": 11.76,
+      "other_voice_vs_fp32": 13.79,
+      "fp32_repeat": 0.0,
+      "len_ratio": 0.982
+    },
+    {
+      "text": "Going quiet for ten minutes. I'm still watching the phone though.",
+      "int8_vs_fp32": 11.68,
+      "other_voice_vs_fp32": 14.1,
+      "fp32_repeat": 0.0,
+      "len_ratio": 0.982
+    },
+    {
+      "text": "You said almost done ten minutes ago. Prove it.",
+      "int8_vs_fp32": 7.16,
+      "other_voice_vs_fp32": 9.62,
+      "fp32_repeat": 0.0,
+      "len_ratio": 1.0
+    },
+    {
+      "text": "Because your hand keeps drifting toward the phone, and you told me you have a test tomorrow.",
+      "int8_vs_fp32": 7.45,
+      "other_voice_vs_fp32": 13.79,
+      "fp32_repeat": 0.0,
+      "len_ratio": 0.995
+    }
+  ]
+}

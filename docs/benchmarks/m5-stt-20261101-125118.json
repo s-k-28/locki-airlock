@@ -1,0 +1,3413 @@
+{
+  "machine": {
+    "low_power_mode": "0",
+    "gpu_busy_before_pct": "37",
+    "swap": "total = 7168.00M  used = 6172.94M  free = 995.06M  (encrypted)",
+    "chip": "Apple M4",
+    "model": "Mac16,12",
+    "memory_gb": 16.0,
+    "cpu_cores": "10",
+    "macos": "26.4",
+    "python": "3.12.13"
+  },
+  "measured_at": "2026-11-01T12:51:18-0600",
+  "utterances": 104,
+  "engines": {
+    "faster-whisper base.en int8 (current)": {
+      "ms": {
+        "n": 104,
+        "p50": 338.3,
+        "p90": 350.6,
+        "min": 308.3,
+        "max": 364.6
+      },
+      "wer_mean": 0.022,
+      "exact": 0.9807692307692307,
+      "rows": [
+        {
+          "src": "say:Samantha",
+          "ref": "Roast me.",
+          "hyp": "Roast me.",
+          "ms": 311.9,
+          "wer": 0.0,
+          "audio_s": 0.62
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Start my focus session.",
+          "hyp": "Start my focus session.",
+          "ms": 325.8,
+          "wer": 0.0,
+          "audio_s": 1.51
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "How much time do I have left?",
+          "hyp": "How much time do I have left?",
+          "ms": 329.0,
+          "wer": 0.0,
+          "audio_s": 1.76
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Pause my session.",
+          "hyp": "Pause my session.",
+          "ms": 321.5,
+          "wer": 0.0,
+          "audio_s": 1.02
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Resume.",
+          "hyp": "Resume.",
+          "ms": 313.9,
+          "wer": 0.0,
+          "audio_s": 0.54
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Stop talking.",
+          "hyp": "Stop talking.",
+          "ms": 316.8,
+          "wer": 0.0,
+          "audio_s": 0.93
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "You can talk again.",
+          "hyp": "You can talk again.",
+          "ms": 320.2,
+          "wer": 0.0,
+          "audio_s": 1.1
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Stop.",
+          "hyp": "Stop.",
+          "ms": 311.2,
+          "wer": 0.0,
+          "audio_s": 0.53
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Give me my phone back.",
+          "hyp": "Give me my phone back.",
+          "ms": 324.7,
+          "wer": 0.0,
+          "audio_s": 1.23
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Lock me in for 25 minutes.",
+          "hyp": "Lock me in for 25 minutes.",
+          "ms": 336.5,
+          "wer": 0.0,
+          "audio_s": 1.85
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Emergency stop.",
+          "hyp": "Emergency stop.",
+          "ms": 314.7,
+          "wer": 0.0,
+          "audio_s": 1.11
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I have a calculus test tomorrow.",
+          "hyp": "I have a calculus test tomorrow.",
+          "ms": 338.6,
+          "wer": 0.0,
+          "audio_s": 1.9
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I just need five more minutes.",
+          "hyp": "I just need 5 more minutes.",
+          "ms": 336.2,
+          "wer": 0.0,
+          "audio_s": 1.68
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I'm almost done.",
+          "hyp": "I'm almost done.",
+          "ms": 327.3,
+          "wer": 0.0,
+          "audio_s": 1.09
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "This is actually so annoying.",
+          "hyp": "This is actually so annoying.",
+          "ms": 335.0,
+          "wer": 0.0,
+          "audio_s": 1.74
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Why do you keep doing that?",
+          "hyp": "Why do you keep doing that?",
+          "ms": 333.9,
+          "wer": 0.0,
+          "audio_s": 1.6
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I need my phone for something important.",
+          "hyp": "I need my phone for something important.",
+          "ms": 347.9,
+          "wer": 0.0,
+          "audio_s": 2.14
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Can you be quiet for a bit?",
+          "hyp": "Can you be quiet for a bit?",
+          "ms": 359.5,
+          "wer": 0.0,
+          "audio_s": 1.54
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I'm done with this.",
+          "hyp": "I'm done with this.",
+          "ms": 364.6,
+          "wer": 0.0,
+          "audio_s": 0.98
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Okay I'm back, where was I?",
+          "hyp": "Okay, I'm back. Where was I?",
+          "ms": 346.8,
+          "wer": 0.0,
+          "audio_s": 1.92
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Can you give me like forty minutes on my essay?",
+          "hyp": "Can you give me like 40 minutes on my essay?",
+          "ms": 352.5,
+          "wer": 0.0,
+          "audio_s": 2.41
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Actually make it thirty.",
+          "hyp": "Actually make it 30.",
+          "ms": 339.1,
+          "wer": 0.0,
+          "audio_s": 1.4
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Did I reach for it again?",
+          "hyp": "Did I reach for it again?",
+          "ms": 329.7,
+          "wer": 0.0,
+          "audio_s": 1.35
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "How long have I been working?",
+          "hyp": "How long have I been working?",
+          "ms": 335.5,
+          "wer": 0.0,
+          "audio_s": 1.48
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I'm going to get some water.",
+          "hyp": "I'm going to get some water.",
+          "ms": 336.8,
+          "wer": 0.0,
+          "audio_s": 1.47
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Wait, what did I say I was working on?",
+          "hyp": "Wait, what did I say I was working on?",
+          "ms": 355.4,
+          "wer": 0.0,
+          "audio_s": 2.41
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Be nicer, I'm stressed.",
+          "hyp": "Be nicer. I'm stressed.",
+          "ms": 338.0,
+          "wer": 0.0,
+          "audio_s": 1.64
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Who's winning, me or the phone?",
+          "hyp": "Who's winning, me or the phone?",
+          "ms": 348.1,
+          "wer": 0.0,
+          "audio_s": 1.71
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Tell me something to keep me going.",
+          "hyp": "Tell me something to keep me going.",
+          "ms": 338.2,
+          "wer": 0.0,
+          "audio_s": 1.86
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I finished the first two problems.",
+          "hyp": "I finished the first two problems.",
+          "ms": 339.8,
+          "wer": 0.0,
+          "audio_s": 1.88
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Let's wrap this up.",
+          "hyp": "Let's wrap this up.",
+          "ms": 334.0,
+          "wer": 0.0,
+          "audio_s": 1.06
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Roast me.",
+          "hyp": "I finished a problem.",
+          "ms": 325.3,
+          "wer": 2.0,
+          "audio_s": 0.97
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Start my focus session.",
+          "hyp": "Start my focus session.",
+          "ms": 330.1,
+          "wer": 0.0,
+          "audio_s": 2.06
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "How much time do I have left?",
+          "hyp": "How much time do I have left?",
+          "ms": 337.4,
+          "wer": 0.0,
+          "audio_s": 2.3
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Pause my session.",
+          "hyp": "Pause my session.",
+          "ms": 326.4,
+          "wer": 0.0,
+          "audio_s": 1.53
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Resume.",
+          "hyp": "Resume.",
+          "ms": 319.4,
+          "wer": 0.0,
+          "audio_s": 1.01
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Stop talking.",
+          "hyp": "Stop talking.",
+          "ms": 315.6,
+          "wer": 0.0,
+          "audio_s": 1.37
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "You can talk again.",
+          "hyp": "You can talk again.",
+          "ms": 325.3,
+          "wer": 0.0,
+          "audio_s": 1.58
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Stop.",
+          "hyp": "Stop.",
+          "ms": 308.3,
+          "wer": 0.0,
+          "audio_s": 0.93
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Give me my phone back.",
+          "hyp": "Give me my phone back.",
+          "ms": 334.1,
+          "wer": 0.0,
+          "audio_s": 1.82
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Lock me in for 25 minutes.",
+          "hyp": "Lock me in for 25 minutes.",
+          "ms": 337.6,
+          "wer": 0.0,
+          "audio_s": 2.59
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Emergency stop.",
+          "hyp": "Emergency stop.",
+          "ms": 317.6,
+          "wer": 0.0,
+          "audio_s": 1.68
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I have a calculus test tomorrow.",
+          "hyp": "I have a calculus test tomorrow.",
+          "ms": 338.5,
+          "wer": 0.0,
+          "audio_s": 2.48
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I just need five more minutes.",
+          "hyp": "I just need five more minutes.",
+          "ms": 345.0,
+          "wer": 0.0,
+          "audio_s": 2.33
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I'm almost done.",
+          "hyp": "I'm almost done.",
+          "ms": 331.0,
+          "wer": 0.0,
+          "audio_s": 1.57
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "This is actually so annoying.",
+          "hyp": "This is actually so annoying.",
+          "ms": 335.5,
+          "wer": 0.0,
+          "audio_s": 2.17
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Why do you keep doing that?",
+          "hyp": "Why do you keep doing that?",
+          "ms": 343.9,
+          "wer": 0.0,
+          "audio_s": 2.0
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I need my phone for something important.",
+          "hyp": "I need my phone for something important.",
+          "ms": 348.7,
+          "wer": 0.0,
+          "audio_s": 2.83
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Can you be quiet for a bit?",
+          "hyp": "Can you be quiet for a bit?",
+          "ms": 340.4,
+          "wer": 0.0,
+          "audio_s": 1.98
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I'm done with this.",
+          "hyp": "I'm done with this.",
+          "ms": 339.8,
+          "wer": 0.0,
+          "audio_s": 1.41
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Okay I'm back, where was I?",
+          "hyp": "Okay I'm back. Where was I?",
+          "ms": 344.7,
+          "wer": 0.0,
+          "audio_s": 2.46
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Can you give me like forty minutes on my essay?",
+          "hyp": "Can you give me like 40 minutes on my essay?",
+          "ms": 361.0,
+          "wer": 0.0,
+          "audio_s": 3.05
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Actually make it thirty.",
+          "hyp": "Actually make a 30.",
+          "ms": 335.1,
+          "wer": 0.25,
+          "audio_s": 1.97
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Did I reach for it again?",
+          "hyp": "Did I reach for it again?",
+          "ms": 344.9,
+          "wer": 0.0,
+          "audio_s": 1.87
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "How long have I been working?",
+          "hyp": "How long have I been working?",
+          "ms": 338.7,
+          "wer": 0.0,
+          "audio_s": 2.05
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I'm going to get some water.",
+          "hyp": "I'm going to get some water.",
+          "ms": 349.3,
+          "wer": 0.0,
+          "audio_s": 1.93
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Wait, what did I say I was working on?",
+          "hyp": "Wait, what did I say I was working on?",
+          "ms": 358.7,
+          "wer": 0.0,
+          "audio_s": 2.78
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Be nicer, I'm stressed.",
+          "hyp": "Be nicer, I'm stressed.",
+          "ms": 344.4,
+          "wer": 0.0,
+          "audio_s": 2.08
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Who's winning, me or the phone?",
+          "hyp": "Who's winning? Me or the phone?",
+          "ms": 358.9,
+          "wer": 0.0,
+          "audio_s": 2.14
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Tell me something to keep me going.",
+          "hyp": "Tell me something to keep me going.",
+          "ms": 349.2,
+          "wer": 0.0,
+          "audio_s": 2.46
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I finished the first two problems.",
+          "hyp": "I finished the first two problems.",
+          "ms": 345.8,
+          "wer": 0.0,
+          "audio_s": 2.48
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Let's wrap this up.",
+          "hyp": "Let's wrap this up.",
+          "ms": 334.5,
+          "wer": 0.0,
+          "audio_s": 1.49
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Roast me.",
+          "hyp": "Roast me.",
+          "ms": 331.3,
+          "wer": 0.0,
+          "audio_s": 0.8
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Start my focus session.",
+          "hyp": "Start my focus session.",
+          "ms": 343.8,
+          "wer": 0.0,
+          "audio_s": 1.65
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "How much time do I have left?",
+          "hyp": "How much time do I have left?",
+          "ms": 344.0,
+          "wer": 0.0,
+          "audio_s": 1.89
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Pause my session.",
+          "hyp": "Pause my session.",
+          "ms": 335.5,
+          "wer": 0.0,
+          "audio_s": 1.08
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Resume.",
+          "hyp": "Resume.",
+          "ms": 324.1,
+          "wer": 0.0,
+          "audio_s": 0.72
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Stop talking.",
+          "hyp": "Stop talking.",
+          "ms": 321.3,
+          "wer": 0.0,
+          "audio_s": 0.99
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "You can talk again.",
+          "hyp": "You can talk again.",
+          "ms": 329.3,
+          "wer": 0.0,
+          "audio_s": 1.19
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Stop.",
+          "hyp": "Stop.",
+          "ms": 316.3,
+          "wer": 0.0,
+          "audio_s": 0.47
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Give me my phone back.",
+          "hyp": "Give me my phone back.",
+          "ms": 327.4,
+          "wer": 0.0,
+          "audio_s": 1.37
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Lock me in for 25 minutes.",
+          "hyp": "Lock me in for 25 minutes.",
+          "ms": 355.2,
+          "wer": 0.0,
+          "audio_s": 2.1
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Emergency stop.",
+          "hyp": "Emergency stop.",
+          "ms": 330.5,
+          "wer": 0.0,
+          "audio_s": 1.11
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I have a calculus test tomorrow.",
+          "hyp": "I have a calculus test tomorrow.",
+          "ms": 349.4,
+          "wer": 0.0,
+          "audio_s": 2.05
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I just need five more minutes.",
+          "hyp": "I just need 5 more minutes.",
+          "ms": 341.9,
+          "wer": 0.0,
+          "audio_s": 1.83
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I'm almost done.",
+          "hyp": "I'm almost done.",
+          "ms": 340.9,
+          "wer": 0.0,
+          "audio_s": 1.08
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "This is actually so annoying.",
+          "hyp": "This is actually so annoying.",
+          "ms": 340.4,
+          "wer": 0.0,
+          "audio_s": 1.61
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Why do you keep doing that?",
+          "hyp": "Why do you keep doing that?",
+          "ms": 349.6,
+          "wer": 0.0,
+          "audio_s": 1.65
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I need my phone for something important.",
+          "hyp": "I need my phone for something important.",
+          "ms": 343.2,
+          "wer": 0.0,
+          "audio_s": 2.32
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Can you be quiet for a bit?",
+          "hyp": "Can you be quiet for a bit?",
+          "ms": 340.2,
+          "wer": 0.0,
+          "audio_s": 1.52
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I'm done with this.",
+          "hyp": "I'm done with this.",
+          "ms": 341.7,
+          "wer": 0.0,
+          "audio_s": 1.04
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Okay I'm back, where was I?",
+          "hyp": "Okay I'm back. Where was I?",
+          "ms": 350.6,
+          "wer": 0.0,
+          "audio_s": 1.85
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Can you give me like forty minutes on my essay?",
+          "hyp": "Can you give me like 40 minutes on my essay?",
+          "ms": 360.4,
+          "wer": 0.0,
+          "audio_s": 2.53
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Actually make it thirty.",
+          "hyp": "Actually make it 30.",
+          "ms": 339.4,
+          "wer": 0.0,
+          "audio_s": 1.37
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Did I reach for it again?",
+          "hyp": "Did I reach for it again?",
+          "ms": 345.2,
+          "wer": 0.0,
+          "audio_s": 1.53
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "How long have I been working?",
+          "hyp": "How long have I been working?",
+          "ms": 343.0,
+          "wer": 0.0,
+          "audio_s": 1.71
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I'm going to get some water.",
+          "hyp": "I'm going to get some water.",
+          "ms": 343.8,
+          "wer": 0.0,
+          "audio_s": 1.59
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Wait, what did I say I was working on?",
+          "hyp": "Wait, what did I say I was working on?",
+          "ms": 355.4,
+          "wer": 0.0,
+          "audio_s": 2.54
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Be nicer, I'm stressed.",
+          "hyp": "Be nicer. I'm stressed.",
+          "ms": 344.1,
+          "wer": 0.0,
+          "audio_s": 1.72
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Who's winning, me or the phone?",
+          "hyp": "Who's winning? Me or the phone?",
+          "ms": 348.6,
+          "wer": 0.0,
+          "audio_s": 1.74
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Tell me something to keep me going.",
+          "hyp": "Tell me something to keep me going.",
+          "ms": 343.6,
+          "wer": 0.0,
+          "audio_s": 1.88
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I finished the first two problems.",
+          "hyp": "I finished the first two problems.",
+          "ms": 340.0,
+          "wer": 0.0,
+          "audio_s": 2.0
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Let's wrap this up.",
+          "hyp": "Let's wrap this up.",
+          "ms": 340.9,
+          "wer": 0.0,
+          "audio_s": 1.06
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Roast me.",
+          "hyp": "Roast me.",
+          "ms": 325.9,
+          "wer": 0.0,
+          "audio_s": 1.01
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Start my focus session.",
+          "hyp": "Start my focus session.",
+          "ms": 334.0,
+          "wer": 0.0,
+          "audio_s": 1.49
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "How much time do I have left?",
+          "hyp": "How much time do I have left?",
+          "ms": 348.8,
+          "wer": 0.0,
+          "audio_s": 1.9
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Pause my session.",
+          "hyp": "Pause my session.",
+          "ms": 337.4,
+          "wer": 0.0,
+          "audio_s": 1.3
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Resume.",
+          "hyp": "Resume.",
+          "ms": 325.5,
+          "wer": 0.0,
+          "audio_s": 0.91
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Stop talking.",
+          "hyp": "Stop talking.",
+          "ms": 323.3,
+          "wer": 0.0,
+          "audio_s": 1.1
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "You can talk again.",
+          "hyp": "You can talk again.",
+          "ms": 334.5,
+          "wer": 0.0,
+          "audio_s": 1.33
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Stop.",
+          "hyp": "Stop.",
+          "ms": 320.1,
+          "wer": 0.0,
+          "audio_s": 0.66
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Give me my phone back.",
+          "hyp": "Give me my phone back.",
+          "ms": 343.4,
+          "wer": 0.0,
+          "audio_s": 1.33
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Lock me in for 25 minutes.",
+          "hyp": "Lock me in for 25 minutes.",
+          "ms": 338.3,
+          "wer": 0.0,
+          "audio_s": 2.19
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Emergency stop.",
+          "hyp": "Emergency stop.",
+          "ms": 327.4,
+          "wer": 0.0,
+          "audio_s": 1.26
+        }
+      ],
+      "wer_mic:demo-check": 0.0,
+      "wer_say:Daniel": 0.0,
+      "wer_say:Reed (English (US))": 0.073,
+      "wer_say:Samantha": 0.0
+    },
+    "whisper.cpp base.en (pywhispercpp, Metal GPU)": {
+      "ms": {
+        "n": 104,
+        "p50": 97.5,
+        "p90": 104.3,
+        "min": 80.8,
+        "max": 111.1
+      },
+      "wer_mean": 0.003,
+      "exact": 0.9903846153846154,
+      "rows": [
+        {
+          "src": "say:Samantha",
+          "ref": "Roast me.",
+          "hyp": "Roast me.",
+          "ms": 80.8,
+          "wer": 0.0,
+          "audio_s": 0.62
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Start my focus session.",
+          "hyp": "Start my focus session.",
+          "ms": 82.4,
+          "wer": 0.0,
+          "audio_s": 1.51
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "How much time do I have left?",
+          "hyp": "How much time do I have left?",
+          "ms": 96.0,
+          "wer": 0.0,
+          "audio_s": 1.76
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Pause my session.",
+          "hyp": "Pause my session.",
+          "ms": 93.2,
+          "wer": 0.0,
+          "audio_s": 1.02
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Resume.",
+          "hyp": "Resume.",
+          "ms": 81.1,
+          "wer": 0.0,
+          "audio_s": 0.54
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Stop talking.",
+          "hyp": "Stop talking.",
+          "ms": 86.0,
+          "wer": 0.0,
+          "audio_s": 0.93
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "You can talk again.",
+          "hyp": "You can talk again.",
+          "ms": 92.8,
+          "wer": 0.0,
+          "audio_s": 1.1
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Stop.",
+          "hyp": "Stop.",
+          "ms": 86.5,
+          "wer": 0.0,
+          "audio_s": 0.53
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Give me my phone back.",
+          "hyp": "Give me my phone back.",
+          "ms": 95.3,
+          "wer": 0.0,
+          "audio_s": 1.23
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Lock me in for 25 minutes.",
+          "hyp": "Lock me in for 25 minutes.",
+          "ms": 97.7,
+          "wer": 0.0,
+          "audio_s": 1.85
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Emergency stop.",
+          "hyp": "Emergency stop.",
+          "ms": 85.0,
+          "wer": 0.0,
+          "audio_s": 1.11
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I have a calculus test tomorrow.",
+          "hyp": "I have a calculus test tomorrow.",
+          "ms": 102.9,
+          "wer": 0.0,
+          "audio_s": 1.9
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I just need five more minutes.",
+          "hyp": "I just need five more minutes.",
+          "ms": 99.4,
+          "wer": 0.0,
+          "audio_s": 1.68
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I'm almost done.",
+          "hyp": "I'm almost done.",
+          "ms": 94.7,
+          "wer": 0.0,
+          "audio_s": 1.09
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "This is actually so annoying.",
+          "hyp": "This is actually so annoying.",
+          "ms": 97.4,
+          "wer": 0.0,
+          "audio_s": 1.74
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Why do you keep doing that?",
+          "hyp": "Why do you keep doing that?",
+          "ms": 101.4,
+          "wer": 0.0,
+          "audio_s": 1.6
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I need my phone for something important.",
+          "hyp": "I need my phone for something important.",
+          "ms": 100.7,
+          "wer": 0.0,
+          "audio_s": 2.14
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Can you be quiet for a bit?",
+          "hyp": "Can you be quiet for a bit?",
+          "ms": 100.7,
+          "wer": 0.0,
+          "audio_s": 1.54
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I'm done with this.",
+          "hyp": "I'm done with this.",
+          "ms": 96.3,
+          "wer": 0.0,
+          "audio_s": 0.98
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Okay I'm back, where was I?",
+          "hyp": "Okay I'm back. Where was I?",
+          "ms": 101.0,
+          "wer": 0.0,
+          "audio_s": 1.92
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Can you give me like forty minutes on my essay?",
+          "hyp": "Can you give me like 40 minutes on my essay?",
+          "ms": 111.1,
+          "wer": 0.0,
+          "audio_s": 2.41
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Actually make it thirty.",
+          "hyp": "Actually make it 30.",
+          "ms": 93.6,
+          "wer": 0.0,
+          "audio_s": 1.4
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Did I reach for it again?",
+          "hyp": "Did I reach for it again?",
+          "ms": 100.0,
+          "wer": 0.0,
+          "audio_s": 1.35
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "How long have I been working?",
+          "hyp": "How long have I been working?",
+          "ms": 99.9,
+          "wer": 0.0,
+          "audio_s": 1.48
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I'm going to get some water.",
+          "hyp": "I'm going to get some water.",
+          "ms": 103.8,
+          "wer": 0.0,
+          "audio_s": 1.47
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Wait, what did I say I was working on?",
+          "hyp": "Wait, what did I say I was working on?",
+          "ms": 104.3,
+          "wer": 0.0,
+          "audio_s": 2.41
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Be nicer, I'm stressed.",
+          "hyp": "Be nicer. I'm stressed.",
+          "ms": 97.9,
+          "wer": 0.0,
+          "audio_s": 1.64
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Who's winning, me or the phone?",
+          "hyp": "Who's winning? Me or the phone.",
+          "ms": 102.5,
+          "wer": 0.0,
+          "audio_s": 1.71
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Tell me something to keep me going.",
+          "hyp": "Tell me something to keep me going.",
+          "ms": 98.1,
+          "wer": 0.0,
+          "audio_s": 1.86
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I finished the first two problems.",
+          "hyp": "I finished the first two problems.",
+          "ms": 97.3,
+          "wer": 0.0,
+          "audio_s": 1.88
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Let's wrap this up.",
+          "hyp": "Let's wrap this up.",
+          "ms": 93.2,
+          "wer": 0.0,
+          "audio_s": 1.06
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Roast me.",
+          "hyp": "Roast me.",
+          "ms": 92.0,
+          "wer": 0.0,
+          "audio_s": 0.97
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Start my focus session.",
+          "hyp": "Start my focus session.",
+          "ms": 103.9,
+          "wer": 0.0,
+          "audio_s": 2.06
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "How much time do I have left?",
+          "hyp": "How much time do I have left?",
+          "ms": 110.8,
+          "wer": 0.0,
+          "audio_s": 2.3
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Pause my session.",
+          "hyp": "Pause my session.",
+          "ms": 93.5,
+          "wer": 0.0,
+          "audio_s": 1.53
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Resume.",
+          "hyp": "Resume.",
+          "ms": 86.1,
+          "wer": 0.0,
+          "audio_s": 1.01
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Stop talking.",
+          "hyp": "Stop talking.",
+          "ms": 86.6,
+          "wer": 0.0,
+          "audio_s": 1.37
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "You can talk again.",
+          "hyp": "You can talk again.",
+          "ms": 95.9,
+          "wer": 0.0,
+          "audio_s": 1.58
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Stop.",
+          "hyp": "Stop.",
+          "ms": 88.6,
+          "wer": 0.0,
+          "audio_s": 0.93
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Give me my phone back.",
+          "hyp": "Give me my phone back.",
+          "ms": 98.6,
+          "wer": 0.0,
+          "audio_s": 1.82
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Lock me in for 25 minutes.",
+          "hyp": "Lock me in for 25 minutes.",
+          "ms": 96.9,
+          "wer": 0.0,
+          "audio_s": 2.59
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Emergency stop.",
+          "hyp": "Emergency stop.",
+          "ms": 90.3,
+          "wer": 0.0,
+          "audio_s": 1.68
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I have a calculus test tomorrow.",
+          "hyp": "I have a calculus test tomorrow.",
+          "ms": 98.2,
+          "wer": 0.0,
+          "audio_s": 2.48
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I just need five more minutes.",
+          "hyp": "I just need five more minutes.",
+          "ms": 104.5,
+          "wer": 0.0,
+          "audio_s": 2.33
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I'm almost done.",
+          "hyp": "I'm almost done.",
+          "ms": 96.1,
+          "wer": 0.0,
+          "audio_s": 1.57
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "This is actually so annoying.",
+          "hyp": "This is actually so annoying.",
+          "ms": 98.7,
+          "wer": 0.0,
+          "audio_s": 2.17
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Why do you keep doing that?",
+          "hyp": "Why do you keep doing that?",
+          "ms": 99.5,
+          "wer": 0.0,
+          "audio_s": 2.0
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I need my phone for something important.",
+          "hyp": "I need my phone for something important.",
+          "ms": 103.0,
+          "wer": 0.0,
+          "audio_s": 2.83
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Can you be quiet for a bit?",
+          "hyp": "Can you be quiet for a bit?",
+          "ms": 103.4,
+          "wer": 0.0,
+          "audio_s": 1.98
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I'm done with this.",
+          "hyp": "I'm done with this.",
+          "ms": 97.5,
+          "wer": 0.0,
+          "audio_s": 1.41
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Okay I'm back, where was I?",
+          "hyp": "Okay I'm back. Where was I?",
+          "ms": 105.2,
+          "wer": 0.0,
+          "audio_s": 2.46
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Can you give me like forty minutes on my essay?",
+          "hyp": "Can you give me like 40 minutes on my essay?",
+          "ms": 106.2,
+          "wer": 0.0,
+          "audio_s": 3.05
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Actually make it thirty.",
+          "hyp": "Actually make it 30.",
+          "ms": 94.9,
+          "wer": 0.0,
+          "audio_s": 1.97
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Did I reach for it again?",
+          "hyp": "Did I reach for it again?",
+          "ms": 96.5,
+          "wer": 0.0,
+          "audio_s": 1.87
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "How long have I been working?",
+          "hyp": "How long have I been working?",
+          "ms": 99.4,
+          "wer": 0.0,
+          "audio_s": 2.05
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I'm going to get some water.",
+          "hyp": "I'm going to get some water.",
+          "ms": 101.5,
+          "wer": 0.0,
+          "audio_s": 1.93
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Wait, what did I say I was working on?",
+          "hyp": "Wait, what did I say I was working on?",
+          "ms": 109.1,
+          "wer": 0.0,
+          "audio_s": 2.78
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Be nicer, I'm stressed.",
+          "hyp": "Be nicer, I'm stressed.",
+          "ms": 100.0,
+          "wer": 0.0,
+          "audio_s": 2.08
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Who's winning, me or the phone?",
+          "hyp": "Who's winning? Me or the phone?",
+          "ms": 104.6,
+          "wer": 0.0,
+          "audio_s": 2.14
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Tell me something to keep me going.",
+          "hyp": "Tell me something to keep me going.",
+          "ms": 101.8,
+          "wer": 0.0,
+          "audio_s": 2.46
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I finished the first two problems.",
+          "hyp": "I finished the first two problems.",
+          "ms": 99.3,
+          "wer": 0.0,
+          "audio_s": 2.48
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Let's wrap this up.",
+          "hyp": "Let's wrap this up.",
+          "ms": 95.3,
+          "wer": 0.0,
+          "audio_s": 1.49
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Roast me.",
+          "hyp": "Roast me.",
+          "ms": 88.0,
+          "wer": 0.0,
+          "audio_s": 0.8
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Start my focus session.",
+          "hyp": "Start my focus session.",
+          "ms": 94.7,
+          "wer": 0.0,
+          "audio_s": 1.65
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "How much time do I have left?",
+          "hyp": "How much time do I have left?",
+          "ms": 102.1,
+          "wer": 0.0,
+          "audio_s": 1.89
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Pause my session.",
+          "hyp": "Cause my session.",
+          "ms": 92.5,
+          "wer": 0.333,
+          "audio_s": 1.08
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Resume.",
+          "hyp": "Resume.",
+          "ms": 91.4,
+          "wer": 0.0,
+          "audio_s": 0.72
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Stop talking.",
+          "hyp": "Stop talking.",
+          "ms": 90.5,
+          "wer": 0.0,
+          "audio_s": 0.99
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "You can talk again.",
+          "hyp": "You can talk again.",
+          "ms": 91.0,
+          "wer": 0.0,
+          "audio_s": 1.19
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Stop.",
+          "hyp": "Stop.",
+          "ms": 88.4,
+          "wer": 0.0,
+          "audio_s": 0.47
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Give me my phone back.",
+          "hyp": "Give me my phone back.",
+          "ms": 98.2,
+          "wer": 0.0,
+          "audio_s": 1.37
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Lock me in for 25 minutes.",
+          "hyp": "Lock me in for 25 minutes.",
+          "ms": 101.0,
+          "wer": 0.0,
+          "audio_s": 2.1
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Emergency stop.",
+          "hyp": "Emergency stop.",
+          "ms": 91.3,
+          "wer": 0.0,
+          "audio_s": 1.11
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I have a calculus test tomorrow.",
+          "hyp": "I have a calculus test tomorrow.",
+          "ms": 97.5,
+          "wer": 0.0,
+          "audio_s": 2.05
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I just need five more minutes.",
+          "hyp": "I just need five more minutes.",
+          "ms": 103.5,
+          "wer": 0.0,
+          "audio_s": 1.83
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I'm almost done.",
+          "hyp": "I'm almost done.",
+          "ms": 96.3,
+          "wer": 0.0,
+          "audio_s": 1.08
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "This is actually so annoying.",
+          "hyp": "This is actually so annoying.",
+          "ms": 97.0,
+          "wer": 0.0,
+          "audio_s": 1.61
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Why do you keep doing that?",
+          "hyp": "Why do you keep doing that?",
+          "ms": 101.3,
+          "wer": 0.0,
+          "audio_s": 1.65
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I need my phone for something important.",
+          "hyp": "I need my phone for something important.",
+          "ms": 103.9,
+          "wer": 0.0,
+          "audio_s": 2.32
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Can you be quiet for a bit?",
+          "hyp": "Can you be quiet for a bit?",
+          "ms": 102.9,
+          "wer": 0.0,
+          "audio_s": 1.52
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I'm done with this.",
+          "hyp": "I'm done with this.",
+          "ms": 96.1,
+          "wer": 0.0,
+          "audio_s": 1.04
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Okay I'm back, where was I?",
+          "hyp": "Okay I'm back. Where was I?",
+          "ms": 104.9,
+          "wer": 0.0,
+          "audio_s": 1.85
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Can you give me like forty minutes on my essay?",
+          "hyp": "Can you give me like 40 minutes on my essay?",
+          "ms": 109.2,
+          "wer": 0.0,
+          "audio_s": 2.53
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Actually make it thirty.",
+          "hyp": "Actually make it 30.",
+          "ms": 94.4,
+          "wer": 0.0,
+          "audio_s": 1.37
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Did I reach for it again?",
+          "hyp": "Did I reach for it again?",
+          "ms": 97.5,
+          "wer": 0.0,
+          "audio_s": 1.53
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "How long have I been working?",
+          "hyp": "How long have I been working?",
+          "ms": 96.3,
+          "wer": 0.0,
+          "audio_s": 1.71
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I'm going to get some water.",
+          "hyp": "I'm going to get some water.",
+          "ms": 102.5,
+          "wer": 0.0,
+          "audio_s": 1.59
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Wait, what did I say I was working on?",
+          "hyp": "Wait, what did I say I was working on?",
+          "ms": 110.0,
+          "wer": 0.0,
+          "audio_s": 2.54
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Be nicer, I'm stressed.",
+          "hyp": "Be nicer. I'm stressed.",
+          "ms": 99.8,
+          "wer": 0.0,
+          "audio_s": 1.72
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Who's winning, me or the phone?",
+          "hyp": "Who's winning? Me or the phone?",
+          "ms": 104.0,
+          "wer": 0.0,
+          "audio_s": 1.74
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Tell me something to keep me going.",
+          "hyp": "Tell me something to keep me going.",
+          "ms": 102.2,
+          "wer": 0.0,
+          "audio_s": 1.88
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I finished the first two problems.",
+          "hyp": "I finished the first two problems.",
+          "ms": 98.2,
+          "wer": 0.0,
+          "audio_s": 2.0
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Let's wrap this up.",
+          "hyp": "Let's wrap this up.",
+          "ms": 95.4,
+          "wer": 0.0,
+          "audio_s": 1.06
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Roast me.",
+          "hyp": "Roast me.",
+          "ms": 88.3,
+          "wer": 0.0,
+          "audio_s": 1.01
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Start my focus session.",
+          "hyp": "Start my focus session.",
+          "ms": 94.9,
+          "wer": 0.0,
+          "audio_s": 1.49
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "How much time do I have left?",
+          "hyp": "How much time do I have left?",
+          "ms": 103.3,
+          "wer": 0.0,
+          "audio_s": 1.9
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Pause my session.",
+          "hyp": "Pause my session.",
+          "ms": 96.4,
+          "wer": 0.0,
+          "audio_s": 1.3
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Resume.",
+          "hyp": "Resume.",
+          "ms": 91.2,
+          "wer": 0.0,
+          "audio_s": 0.91
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Stop talking.",
+          "hyp": "Stop talking.",
+          "ms": 92.3,
+          "wer": 0.0,
+          "audio_s": 1.1
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "You can talk again.",
+          "hyp": "You can talk again.",
+          "ms": 94.3,
+          "wer": 0.0,
+          "audio_s": 1.33
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Stop.",
+          "hyp": "Stop.",
+          "ms": 88.4,
+          "wer": 0.0,
+          "audio_s": 0.66
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Give me my phone back.",
+          "hyp": "Give me my phone back.",
+          "ms": 99.9,
+          "wer": 0.0,
+          "audio_s": 1.33
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Lock me in for 25 minutes.",
+          "hyp": "Lock me in for 25 minutes.",
+          "ms": 102.6,
+          "wer": 0.0,
+          "audio_s": 2.19
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Emergency stop.",
+          "hyp": "Emergency stop.",
+          "ms": 91.9,
+          "wer": 0.0,
+          "audio_s": 1.26
+        }
+      ],
+      "wer_mic:demo-check": 0.0,
+      "wer_say:Daniel": 0.011,
+      "wer_say:Reed (English (US))": 0.0,
+      "wer_say:Samantha": 0.0
+    },
+    "whisper.cpp base.en (CPU only)": {
+      "ms": {
+        "n": 104,
+        "p50": 344.9,
+        "p90": 365.8,
+        "min": 316.7,
+        "max": 376.5
+      },
+      "wer_mean": 0.003,
+      "exact": 0.9903846153846154,
+      "rows": [
+        {
+          "src": "say:Samantha",
+          "ref": "Roast me.",
+          "hyp": "Roast me.",
+          "ms": 361.3,
+          "wer": 0.0,
+          "audio_s": 0.62
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Start my focus session.",
+          "hyp": "Start my focus session.",
+          "ms": 359.0,
+          "wer": 0.0,
+          "audio_s": 1.51
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "How much time do I have left?",
+          "hyp": "How much time do I have left?",
+          "ms": 350.7,
+          "wer": 0.0,
+          "audio_s": 1.76
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Pause my session.",
+          "hyp": "Pause my session.",
+          "ms": 335.8,
+          "wer": 0.0,
+          "audio_s": 1.02
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Resume.",
+          "hyp": "Resume.",
+          "ms": 329.5,
+          "wer": 0.0,
+          "audio_s": 0.54
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Stop talking.",
+          "hyp": "Stop talking.",
+          "ms": 320.7,
+          "wer": 0.0,
+          "audio_s": 0.93
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "You can talk again.",
+          "hyp": "You can talk again.",
+          "ms": 344.9,
+          "wer": 0.0,
+          "audio_s": 1.1
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Stop.",
+          "hyp": "Stop.",
+          "ms": 327.4,
+          "wer": 0.0,
+          "audio_s": 0.53
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Give me my phone back.",
+          "hyp": "Give me my phone back.",
+          "ms": 343.1,
+          "wer": 0.0,
+          "audio_s": 1.23
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Lock me in for 25 minutes.",
+          "hyp": "Lock me in for 25 minutes.",
+          "ms": 334.9,
+          "wer": 0.0,
+          "audio_s": 1.85
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Emergency stop.",
+          "hyp": "Emergency stop.",
+          "ms": 316.7,
+          "wer": 0.0,
+          "audio_s": 1.11
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I have a calculus test tomorrow.",
+          "hyp": "I have a calculus test tomorrow.",
+          "ms": 329.4,
+          "wer": 0.0,
+          "audio_s": 1.9
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I just need five more minutes.",
+          "hyp": "I just need five more minutes.",
+          "ms": 334.7,
+          "wer": 0.0,
+          "audio_s": 1.68
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I'm almost done.",
+          "hyp": "I'm almost done.",
+          "ms": 323.6,
+          "wer": 0.0,
+          "audio_s": 1.09
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "This is actually so annoying.",
+          "hyp": "This is actually so annoying.",
+          "ms": 329.5,
+          "wer": 0.0,
+          "audio_s": 1.74
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Why do you keep doing that?",
+          "hyp": "Why do you keep doing that?",
+          "ms": 374.3,
+          "wer": 0.0,
+          "audio_s": 1.6
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I need my phone for something important.",
+          "hyp": "I need my phone for something important.",
+          "ms": 334.3,
+          "wer": 0.0,
+          "audio_s": 2.14
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Can you be quiet for a bit?",
+          "hyp": "Can you be quiet for a bit?",
+          "ms": 331.6,
+          "wer": 0.0,
+          "audio_s": 1.54
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I'm done with this.",
+          "hyp": "I'm done with this.",
+          "ms": 337.4,
+          "wer": 0.0,
+          "audio_s": 0.98
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Okay I'm back, where was I?",
+          "hyp": "Okay I'm back. Where was I?",
+          "ms": 337.1,
+          "wer": 0.0,
+          "audio_s": 1.92
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Can you give me like forty minutes on my essay?",
+          "hyp": "Can you give me like 40 minutes on my essay?",
+          "ms": 341.7,
+          "wer": 0.0,
+          "audio_s": 2.41
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Actually make it thirty.",
+          "hyp": "Actually make it 30.",
+          "ms": 340.9,
+          "wer": 0.0,
+          "audio_s": 1.4
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Did I reach for it again?",
+          "hyp": "Did I reach for it again?",
+          "ms": 333.9,
+          "wer": 0.0,
+          "audio_s": 1.35
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "How long have I been working?",
+          "hyp": "How long have I been working?",
+          "ms": 327.8,
+          "wer": 0.0,
+          "audio_s": 1.48
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I'm going to get some water.",
+          "hyp": "I'm going to get some water.",
+          "ms": 336.2,
+          "wer": 0.0,
+          "audio_s": 1.47
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Wait, what did I say I was working on?",
+          "hyp": "Wait, what did I say I was working on?",
+          "ms": 344.2,
+          "wer": 0.0,
+          "audio_s": 2.41
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Be nicer, I'm stressed.",
+          "hyp": "Be nicer. I'm stressed.",
+          "ms": 336.9,
+          "wer": 0.0,
+          "audio_s": 1.64
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Who's winning, me or the phone?",
+          "hyp": "Who's winning? Me or the phone.",
+          "ms": 337.6,
+          "wer": 0.0,
+          "audio_s": 1.71
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Tell me something to keep me going.",
+          "hyp": "Tell me something to keep me going.",
+          "ms": 334.8,
+          "wer": 0.0,
+          "audio_s": 1.86
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I finished the first two problems.",
+          "hyp": "I finished the first two problems.",
+          "ms": 333.9,
+          "wer": 0.0,
+          "audio_s": 1.88
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Let's wrap this up.",
+          "hyp": "Let's wrap this up.",
+          "ms": 332.2,
+          "wer": 0.0,
+          "audio_s": 1.06
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Roast me.",
+          "hyp": "Roast me.",
+          "ms": 329.5,
+          "wer": 0.0,
+          "audio_s": 0.97
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Start my focus session.",
+          "hyp": "Start my focus session.",
+          "ms": 334.8,
+          "wer": 0.0,
+          "audio_s": 2.06
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "How much time do I have left?",
+          "hyp": "How much time do I have left?",
+          "ms": 340.6,
+          "wer": 0.0,
+          "audio_s": 2.3
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Pause my session.",
+          "hyp": "Pause my session.",
+          "ms": 331.5,
+          "wer": 0.0,
+          "audio_s": 1.53
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Resume.",
+          "hyp": "Resume.",
+          "ms": 324.4,
+          "wer": 0.0,
+          "audio_s": 1.01
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Stop talking.",
+          "hyp": "Stop talking.",
+          "ms": 356.9,
+          "wer": 0.0,
+          "audio_s": 1.37
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "You can talk again.",
+          "hyp": "You can talk again.",
+          "ms": 335.9,
+          "wer": 0.0,
+          "audio_s": 1.58
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Stop.",
+          "hyp": "Stop.",
+          "ms": 335.2,
+          "wer": 0.0,
+          "audio_s": 0.93
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Give me my phone back.",
+          "hyp": "Give me my phone back.",
+          "ms": 338.2,
+          "wer": 0.0,
+          "audio_s": 1.82
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Lock me in for 25 minutes.",
+          "hyp": "Lock me in for 25 minutes.",
+          "ms": 334.3,
+          "wer": 0.0,
+          "audio_s": 2.59
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Emergency stop.",
+          "hyp": "Emergency stop.",
+          "ms": 326.4,
+          "wer": 0.0,
+          "audio_s": 1.68
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I have a calculus test tomorrow.",
+          "hyp": "I have a calculus test tomorrow.",
+          "ms": 342.0,
+          "wer": 0.0,
+          "audio_s": 2.48
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I just need five more minutes.",
+          "hyp": "I just need five more minutes.",
+          "ms": 339.6,
+          "wer": 0.0,
+          "audio_s": 2.33
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I'm almost done.",
+          "hyp": "I'm almost done.",
+          "ms": 333.7,
+          "wer": 0.0,
+          "audio_s": 1.57
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "This is actually so annoying.",
+          "hyp": "This is actually so annoying.",
+          "ms": 337.9,
+          "wer": 0.0,
+          "audio_s": 2.17
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Why do you keep doing that?",
+          "hyp": "Why do you keep doing that?",
+          "ms": 335.4,
+          "wer": 0.0,
+          "audio_s": 2.0
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I need my phone for something important.",
+          "hyp": "I need my phone for something important.",
+          "ms": 347.3,
+          "wer": 0.0,
+          "audio_s": 2.83
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Can you be quiet for a bit?",
+          "hyp": "Can you be quiet for a bit?",
+          "ms": 340.2,
+          "wer": 0.0,
+          "audio_s": 1.98
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I'm done with this.",
+          "hyp": "I'm done with this.",
+          "ms": 342.6,
+          "wer": 0.0,
+          "audio_s": 1.41
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Okay I'm back, where was I?",
+          "hyp": "Okay I'm back. Where was I?",
+          "ms": 348.1,
+          "wer": 0.0,
+          "audio_s": 2.46
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Can you give me like forty minutes on my essay?",
+          "hyp": "Can you give me like 40 minutes on my essay?",
+          "ms": 349.8,
+          "wer": 0.0,
+          "audio_s": 3.05
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Actually make it thirty.",
+          "hyp": "Actually make it 30.",
+          "ms": 340.9,
+          "wer": 0.0,
+          "audio_s": 1.97
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Did I reach for it again?",
+          "hyp": "Did I reach for it again?",
+          "ms": 335.2,
+          "wer": 0.0,
+          "audio_s": 1.87
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "How long have I been working?",
+          "hyp": "How long have I been working?",
+          "ms": 359.6,
+          "wer": 0.0,
+          "audio_s": 2.05
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I'm going to get some water.",
+          "hyp": "I'm going to get some water.",
+          "ms": 357.8,
+          "wer": 0.0,
+          "audio_s": 1.93
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Wait, what did I say I was working on?",
+          "hyp": "Wait, what did I say I was working on?",
+          "ms": 361.7,
+          "wer": 0.0,
+          "audio_s": 2.78
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Be nicer, I'm stressed.",
+          "hyp": "Be nicer, I'm stressed.",
+          "ms": 347.2,
+          "wer": 0.0,
+          "audio_s": 2.08
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Who's winning, me or the phone?",
+          "hyp": "Who's winning? Me or the phone?",
+          "ms": 356.0,
+          "wer": 0.0,
+          "audio_s": 2.14
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Tell me something to keep me going.",
+          "hyp": "Tell me something to keep me going.",
+          "ms": 352.3,
+          "wer": 0.0,
+          "audio_s": 2.46
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I finished the first two problems.",
+          "hyp": "I finished the first two problems.",
+          "ms": 356.9,
+          "wer": 0.0,
+          "audio_s": 2.48
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Let's wrap this up.",
+          "hyp": "Let's wrap this up.",
+          "ms": 365.7,
+          "wer": 0.0,
+          "audio_s": 1.49
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Roast me.",
+          "hyp": "Roast me.",
+          "ms": 342.5,
+          "wer": 0.0,
+          "audio_s": 0.8
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Start my focus session.",
+          "hyp": "Start my focus session.",
+          "ms": 343.7,
+          "wer": 0.0,
+          "audio_s": 1.65
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "How much time do I have left?",
+          "hyp": "How much time do I have left?",
+          "ms": 360.2,
+          "wer": 0.0,
+          "audio_s": 1.89
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Pause my session.",
+          "hyp": "Cause my session.",
+          "ms": 344.2,
+          "wer": 0.333,
+          "audio_s": 1.08
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Resume.",
+          "hyp": "Resume.",
+          "ms": 342.2,
+          "wer": 0.0,
+          "audio_s": 0.72
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Stop talking.",
+          "hyp": "Stop talking.",
+          "ms": 343.5,
+          "wer": 0.0,
+          "audio_s": 0.99
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "You can talk again.",
+          "hyp": "You can talk again.",
+          "ms": 345.7,
+          "wer": 0.0,
+          "audio_s": 1.19
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Stop.",
+          "hyp": "Stop.",
+          "ms": 335.0,
+          "wer": 0.0,
+          "audio_s": 0.47
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Give me my phone back.",
+          "hyp": "Give me my phone back.",
+          "ms": 352.9,
+          "wer": 0.0,
+          "audio_s": 1.37
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Lock me in for 25 minutes.",
+          "hyp": "Lock me in for 25 minutes.",
+          "ms": 353.2,
+          "wer": 0.0,
+          "audio_s": 2.1
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Emergency stop.",
+          "hyp": "Emergency stop.",
+          "ms": 343.3,
+          "wer": 0.0,
+          "audio_s": 1.11
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I have a calculus test tomorrow.",
+          "hyp": "I have a calculus test tomorrow.",
+          "ms": 359.6,
+          "wer": 0.0,
+          "audio_s": 2.05
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I just need five more minutes.",
+          "hyp": "I just need five more minutes.",
+          "ms": 356.9,
+          "wer": 0.0,
+          "audio_s": 1.83
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I'm almost done.",
+          "hyp": "I'm almost done.",
+          "ms": 347.7,
+          "wer": 0.0,
+          "audio_s": 1.08
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "This is actually so annoying.",
+          "hyp": "This is actually so annoying.",
+          "ms": 353.4,
+          "wer": 0.0,
+          "audio_s": 1.61
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Why do you keep doing that?",
+          "hyp": "Why do you keep doing that?",
+          "ms": 357.3,
+          "wer": 0.0,
+          "audio_s": 1.65
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I need my phone for something important.",
+          "hyp": "I need my phone for something important.",
+          "ms": 362.6,
+          "wer": 0.0,
+          "audio_s": 2.32
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Can you be quiet for a bit?",
+          "hyp": "Can you be quiet for a bit?",
+          "ms": 356.2,
+          "wer": 0.0,
+          "audio_s": 1.52
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I'm done with this.",
+          "hyp": "I'm done with this.",
+          "ms": 350.1,
+          "wer": 0.0,
+          "audio_s": 1.04
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Okay I'm back, where was I?",
+          "hyp": "Okay I'm back. Where was I?",
+          "ms": 365.1,
+          "wer": 0.0,
+          "audio_s": 1.85
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Can you give me like forty minutes on my essay?",
+          "hyp": "Can you give me like 40 minutes on my essay?",
+          "ms": 368.4,
+          "wer": 0.0,
+          "audio_s": 2.53
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Actually make it thirty.",
+          "hyp": "Actually make it 30.",
+          "ms": 359.2,
+          "wer": 0.0,
+          "audio_s": 1.37
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Did I reach for it again?",
+          "hyp": "Did I reach for it again?",
+          "ms": 358.6,
+          "wer": 0.0,
+          "audio_s": 1.53
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "How long have I been working?",
+          "hyp": "How long have I been working?",
+          "ms": 367.5,
+          "wer": 0.0,
+          "audio_s": 1.71
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I'm going to get some water.",
+          "hyp": "I'm going to get some water.",
+          "ms": 363.5,
+          "wer": 0.0,
+          "audio_s": 1.59
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Wait, what did I say I was working on?",
+          "hyp": "Wait, what did I say I was working on?",
+          "ms": 374.4,
+          "wer": 0.0,
+          "audio_s": 2.54
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Be nicer, I'm stressed.",
+          "hyp": "Be nicer. I'm stressed.",
+          "ms": 359.2,
+          "wer": 0.0,
+          "audio_s": 1.72
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Who's winning, me or the phone?",
+          "hyp": "Who's winning? Me or the phone?",
+          "ms": 365.8,
+          "wer": 0.0,
+          "audio_s": 1.74
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Tell me something to keep me going.",
+          "hyp": "Tell me something to keep me going.",
+          "ms": 367.4,
+          "wer": 0.0,
+          "audio_s": 1.88
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I finished the first two problems.",
+          "hyp": "I finished the first two problems.",
+          "ms": 363.4,
+          "wer": 0.0,
+          "audio_s": 2.0
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Let's wrap this up.",
+          "hyp": "Let's wrap this up.",
+          "ms": 356.9,
+          "wer": 0.0,
+          "audio_s": 1.06
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Roast me.",
+          "hyp": "Roast me.",
+          "ms": 355.3,
+          "wer": 0.0,
+          "audio_s": 1.01
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Start my focus session.",
+          "hyp": "Start my focus session.",
+          "ms": 362.7,
+          "wer": 0.0,
+          "audio_s": 1.49
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "How much time do I have left?",
+          "hyp": "How much time do I have left?",
+          "ms": 366.3,
+          "wer": 0.0,
+          "audio_s": 1.9
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Pause my session.",
+          "hyp": "Pause my session.",
+          "ms": 358.6,
+          "wer": 0.0,
+          "audio_s": 1.3
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Resume.",
+          "hyp": "Resume.",
+          "ms": 350.1,
+          "wer": 0.0,
+          "audio_s": 0.91
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Stop talking.",
+          "hyp": "Stop talking.",
+          "ms": 351.4,
+          "wer": 0.0,
+          "audio_s": 1.1
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "You can talk again.",
+          "hyp": "You can talk again.",
+          "ms": 371.9,
+          "wer": 0.0,
+          "audio_s": 1.33
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Stop.",
+          "hyp": "Stop.",
+          "ms": 353.4,
+          "wer": 0.0,
+          "audio_s": 0.66
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Give me my phone back.",
+          "hyp": "Give me my phone back.",
+          "ms": 373.5,
+          "wer": 0.0,
+          "audio_s": 1.33
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Lock me in for 25 minutes.",
+          "hyp": "Lock me in for 25 minutes.",
+          "ms": 376.5,
+          "wer": 0.0,
+          "audio_s": 2.19
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Emergency stop.",
+          "hyp": "Emergency stop.",
+          "ms": 373.3,
+          "wer": 0.0,
+          "audio_s": 1.26
+        }
+      ],
+      "wer_mic:demo-check": 0.0,
+      "wer_say:Daniel": 0.011,
+      "wer_say:Reed (English (US))": 0.0,
+      "wer_say:Samantha": 0.0
+    },
+    "whisper.cpp base.en audio_ctx=fit": {
+      "ms": {
+        "n": 104,
+        "p50": 86.0,
+        "p90": 3279.6,
+        "min": 60.2,
+        "max": 4058.6
+      },
+      "wer_mean": 0.47,
+      "exact": 0.6634615384615384,
+      "rows": [
+        {
+          "src": "say:Samantha",
+          "ref": "Roast me.",
+          "hyp": "and",
+          "ms": 91.1,
+          "wer": 1.0,
+          "audio_s": 0.62
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Start my focus session.",
+          "hyp": "for, start to to, start to ,",
+          "ms": 149.9,
+          "wer": 1.25,
+          "audio_s": 1.51
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "How much time do I have left?",
+          "hyp": ", and, and , how to make , and , and ,",
+          "ms": 141.0,
+          "wer": 1.0,
+          "audio_s": 1.76
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Pause my session.",
+          "hyp": "and I have to put, and ,",
+          "ms": 116.5,
+          "wer": 2.0,
+          "audio_s": 1.02
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Resume.",
+          "hyp": "Hey.",
+          "ms": 608.7,
+          "wer": 1.0,
+          "audio_s": 0.54
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Stop talking.",
+          "hyp": "Hey, stop",
+          "ms": 775.4,
+          "wer": 1.0,
+          "audio_s": 0.93
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "You can talk again.",
+          "hyp": ",",
+          "ms": 90.0,
+          "wer": 1.0,
+          "audio_s": 1.1
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Stop.",
+          "hyp": "stop stop, stop, stop, stop , stop, stop , stop , stop , stop , stop , stop , stop , stop , stop ,",
+          "ms": 246.5,
+          "wer": 14.0,
+          "audio_s": 0.53
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Give me my phone back.",
+          "hyp": "give, give, give, give, give, give, give, give, give, give, give, give, give, give, give,",
+          "ms": 248.5,
+          "wer": 2.8,
+          "audio_s": 1.23
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Lock me in for 25 minutes.",
+          "hyp": ", lock, lock, lock, lock, lock, lock, lock, lock , lock , lock ,",
+          "ms": 145.0,
+          "wer": 1.5,
+          "audio_s": 1.85
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Emergency stop.",
+          "hyp": ",",
+          "ms": 91.5,
+          "wer": 1.0,
+          "audio_s": 1.11
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I have a calculus test tomorrow.",
+          "hyp": "to be I",
+          "ms": 107.7,
+          "wer": 1.0,
+          "audio_s": 1.9
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I just need five more minutes.",
+          "hyp": "I",
+          "ms": 97.3,
+          "wer": 0.833,
+          "audio_s": 1.68
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I'm almost done.",
+          "hyp": "I , I , I have a , I",
+          "ms": 109.1,
+          "wer": 2.0,
+          "audio_s": 1.09
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "This is actually so annoying.",
+          "hyp": ", this, this, this, this, this, this is",
+          "ms": 132.8,
+          "wer": 1.2,
+          "audio_s": 1.74
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Why do you keep doing that?",
+          "hyp": ", why, , why, , why ,",
+          "ms": 134.7,
+          "wer": 0.833,
+          "audio_s": 1.6
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I need my phone for something important.",
+          "hyp": "I",
+          "ms": 104.2,
+          "wer": 0.857,
+          "audio_s": 2.14
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Can you be quiet for a bit?",
+          "hyp": "can be, can be, can be",
+          "ms": 125.5,
+          "wer": 0.714,
+          "audio_s": 1.54
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I'm done with this.",
+          "hyp": "I am",
+          "ms": 95.3,
+          "wer": 1.0,
+          "audio_s": 0.98
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Okay I'm back, where was I?",
+          "hyp": "Okay, I'm back, where was I?",
+          "ms": 1507.8,
+          "wer": 0.0,
+          "audio_s": 1.92
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Can you give me like forty minutes on my essay?",
+          "hyp": "Can you give me like 40 minutes on my essay?",
+          "ms": 85.3,
+          "wer": 0.0,
+          "audio_s": 2.41
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Actually make it thirty.",
+          "hyp": "Actually make it 30.",
+          "ms": 128.8,
+          "wer": 0.0,
+          "audio_s": 1.4
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Did I reach for it again?",
+          "hyp": "Did I reach for it again?",
+          "ms": 73.0,
+          "wer": 0.0,
+          "audio_s": 1.35
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "How long have I been working?",
+          "hyp": "How long have I been working?",
+          "ms": 72.8,
+          "wer": 0.0,
+          "audio_s": 1.48
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I'm going to get some water.",
+          "hyp": "I'm going to get some water.",
+          "ms": 77.4,
+          "wer": 0.0,
+          "audio_s": 1.47
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Wait, what did I say I was working on?",
+          "hyp": "Wait. What did I say? I was working on?",
+          "ms": 2952.3,
+          "wer": 0.0,
+          "audio_s": 2.41
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Be nicer, I'm stressed.",
+          "hyp": "Be nice, sir. I'm stressed.",
+          "ms": 78.5,
+          "wer": 0.5,
+          "audio_s": 1.64
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Who's winning, me or the phone?",
+          "hyp": "Who's winning? Me or the phone.",
+          "ms": 78.1,
+          "wer": 0.0,
+          "audio_s": 1.71
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Tell me something to keep me going.",
+          "hyp": "Tell me something to keep me going.",
+          "ms": 76.5,
+          "wer": 0.0,
+          "audio_s": 1.86
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "I finished the first two problems.",
+          "hyp": "I finished the first two problems.",
+          "ms": 74.2,
+          "wer": 0.0,
+          "audio_s": 1.88
+        },
+        {
+          "src": "say:Samantha",
+          "ref": "Let's wrap this up.",
+          "hyp": "Let's wrap this up.",
+          "ms": 66.1,
+          "wer": 0.0,
+          "audio_s": 1.06
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Roast me.",
+          "hyp": "Roast me.",
+          "ms": 113.8,
+          "wer": 0.0,
+          "audio_s": 0.97
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Start my focus session.",
+          "hyp": "Start my focus session.",
+          "ms": 72.6,
+          "wer": 0.0,
+          "audio_s": 2.06
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "How much time do I have left?",
+          "hyp": "and",
+          "ms": 102.6,
+          "wer": 1.0,
+          "audio_s": 2.3
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Pause my session.",
+          "hyp": "Put my phone.",
+          "ms": 825.3,
+          "wer": 0.667,
+          "audio_s": 1.53
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Resume.",
+          "hyp": "Hey.",
+          "ms": 99.6,
+          "wer": 1.0,
+          "audio_s": 1.01
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Stop talking.",
+          "hyp": "Stop talking.",
+          "ms": 106.1,
+          "wer": 0.0,
+          "audio_s": 1.37
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "You can talk again.",
+          "hyp": "Hey, you can talk again.",
+          "ms": 828.3,
+          "wer": 0.25,
+          "audio_s": 1.58
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Stop.",
+          "hyp": "clusive stop",
+          "ms": 3919.0,
+          "wer": 1.0,
+          "audio_s": 0.93
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Give me my phone back.",
+          "hyp": "Give me",
+          "ms": 103.0,
+          "wer": 0.6,
+          "audio_s": 1.82
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Lock me in for 25 minutes.",
+          "hyp": "Lock me in for 25 minutes.",
+          "ms": 153.3,
+          "wer": 0.0,
+          "audio_s": 2.59
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Emergency stop.",
+          "hyp": "Emergency stop.",
+          "ms": 118.8,
+          "wer": 0.0,
+          "audio_s": 1.68
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I have a calculus test tomorrow.",
+          "hyp": "I have a calculus test tomorrow.",
+          "ms": 79.3,
+          "wer": 0.0,
+          "audio_s": 2.48
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I just need five more minutes.",
+          "hyp": "Five minutes.",
+          "ms": 837.0,
+          "wer": 0.667,
+          "audio_s": 2.33
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I'm almost done.",
+          "hyp": "I'm almost done.",
+          "ms": 70.3,
+          "wer": 0.0,
+          "audio_s": 1.57
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "This is actually so annoying.",
+          "hyp": ",",
+          "ms": 103.2,
+          "wer": 1.0,
+          "audio_s": 2.17
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Why do you keep doing that?",
+          "hyp": "Why do you keep doing that?",
+          "ms": 77.7,
+          "wer": 0.0,
+          "audio_s": 2.0
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I need my phone for something important.",
+          "hyp": "I need my phone for something important.",
+          "ms": 83.0,
+          "wer": 0.0,
+          "audio_s": 2.83
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Can you be quiet for a bit?",
+          "hyp": "Can you be quiet for a bit?",
+          "ms": 78.0,
+          "wer": 0.0,
+          "audio_s": 1.98
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I'm done with this.",
+          "hyp": "I'm done with this.",
+          "ms": 71.2,
+          "wer": 0.0,
+          "audio_s": 1.41
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Okay I'm back, where was I?",
+          "hyp": "Okay, I'm back. Where was I?",
+          "ms": 84.1,
+          "wer": 0.0,
+          "audio_s": 2.46
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Can you give me like forty minutes on my essay?",
+          "hyp": "Can you give me like 40 minutes on my essay?",
+          "ms": 87.8,
+          "wer": 0.0,
+          "audio_s": 3.05
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Actually make it thirty.",
+          "hyp": "Actually make a 30.",
+          "ms": 72.2,
+          "wer": 0.25,
+          "audio_s": 1.97
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Did I reach for it again?",
+          "hyp": "Did I reach for it again?",
+          "ms": 75.7,
+          "wer": 0.0,
+          "audio_s": 1.87
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "How long have I been working?",
+          "hyp": "How long have I been working?",
+          "ms": 73.9,
+          "wer": 0.0,
+          "audio_s": 2.05
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I'm going to get some water.",
+          "hyp": "I'm going to get some water.",
+          "ms": 76.6,
+          "wer": 0.0,
+          "audio_s": 1.93
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Wait, what did I say I was working on?",
+          "hyp": "Wait, what did I say I was working on?",
+          "ms": 88.0,
+          "wer": 0.0,
+          "audio_s": 2.78
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Be nicer, I'm stressed.",
+          "hyp": "Be nicer, I'm stressed.",
+          "ms": 77.5,
+          "wer": 0.0,
+          "audio_s": 2.08
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Who's winning, me or the phone?",
+          "hyp": "Who's winning? Me or the phone.",
+          "ms": 80.2,
+          "wer": 0.0,
+          "audio_s": 2.14
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Tell me something to keep me going.",
+          "hyp": "Tell me something to keep me going.",
+          "ms": 79.2,
+          "wer": 0.0,
+          "audio_s": 2.46
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "I finished the first two problems.",
+          "hyp": "I finished the first two problems.",
+          "ms": 78.2,
+          "wer": 0.0,
+          "audio_s": 2.48
+        },
+        {
+          "src": "say:Reed (English (US))",
+          "ref": "Let's wrap this up.",
+          "hyp": "Let's wrap this up.",
+          "ms": 70.5,
+          "wer": 0.0,
+          "audio_s": 1.49
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Roast me.",
+          "hyp": "Roast me.",
+          "ms": 60.9,
+          "wer": 0.0,
+          "audio_s": 0.8
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Start my focus session.",
+          "hyp": "Start my focus session.",
+          "ms": 69.7,
+          "wer": 0.0,
+          "audio_s": 1.65
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "How much time do I have left?",
+          "hyp": "How much time do I have left?",
+          "ms": 75.8,
+          "wer": 0.0,
+          "audio_s": 1.89
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Pause my session.",
+          "hyp": "Pause my session.",
+          "ms": 64.6,
+          "wer": 0.0,
+          "audio_s": 1.08
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Resume.",
+          "hyp": "Resume.",
+          "ms": 60.2,
+          "wer": 0.0,
+          "audio_s": 0.72
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Stop talking.",
+          "hyp": "Stop talking. Stop talking.",
+          "ms": 1517.5,
+          "wer": 1.0,
+          "audio_s": 0.99
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "You can talk again.",
+          "hyp": "You can talk again.",
+          "ms": 66.5,
+          "wer": 0.0,
+          "audio_s": 1.19
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Stop.",
+          "hyp": "stored",
+          "ms": 4058.6,
+          "wer": 1.0,
+          "audio_s": 0.47
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Give me my phone back.",
+          "hyp": "give me my phone back.",
+          "ms": 3976.4,
+          "wer": 0.0,
+          "audio_s": 1.37
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Lock me in for 25 minutes.",
+          "hyp": "Lock me in for 25 minutes.",
+          "ms": 85.8,
+          "wer": 0.0,
+          "audio_s": 2.1
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Emergency stop.",
+          "hyp": "emergency stop.",
+          "ms": 66.1,
+          "wer": 0.0,
+          "audio_s": 1.11
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I have a calculus test tomorrow.",
+          "hyp": "I have a calculus test tomorrow.",
+          "ms": 81.4,
+          "wer": 0.0,
+          "audio_s": 2.05
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I just need five more minutes.",
+          "hyp": "I just need five more minutes.",
+          "ms": 79.5,
+          "wer": 0.0,
+          "audio_s": 1.83
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I'm almost done.",
+          "hyp": "I'm almost done.",
+          "ms": 65.2,
+          "wer": 0.0,
+          "audio_s": 1.08
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "This is actually so annoying.",
+          "hyp": "This is actually so annoying.",
+          "ms": 87.1,
+          "wer": 0.0,
+          "audio_s": 1.61
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Why do you keep doing that?",
+          "hyp": "Why do you keep doing that?",
+          "ms": 74.5,
+          "wer": 0.0,
+          "audio_s": 1.65
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I need my phone for something important.",
+          "hyp": "I need my phone for something important.",
+          "ms": 81.3,
+          "wer": 0.0,
+          "audio_s": 2.32
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Can you be quiet for a bit?",
+          "hyp": "Can you be quiet for a bit?",
+          "ms": 76.8,
+          "wer": 0.0,
+          "audio_s": 1.52
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I'm done with this.",
+          "hyp": "I'm done with this.",
+          "ms": 68.6,
+          "wer": 0.0,
+          "audio_s": 1.04
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Okay I'm back, where was I?",
+          "hyp": "Okay, I'm back. Where was I?",
+          "ms": 83.1,
+          "wer": 0.0,
+          "audio_s": 1.85
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Can you give me like forty minutes on my essay?",
+          "hyp": "Can you give me like 40 minutes on my essay?",
+          "ms": 88.2,
+          "wer": 0.0,
+          "audio_s": 2.53
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Actually make it thirty.",
+          "hyp": "Actually make it 30.",
+          "ms": 70.3,
+          "wer": 0.0,
+          "audio_s": 1.37
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Did I reach for it again?",
+          "hyp": "Did I reach for it again?",
+          "ms": 74.8,
+          "wer": 0.0,
+          "audio_s": 1.53
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "How long have I been working?",
+          "hyp": "How long have I been working?",
+          "ms": 3579.3,
+          "wer": 0.0,
+          "audio_s": 1.71
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I'm going to get some water.",
+          "hyp": "I'm going to get some water.",
+          "ms": 86.0,
+          "wer": 0.0,
+          "audio_s": 1.59
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Wait, what did I say I was working on?",
+          "hyp": "Wait, what did I say I was working on?",
+          "ms": 3279.6,
+          "wer": 0.0,
+          "audio_s": 2.54
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Be nicer, I'm stressed.",
+          "hyp": "Be nicer, I'm stressed.",
+          "ms": 81.3,
+          "wer": 0.0,
+          "audio_s": 1.72
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Who's winning, me or the phone?",
+          "hyp": "Who's winning? Me or the phone.",
+          "ms": 84.9,
+          "wer": 0.0,
+          "audio_s": 1.74
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Tell me something to keep me going.",
+          "hyp": "Tell me something to keep me going.",
+          "ms": 81.4,
+          "wer": 0.0,
+          "audio_s": 1.88
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "I finished the first two problems.",
+          "hyp": "I finished the first two problems.",
+          "ms": 83.0,
+          "wer": 0.0,
+          "audio_s": 2.0
+        },
+        {
+          "src": "say:Daniel",
+          "ref": "Let's wrap this up.",
+          "hyp": "Let's wrap this up.",
+          "ms": 71.3,
+          "wer": 0.0,
+          "audio_s": 1.06
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Roast me.",
+          "hyp": "Roast me.",
+          "ms": 127.0,
+          "wer": 0.0,
+          "audio_s": 1.01
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Start my focus session.",
+          "hyp": "Start my focus session.",
+          "ms": 3835.7,
+          "wer": 0.0,
+          "audio_s": 1.49
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "How much time do I have left?",
+          "hyp": "How much time do I have left?",
+          "ms": 1897.7,
+          "wer": 0.0,
+          "audio_s": 1.9
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Pause my session.",
+          "hyp": "Pause my session. Pause my session.",
+          "ms": 3514.8,
+          "wer": 1.0,
+          "audio_s": 1.3
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Resume.",
+          "hyp": "Resume. Resume.",
+          "ms": 75.5,
+          "wer": 1.0,
+          "audio_s": 0.91
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Stop talking.",
+          "hyp": "Stop talking. Stop talking.",
+          "ms": 3470.5,
+          "wer": 1.0,
+          "audio_s": 1.1
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "You can talk again.",
+          "hyp": "You can talk again.",
+          "ms": 76.5,
+          "wer": 0.0,
+          "audio_s": 1.33
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Stop.",
+          "hyp": "Stop.",
+          "ms": 3593.3,
+          "wer": 0.0,
+          "audio_s": 0.66
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Give me my phone back.",
+          "hyp": "Give me my phone back.",
+          "ms": 3505.8,
+          "wer": 0.0,
+          "audio_s": 1.33
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Lock me in for 25 minutes.",
+          "hyp": "lock me in for 25 minutes.",
+          "ms": 3711.7,
+          "wer": 0.0,
+          "audio_s": 2.19
+        },
+        {
+          "src": "mic:demo-check",
+          "ref": "Emergency stop.",
+          "hyp": "Emergency stop. Emergency stop.",
+          "ms": 75.4,
+          "wer": 1.0,
+          "audio_s": 1.26
+        }
+      ],
+      "wer_mic:demo-check": 0.364,
+      "wer_say:Daniel": 0.065,
+      "wer_say:Reed (English (US))": 0.208,
+      "wer_say:Samantha": 1.177
+    }
+  }
+}

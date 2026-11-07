@@ -1,0 +1,338 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-07T21:45:42+00:00",
+  "project": "LOCKI AIRLOCK",
+  "status": "Software prototype verified in the listed scopes; full PRD acceptance remains incomplete.",
+  "evidence_policy": {
+    "credentials_copied": false,
+    "absolute_private_paths_copied": false,
+    "artifact_paths_are_repository_relative": true,
+    "raw_ignored_artifacts_are_not_bundled_in_this_public_summary": true,
+    "no_combined_test_total": "Counts below are separate tiers and runs with overlapping code; do not add them into one acceptance or sensor-accuracy score.",
+    "earlier_failed_attempts_preserved": true
+  },
+  "software_checks": [
+    {
+      "name": "SpacetimeDB deterministic policy primitives",
+      "passed": 28,
+      "failed": 0,
+      "source": {
+        "relative_path": "data/airlock-module-tests.log",
+        "sha256": "e9b0bd68530291e6b81dda4acc067d16cdeab11384d88542af514012bec4b10a"
+      }
+    },
+    {
+      "name": "SpacetimeDB in-memory transactional datastore tests",
+      "passed": 47,
+      "failed": 0,
+      "source": {
+        "relative_path": "data/airlock-module-tests.log",
+        "sha256": "e9b0bd68530291e6b81dda4acc067d16cdeab11384d88542af514012bec4b10a"
+      }
+    },
+    {
+      "name": "Node boundary/unit tests",
+      "passed": 70,
+      "failed": 0,
+      "breakdown": {
+        "lock_policy_and_execution": 59,
+        "nvidia_evidence_tools": 6,
+        "mac_bridge": 3,
+        "voice_mapping": 2
+      },
+      "source": {
+        "relative_path": "data/airlock-node-unit-final.log",
+        "sha256": "1d3b195b554e980ef2fff6132a4adef6e53e5ee863cff0cbc7b2dca6db4304c4"
+      }
+    },
+    {
+      "name": "New backend Mac and announcement tests",
+      "passed": 26,
+      "failed": 0,
+      "breakdown": {
+        "mac_usb_observer": 5,
+        "announcement_and_voice_service": 21
+      },
+      "verification_basis": "Completed run reported by integration owner; the 21 announcement tests were also directly executed during voice work."
+    },
+    {
+      "name": "Model transport/resource guard tests",
+      "passed": 10,
+      "failed": 0,
+      "verification_basis": "Completed run reported by integration owner and documented in docs/airlock/NVIDIA.md."
+    },
+    {
+      "name": "Edge camera adapter stdlib tests without camera",
+      "passed": 22,
+      "failed": 0,
+      "source": {
+        "relative_path": "data/airlock-edge-tests.log",
+        "sha256": "e6eda35c7aeea5568e41ef1b0510ef796fc21f165cd676797a65aaafb98ad9e6"
+      }
+    },
+    {
+      "name": "Preserved backend regression, historical run",
+      "passed": 495,
+      "skipped": 8,
+      "verification_basis": "Earlier completed run reported by integration owner; not a final combined rerun and not hardware/model acceptance."
+    }
+  ],
+  "deployed_integration": {
+    "local": {
+      "run_id": "verify-1794087496136-3626399e",
+      "endpoint": "http://127.0.0.1:3000",
+      "database": "locki-airlock-sid",
+      "finished_at": "2026-11-07T21:38:43.576Z",
+      "passed": true,
+      "groups_passed": 49,
+      "groups_total": 49,
+      "failed_group_names": [],
+      "usb_publication_to_subscribed_cache_ms": {
+        "owner": {
+          "n": 15,
+          "p50": 25.09,
+          "p95": 40.69,
+          "max": 40.69
+        },
+        "reviewer": {
+          "n": 15,
+          "p50": 25.11,
+          "p95": 40.71,
+          "max": 40.71
+        }
+      },
+      "source": {
+        "relative_path": "data/airlock-verification/verify-1794087496136-3626399e/report.json",
+        "sha256": "e360c8081adf4c9a311923b188231800469d22290db693b142bf66ea0400b716"
+      }
+    },
+    "cloud": {
+      "run_id": "verify-1794087569641-a44fb0fc",
+      "endpoint": "https://maincloud.spacetimedb.com",
+      "database": "locki-w91bw",
+      "finished_at": "2026-11-07T21:40:40.703Z",
+      "passed": true,
+      "groups_passed": 49,
+      "groups_total": 49,
+      "failed_group_names": [],
+      "usb_publication_to_subscribed_cache_ms": {
+        "owner": {
+          "n": 15,
+          "p50": 118.24,
+          "p95": 568.59,
+          "max": 568.59
+        },
+        "reviewer": {
+          "n": 15,
+          "p50": 152.66,
+          "p95": 636.55,
+          "max": 636.55
+        }
+      },
+      "source": {
+        "relative_path": "data/airlock-verification/verify-1794087569641-a44fb0fc/report.json",
+        "sha256": "ad45a43db5823d569098c914474f0c00c800f53c3a47d48d96434a359deae744"
+      }
+    },
+    "method": {
+      "primary_independent_authenticated_identities": 7,
+      "additional_enrolled_service_identity_isolation_check": true,
+      "client_host_count": 1,
+      "cache_poll_interval_ms": 10,
+      "correlation_boundary_vectors": 14,
+      "measurement_starts": "Immediately before USB metadata reducer publication",
+      "measurement_ends": "Incident visible in each independently subscribed SDK cache",
+      "excludes": [
+        "physical detection",
+        "browser rendering",
+        "audio output",
+        "two-physical-laptop latency"
+      ],
+      "p95_method": "Nearest rank; n=15 makes p95 the maximum."
+    }
+  },
+  "persistence": {
+    "passed": true,
+    "same_identity_preserved": true,
+    "restored_incidents": 29,
+    "checked_at": "2026-11-07T21:06:29.285Z",
+    "method": "Coordinated actual SIGTERM and restart using the same local persistent data directory, then saved-identity snapshot check.",
+    "not_claimed": "Power-loss or ungraceful crash durability.",
+    "source": {
+      "relative_path": "data/airlock-verification/verify-1794085398044-bb08ed7e/persistence-check.json",
+      "sha256": "4f0aef26cc8ab0d8631aab1c1e13d7fbf9dac3c40bec92181eebe79c00591789"
+    }
+  },
+  "mac_capture": {
+    "passed": true,
+    "run_id": "capture-1794086449732-62ddd0",
+    "endpoint": "https://maincloud.spacetimedb.com",
+    "database": "locki-w91bw",
+    "source": "Actual macOS IORegistry USB snapshots and native AppKit active-app snapshot",
+    "usb_baseline_count": 0,
+    "camera_status_at_arm": "unavailable",
+    "frozen_usb_baseline_matches_capture": true,
+    "actual_observation_events": 1,
+    "physical_usb_insertion_tested": false,
+    "auto_lock_enabled": false,
+    "real_lock_executed": false,
+    "camera_opened": false,
+    "microphone_opened": false,
+    "state_after_proof": "disarmed",
+    "artifact": {
+      "relative_path": "data/airlock-capture-proof/capture-1794086449732-62ddd0/report.json",
+      "sha256": "e44f504d6c18f353dc7b400aaa295a04587163f07ff6f8096adf0f237fdc6a66"
+    }
+  },
+  "native_visible_app": {
+    "passed": true,
+    "run_id": "observer-1794085079490-bc285c",
+    "actual_test_app": "Calculator",
+    "capture_mode": "NSWorkspace.didLaunchApplicationNotification",
+    "committed_events": 5,
+    "evidence_simulated": false,
+    "usb_snapshot_duration_ms": 25.979,
+    "usb_baseline_count": 0,
+    "physical_usb_insertion_tested": false,
+    "artifact": {
+      "relative_path": "data/airlock-observer-proof/observer-1794085079490-bc285c/report.json",
+      "sha256": "eeb3723bc3ddd01758beaee40045899d65864c81cd38c1d9932688b29754f417"
+    }
+  },
+  "voice": {
+    "evidence_simulated": true,
+    "actual_cached_playback_completed": true,
+    "microphone_recorded": false,
+    "model_used": false,
+    "sample_count": 1,
+    "speaker_source": "system_cache",
+    "speaker_outcome": "finished",
+    "priority": "P0",
+    "cache_hits": 1,
+    "cache_misses": 0,
+    "historical_cache_prewarmed_lines": 6,
+    "current_fixed_templates": 8,
+    "queued_ms": 0.9,
+    "audio_driver_start_ms": 76.3,
+    "local_http_delivery_ms": 85.68,
+    "playback_duration_ms": 6854.8,
+    "restart_duplicate_check": {
+      "passed": true,
+      "duplicate": true,
+      "queued": false,
+      "audio_enabled": false,
+      "status": "duplicate; no new playback"
+    },
+    "safe_default_restored_at": "2026-11-07T21:18:33Z",
+    "limits": "One explicitly spoken Rehearsal; no microphone/acoustic end-to-end measurement, no physical intrusion/USB insertion or screen lock.",
+    "artifact": {
+      "relative_path": "data/airlock-voice/proof/report.json",
+      "sha256": "a7a0366560972d69de3af88c76cec7ef3a1183dd5f8273b7cd642d70ab55ae34"
+    }
+  },
+  "native_relay": {
+    "version": "0.11.0",
+    "protected_groups_passed": 7,
+    "protected_groups_total": 7,
+    "trace_id": "01a1b7d4-0a4c-7ef1-90ed-e0bc8f5dfd64",
+    "native_event_count": 27,
+    "native_rejected_guardrails": 7,
+    "native_tool_start_count": 1,
+    "approval_provenance": "AUTOMATED separate owner identity integration-test fixture, not live human approval",
+    "model_inference": false,
+    "separate_evidence_tool_callbacks": [
+      "read_incident",
+      "inspect_digital_metadata",
+      "recent_security_events"
+    ],
+    "evidence_tool_native_event_count": 14,
+    "evidence_case_observations": "Explicit synthetic fixtures; real cloud reads and native tool/guardrail spans.",
+    "upstream_code_quest_automatically_integrated": false,
+    "artifact": {
+      "relative_path": "data/airlock/nvidia-cloud-protected-final/report.json",
+      "sha256": "5e1529e34235faf6123d82a466991ecbe2bf90c73e0dfeb8210c5406735ff647"
+    },
+    "native_export_artifacts": [
+      {
+        "relative_path": "data/airlock/nvidia-cloud-protected-final/events.jsonl",
+        "sha256": "6a6b700177eaf34986d643fa9e034cf62c822440a23a6d20e3f8d3c0923760fa"
+      },
+      {
+        "relative_path": "data/airlock/nvidia-cloud-evidence/events.jsonl",
+        "sha256": "549563c5ded0223dd59e3da50a20668c2d8493a888d82dbdbc0d4b00e561378a"
+      }
+    ],
+    "native_scope_start_end_pairs": 7,
+    "actual_evidence_tool_callback_count": 3
+  },
+  "model": {
+    "requested_tag": "nemotron-3.5-bolt:e4b",
+    "actual_local_inference_performed": false,
+    "model_selected_three_tool_workflow_verified": false,
+    "status": "Resource preflight blocked inference on the pressured Apple M5 16 GiB host; no replacement model or fabricated inference. Download initiated, completion not established by this evidence snapshot.",
+    "download_status_reported_by_integration_owner": "In progress at 21:42 UTC; a download is not inference or readiness proof.",
+    "native_blocked_run_export": {
+      "relative_path": "data/airlock/nvidia-resource-blocked/events.jsonl",
+      "sha256": "c5d12d19559e2752667013041b75cc2d306c2c2207fc411b41d2bbe978374633"
+    },
+    "blocked_run_llm_span_count": 0
+  },
+  "browser_observation": {
+    "verification_basis": "Integration owner observed real Chrome owner/reviewer contexts on the cloud module.",
+    "single_computer": true,
+    "earlier_flow": [
+      "create workstation",
+      "synthetic arm",
+      "correlated fixture incident",
+      "separate reviewer acknowledgement",
+      "owner resolve",
+      "owner disarm"
+    ],
+    "final_manual_panic_flow": {
+      "observed_at_utc": "2026-11-07 21:43\u201321:44 UTC (minute precision)",
+      "steps": [
+        "owner synthetic arm with actual lock suppressed",
+        "owner Panic click",
+        "server-committed high owner_panic with factual manual-intent wording",
+        "factual owner review note",
+        "resolve",
+        "disarm"
+      ],
+      "os_audio_or_hardware_action_performed": false
+    },
+    "final_live_baseline_flow": {
+      "observed_at_utc": "2026-11-07 21:47 UTC (minute precision)",
+      "steps": [
+        "owner enrolled a distinct Mac publisher identity",
+        "actual redacted USB baseline reached console",
+        "Chrome live-arm form showed fresh authenticated capture and unavailable camera",
+        "owner armed live session with automatic screen lock disabled",
+        "owner disarmed"
+      ],
+      "physical_usb_insertion_tested": false,
+      "os_lock_executed": false,
+      "read_only_bridge": "bounded one-hour operator process started; no camera, microphone, model or lock adapter"
+    }
+  },
+  "not_verified": [
+    "physical Jetson inventory or Logitech capture",
+    "10-minute camera stream/unplug recovery",
+    "person detector accuracy or false-alarm rate",
+    "physical USB insertion/removal trial",
+    "actual OS lock/unlock or lock confirmation",
+    "real microphone/VAD/ASR/model conversation",
+    "genuine E4B inference and model-selected multi-tool investigation",
+    "LLM lifecycle spans or model-mediated injection resistance",
+    "automatic integration into a separate existing Code Quest host",
+    "two-physical-computer or acoustic/hardware-event timing",
+    "elapsed 24-hour cloud retention in wall-clock time",
+    "remote CI/release completion"
+  ],
+  "model_readiness": {
+    "ready": false,
+    "available_bytes": 3172810752,
+    "swap_percent": 93.6,
+    "model_loaded": false,
+    "observed_at_utc": "2026-11-07 21:45 UTC (minute precision)"
+  }
+}

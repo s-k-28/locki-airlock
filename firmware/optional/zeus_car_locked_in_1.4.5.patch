@@ -1,0 +1,28 @@
+diff --git a/Zeus_Car/Zeus_Car.ino b/Zeus_Car/Zeus_Car.ino
+index 03f6f05..caf9981 100644
+--- a/Zeus_Car/Zeus_Car.ino
++++ b/Zeus_Car/Zeus_Car.ino
+@@ -38,6 +38,7 @@
+ #include "ir_remote.h"
+ #include "cmd_code_config.hpp"
+ #include "ai_camera.h"
++#include "locked_in_patch.h" // LOCKED IN: device-side motion watchdog + telemetry
+ 
+ /*************************** Configure *******************************/
+ /** @name Configure 
+@@ -190,6 +191,7 @@ void loop() {
+     // because the value in a is constantly updated
+     // Note that the cycle interval of the "aiCam.loop()" should be less than 80ms to avoid data d
+     aiCam.loop();
++    lockedInLoop(); // LOCKED IN
+     if (aiCam.ws_connected == false  && irOrAppFlag == 1 ) {
+       currentMode = MODE_NONE;
+     }
+@@ -491,6 +493,7 @@ void irRemoteHandler() {
+  * websocket received data processing
+  */
+ void onReceive() {
++  if (lockedInOnReceive()) return; // LOCKED IN: ignore lines while latched after a watchdog trip
+   // Serial.print("recv:");Serial.println(aiCam.recvBuffer);
+   irOrAppFlag = true;
+ 

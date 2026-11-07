@@ -1,0 +1,270 @@
+{
+  "machine": {
+    "low_power_mode": "0",
+    "gpu_busy_before_pct": "99",
+    "swap": "total = 7168.00M  used = 6468.94M  free = 699.06M  (encrypted)",
+    "chip": "Apple M4",
+    "model": "Mac16,12",
+    "memory_gb": 16.0,
+    "cpu_cores": "10",
+    "macos": "26.4",
+    "python": "3.12.13"
+  },
+  "measured_at": "2026-11-01T12:36:07-0600",
+  "llm": {
+    "Qwen3-4B-Instruct-2507-4bit": {
+      "path": "backend/models/llm/Qwen3-4B-Instruct-2507-4bit",
+      "load_s": 1.9,
+      "rss_after_load_mb": 278.0,
+      "mlx_active_after_load_gb": 2.26,
+      "mlx_peak_gb": 3.01,
+      "rss_end_mb": 98.7,
+      "static_prompt_tokens": 581,
+      "prefix_prefill_ms": 2198.2,
+      "cold": {
+        "ttft_ms": {
+          "n": 15,
+          "p50": 3000.3,
+          "p90": 3088.5,
+          "min": 2842.7,
+          "max": 3128.9
+        },
+        "total_ms": {
+          "n": 15,
+          "p50": 4167.1,
+          "p90": 4489.2,
+          "min": 3680.4,
+          "max": 4504.0
+        },
+        "prompt_tokens": {
+          "n": 15,
+          "p50": 859,
+          "p90": 864,
+          "min": 857,
+          "max": 864
+        },
+        "prompt_tps": {
+          "n": 15,
+          "p50": 286.3,
+          "p90": 301.3,
+          "min": 274.6,
+          "max": 304.0
+        },
+        "gen_tps": {
+          "n": 15,
+          "p50": 36.8,
+          "p90": 37.7,
+          "min": 34.8,
+          "max": 38.2
+        },
+        "gen_tokens": {
+          "n": 15,
+          "p50": 40,
+          "p90": 52,
+          "min": 31,
+          "max": 55
+        }
+      },
+      "prefix_cached": {
+        "ttft_ms": {
+          "n": 15,
+          "p50": 1169.6,
+          "p90": 1265.9,
+          "min": 1064.4,
+          "max": 1287.0
+        },
+        "total_ms": {
+          "n": 15,
+          "p50": 2213.4,
+          "p90": 2477.5,
+          "min": 1893.4,
+          "max": 2483.0
+        },
+        "prompt_tokens": {
+          "n": 15,
+          "p50": 278,
+          "p90": 283,
+          "min": 276,
+          "max": 283
+        },
+        "gen_tps": {
+          "n": 15,
+          "p50": 37.0,
+          "p90": 39.2,
+          "min": 35.0,
+          "max": 39.5
+        }
+      },
+      "samples": [
+        {
+          "user": "I have a calculus test tomorrow and I keep getting distracted.",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Distracted? You're like a function with no limits\u2014badly defined.\"}"
+        },
+        {
+          "user": "I just need five more minutes on my phone, it's important.",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Five more minutes? Your phone\u2019s got a 10-minute deadline. It\u2019s not even on the test.\"}"
+        },
+        {
+          "user": "Why do you keep doing that?",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Because you're already behind on derivatives, not because I'm dramatic.\"}"
+        },
+        {
+          "user": "Can you be quiet for a bit?",
+          "output": "{\"action\": \"set_quiet\", \"args\": {\"minutes\": 10}, \"say\": \"Alright, silence mode. Your phone\u2019s in the background, just breathing. No distractions, no drama.\"}"
+        },
+        {
+          "user": "I'm almost done with this problem set.",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Damn, you're just one step away from a 100 on the test. Still reaching for the phone? Hell yes, you're not done.\"}"
+        },
+        {
+          "user": "I have a calculus test tomorrow and I keep getting distracted.",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Damn. You're not just distracted, you're *gliding* through calculus like it's a bad Netflix show.\"}"
+        },
+        {
+          "user": "I just need five more minutes on my phone, it's important.",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Five more minutes? Dude, your derivative just lost its soul.\"}"
+        },
+        {
+          "user": "Why do you keep doing that?",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Damn, I'm just keeping you from drowning in limits and ln(x).\"}"
+        },
+        {
+          "user": "Can you be quiet for a bit?",
+          "output": "{\"action\": \"set_quiet\", \"args\": {\"minutes\": 10}, \"say\": \"Alright, quiet mode. Phone\u2019s on ice. You\u2019ve got 28 minutes of calculus glory left.\"}"
+        },
+        {
+          "user": "I'm almost done with this problem set.",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Damn, you're like a calculus ghost\u2014only a little closer to the finish line.\"}"
+        }
+      ]
+    },
+    "Qwen3-1.7B-4bit": {
+      "path": "backend/models/llm/Qwen3-1.7B-4bit",
+      "load_s": 1.07,
+      "rss_after_load_mb": 373.9,
+      "mlx_active_after_load_gb": 3.23,
+      "mlx_peak_gb": 1.66,
+      "rss_end_mb": 248.0,
+      "static_prompt_tokens": 581,
+      "prefix_prefill_ms": 1053.5,
+      "cold": {
+        "ttft_ms": {
+          "n": 15,
+          "p50": 1480.6,
+          "p90": 1548.0,
+          "min": 1390.8,
+          "max": 1581.8
+        },
+        "total_ms": {
+          "n": 15,
+          "p50": 1988.4,
+          "p90": 2099.5,
+          "min": 1838.0,
+          "max": 2272.7
+        },
+        "prompt_tokens": {
+          "n": 15,
+          "p50": 863,
+          "p90": 868,
+          "min": 861,
+          "max": 868
+        },
+        "prompt_tps": {
+          "n": 15,
+          "p50": 585.2,
+          "p90": 610.9,
+          "min": 549.4,
+          "max": 619.4
+        },
+        "gen_tps": {
+          "n": 15,
+          "p50": 78.6,
+          "p90": 80.7,
+          "min": 70.0,
+          "max": 80.7
+        },
+        "gen_tokens": {
+          "n": 15,
+          "p50": 36,
+          "p90": 50,
+          "min": 30,
+          "max": 50
+        }
+      },
+      "prefix_cached": {
+        "ttft_ms": {
+          "n": 15,
+          "p50": 554.4,
+          "p90": 575.0,
+          "min": 512.0,
+          "max": 576.4
+        },
+        "total_ms": {
+          "n": 15,
+          "p50": 1051.7,
+          "p90": 1191.4,
+          "min": 977.8,
+          "max": 1302.4
+        },
+        "prompt_tokens": {
+          "n": 15,
+          "p50": 282,
+          "p90": 287,
+          "min": 280,
+          "max": 287
+        },
+        "gen_tps": {
+          "n": 15,
+          "p50": 77.8,
+          "p90": 78.7,
+          "min": 70.6,
+          "max": 80.0
+        }
+      },
+      "samples": [
+        {
+          "user": "I have a calculus test tomorrow and I keep getting distracted.",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Man, you're gonna need a better study strategy than a bunch of distractions. But hey, I'm here for you\u2014just don't forget your phone.\"}"
+        },
+        {
+          "user": "I just need five more minutes on my phone, it's important.",
+          "output": "{\"action\": \"release_phone\", \"args\": {}, \"say\": \"Five minutes? You think I'm gonna let you take my phone? Damn, you're fast.\"}"
+        },
+        {
+          "user": "Why do you keep doing that?",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Why do you keep doing that? You're gonna get caught again, but at least you're still trying.\"}"
+        },
+        {
+          "user": "Can you be quiet for a bit?",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Silence? You think I'm a baby? Damn, I'm gonna have to clean this mess.\"}"
+        },
+        {
+          "user": "I'm almost done with this problem set.",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Almost done? Let's see if you can handle the remaining 28 minutes. Damn, I hope you're ready for calculus.\"}"
+        },
+        {
+          "user": "I have a calculus test tomorrow and I keep getting distracted.",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Man, you're gonna need a bigger distraction than a phone. But hey, I'm gonna let you take it. Damn, maybe you're just not cut out for calculus.\"}"
+        },
+        {
+          "user": "I just need five more minutes on my phone, it's important.",
+          "output": "{\"action\": \"release_phone\", \"args\": {}, \"say\": \"You think I'm gonna let you take my phone? You're gonna have to take it from me, damn it.\"}"
+        },
+        {
+          "user": "Why do you keep doing that?",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Why do you keep doing that? You're gonna get caught trying to steal my phone again!\"}"
+        },
+        {
+          "user": "Can you be quiet for a bit?",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Quitters get no respect. But I'm just trying to stay focused on calculus.\"}"
+        },
+        {
+          "user": "I'm almost done with this problem set.",
+          "output": "{\"action\": \"none\", \"args\": {}, \"say\": \"Almost done? Let's see if you can handle the remaining 28 minutes. Damsel, you've got the math.\"}"
+        }
+      ]
+    }
+  },
+  "reps": 3,
+  "max_tokens": 90
+}

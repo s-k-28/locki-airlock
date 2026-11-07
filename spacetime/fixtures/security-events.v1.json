@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "notice": "SIMULATED fixtures only. Replace observedAtMs with current epoch milliseconds, sessionId/workstationId with the actual armed simulated session, and seq with strictly increasing device sequence. The database remains the incident authority.",
+  "arm_session": {"workstationId":"sid-desk","sessionId":"demo-session-001","baselineJson":"[\"usb:approved-key\"]","approvedAppsJson":"[\"com.apple.Terminal\"]","durationMs":"3600000","simulated":true},
+  "events": [
+    {"workstationId":"sid-desk","sessionId":"demo-session-001","deviceId":"fixture","eventId":"demo-person-001","kind":"person_in_zone","observedAtMs":"0","seq":"1","confidence":0.92,"metadataJson":"{\"detail\":\"Volunteer entered marked desk zone\"}","simulated":true,"schemaVersion":1},
+    {"workstationId":"sid-desk","sessionId":"demo-session-001","deviceId":"fixture","eventId":"demo-usb-001","kind":"usb_added","observedAtMs":"0","seq":"2","confidence":1,"metadataJson":"{\"deviceKey\":\"usb:harmless-unapproved-key\",\"label\":\"Harmless test USB\"}","simulated":true,"schemaVersion":1},
+    {"workstationId":"sid-desk","sessionId":"demo-session-001","deviceId":"fixture","eventId":"demo-approved-001","kind":"usb_added","observedAtMs":"0","seq":"3","confidence":1,"metadataJson":"{\"deviceKey\":\"usb:approved-key\"}","simulated":true,"schemaVersion":1},
+    {"workstationId":"sid-desk","sessionId":"demo-session-001","deviceId":"fixture","eventId":"demo-camera-offline-001","kind":"camera_offline","observedAtMs":"0","seq":"4","confidence":1,"metadataJson":"{\"detail\":\"Camera disconnected in fixture\"}","simulated":true,"schemaVersion":1}
+  ]
+}

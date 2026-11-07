@@ -1,0 +1,29 @@
+{
+  "machine": "macOS-26.4-arm64-arm-64bit",
+  "results": {
+    "zeus_model_move_to_parsed_ms": {
+      "n": 40,
+      "mean": 1.37,
+      "p50": 1.38,
+      "p95": 1.56,
+      "min": 1.26,
+      "max": 1.59
+    },
+    "zeus_model_stop_to_parsed_ms": {
+      "n": 40,
+      "mean": 1.45,
+      "p50": 1.38,
+      "p95": 2.02,
+      "min": 1.28,
+      "max": 3.11
+    },
+    "mock_ack_ms": {
+      "n": 40,
+      "mean": 30.74,
+      "p50": 31.0,
+      "p95": 31.0,
+      "min": 30.0,
+      "max": 31.0
+    }
+  }
+}

@@ -1,0 +1,186 @@
+{
+  "machine": {
+    "low_power_mode": "0",
+    "gpu_busy_before_pct": "26",
+    "swap": "total = 7168.00M  used = 6436.94M  free = 731.06M  (encrypted)",
+    "chip": "Apple M4",
+    "model": "Mac16,12",
+    "memory_gb": 16.0,
+    "cpu_cores": "10",
+    "macos": "26.4",
+    "python": "3.12.13"
+  },
+  "measured_at": "2026-11-01T12:39:45-0600",
+  "engines": {
+    "kokoro-v1.0.onnx [CPU]": {
+      "load_s": 1.37,
+      "rss_delta_mb": 658.5,
+      "synth_ms": {
+        "n": 18,
+        "p50": 1040.2,
+        "p90": 1355.4,
+        "min": 719.3,
+        "max": 1397.6
+      },
+      "first_sentence_ms": {
+        "n": 18,
+        "p50": 582.3,
+        "p90": 1352.9,
+        "min": 487.6,
+        "max": 1399.8
+      },
+      "rtf": {
+        "n": 18,
+        "p50": 0.3,
+        "p90": 0.3,
+        "min": 0.3,
+        "max": 0.3
+      },
+      "audio_s": {
+        "n": 18,
+        "p50": 3.3,
+        "p90": 4.5,
+        "min": 2.4,
+        "max": 4.5
+      }
+    },
+    "kokoro-v1.0.int8.onnx [CPU]": {
+      "load_s": 0.55,
+      "rss_delta_mb": 315.6,
+      "synth_ms": {
+        "n": 18,
+        "p50": 522.5,
+        "p90": 678.3,
+        "min": 388.3,
+        "max": 696.4
+      },
+      "first_sentence_ms": {
+        "n": 18,
+        "p50": 298.1,
+        "p90": 692.1,
+        "min": 249.4,
+        "max": 694.8
+      },
+      "rtf": {
+        "n": 18,
+        "p50": 0.2,
+        "p90": 0.2,
+        "min": 0.1,
+        "max": 0.2
+      },
+      "audio_s": {
+        "n": 18,
+        "p50": 3.3,
+        "p90": 4.5,
+        "min": 2.4,
+        "max": 4.5
+      }
+    },
+    "kokoro-v1.0.onnx [CoreML]": {
+      "load_s": 5.23,
+      "rss_delta_mb": 638.9,
+      "synth_ms": {
+        "n": 18,
+        "p50": 1226.9,
+        "p90": 1616.3,
+        "min": 862.7,
+        "max": 1689.9
+      },
+      "first_sentence_ms": {
+        "n": 18,
+        "p50": 731.2,
+        "p90": 1643.9,
+        "min": 622.0,
+        "max": 1678.5
+      },
+      "rtf": {
+        "n": 18,
+        "p50": 0.4,
+        "p90": 0.4,
+        "min": 0.3,
+        "max": 0.4
+      },
+      "audio_s": {
+        "n": 18,
+        "p50": 3.3,
+        "p90": 4.5,
+        "min": 2.4,
+        "max": 4.5
+      }
+    }
+  },
+  "fish_reference": {
+    "clips": 39,
+    "f0_median_hz": 196.7,
+    "f0_iqr_hz": 37.7,
+    "words_per_s": 2.07
+  },
+  "kokoro_voices": {
+    "af_bella": {
+      "f0_median_hz": 205.1,
+      "f0_iqr_hz": 40.4,
+      "words_per_s": 2.95,
+      "distance": 0.915
+    },
+    "af_river": {
+      "f0_median_hz": 186.0,
+      "f0_iqr_hz": 34.2,
+      "words_per_s": 3.08,
+      "distance": 1.14
+    },
+    "af_heart": {
+      "f0_median_hz": 208.7,
+      "f0_iqr_hz": 56.8,
+      "words_per_s": 3.06,
+      "distance": 1.577
+    },
+    "af_aoede": {
+      "f0_median_hz": 181.8,
+      "f0_iqr_hz": 48.4,
+      "words_per_s": 3.31,
+      "distance": 1.671
+    },
+    "af_sarah": {
+      "f0_median_hz": 205.1,
+      "f0_iqr_hz": 68.5,
+      "words_per_s": 3.04,
+      "distance": 1.704
+    },
+    "af_jessica": {
+      "f0_median_hz": 208.7,
+      "f0_iqr_hz": 62.2,
+      "words_per_s": 3.32,
+      "distance": 1.846
+    },
+    "af_sky": {
+      "f0_median_hz": 165.5,
+      "f0_iqr_hz": 48.1,
+      "words_per_s": 2.89,
+      "distance": 2.399
+    },
+    "af_nova": {
+      "f0_median_hz": 162.2,
+      "f0_iqr_hz": 45.4,
+      "words_per_s": 2.7,
+      "distance": 2.437
+    },
+    "af_kore": {
+      "f0_median_hz": 154.8,
+      "f0_iqr_hz": 48.0,
+      "words_per_s": 2.93,
+      "distance": 3.084
+    },
+    "af_alloy": {
+      "f0_median_hz": 149.1,
+      "f0_iqr_hz": 30.3,
+      "words_per_s": 2.56,
+      "distance": 3.204
+    },
+    "af_nicole": {
+      "f0_median_hz": 148.1,
+      "f0_iqr_hz": 16.3,
+      "words_per_s": 2.02,
+      "distance": 3.43
+    }
+  }
+}
