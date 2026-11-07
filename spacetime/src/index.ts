@@ -212,6 +212,9 @@ function maybeLock(ctx: Ctx, incidentId: string) {
 }
 function ownMemberships(ctx: ReadCtx) { return [...ctx.db.memberships.identity.filter(ctx.sender)].filter(m => m.enabled && (!['mac', 'jetson', 'service'].includes(m.role) || [...ctx.db.devices.identity.filter(ctx.sender)].some(d => d.workstationId === m.workstationId && d.role === m.role && d.enabled))); }
 function canReadCases(role: string) { return ['owner', 'reviewer', 'service'].includes(role); }
+// Enrolled Mac adapters need committed evidence for local incident warnings.
+// Keep agent actions, approvals and audit access on the narrower case roles.
+function canReadObservations(role: string) { return canReadCases(role) || role === 'mac'; }
 
 export const register_workstation = spacetimedb.reducer({ workstationId: t.string(), name: t.string() }, (ctx, a) => {
   validId(a.workstationId, 'workstationId'); if (!text(a.name, 80)) fail('Name required'); if (ctx.db.workstations.id.find(a.workstationId)) fail('Workstation id already registered');
@@ -481,8 +484,8 @@ export const my_workstations = spacetimedb.view({ name: 'my_workstations', publi
 export const my_memberships = spacetimedb.view({ name: 'my_memberships', public: true }, t.array(memberships.rowType), ctx => ownMemberships(ctx));
 export const my_devices = spacetimedb.view({ name: 'my_devices', public: true }, t.array(devices.rowType), ctx => ownMemberships(ctx).flatMap(m => [...ctx.db.devices.workstationId.filter(m.workstationId)].filter(d => canReadCases(m.role) || d.identity.isEqual(ctx.sender))));
 export const my_sessions = spacetimedb.view({ name: 'my_sessions', public: true }, t.array(sessions.rowType), ctx => ownMemberships(ctx).flatMap(m => [...ctx.db.sessions.workstationId.filter(m.workstationId)]));
-export const my_device_events = spacetimedb.view({ name: 'my_device_events', public: true }, t.array(deviceEvents.rowType), ctx => ownMemberships(ctx).filter(m => canReadCases(m.role)).flatMap(m => [...ctx.db.deviceEvents.workstationId.filter(m.workstationId)]));
-export const my_incidents = spacetimedb.view({ name: 'my_incidents', public: true }, t.array(incidents.rowType), ctx => ownMemberships(ctx).filter(m => canReadCases(m.role)).flatMap(m => [...ctx.db.incidents.workstationId.filter(m.workstationId)]));
+export const my_device_events = spacetimedb.view({ name: 'my_device_events', public: true }, t.array(deviceEvents.rowType), ctx => ownMemberships(ctx).filter(m => canReadObservations(m.role)).flatMap(m => [...ctx.db.deviceEvents.workstationId.filter(m.workstationId)]));
+export const my_incidents = spacetimedb.view({ name: 'my_incidents', public: true }, t.array(incidents.rowType), ctx => ownMemberships(ctx).filter(m => canReadObservations(m.role)).flatMap(m => [...ctx.db.incidents.workstationId.filter(m.workstationId)]));
 export const my_device_health = spacetimedb.view({ name: 'my_device_health', public: true }, t.array(deviceHealth.rowType), ctx => ownMemberships(ctx).flatMap(m => [...ctx.db.deviceHealth.workstationId.filter(m.workstationId)]));
 export const my_lock_requests = spacetimedb.view({ name: 'my_lock_requests', public: true }, t.array(lockRequests.rowType), ctx => ownMemberships(ctx).filter(m => canReadCases(m.role) || m.role === 'mac').flatMap(m => [...ctx.db.lockRequests.workstationId.filter(m.workstationId)].filter(l => canReadCases(m.role) || ctx.db.devices.id.find(l.targetDeviceId)?.identity.isEqual(ctx.sender))));
 export const my_protected_actions = spacetimedb.view({ name: 'my_protected_actions', public: true }, t.array(protectedActions.rowType), ctx => ownMemberships(ctx).filter(m => canReadCases(m.role)).flatMap(m => [...ctx.db.protectedActions.workstationId.filter(m.workstationId)]));

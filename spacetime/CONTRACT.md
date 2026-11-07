@@ -28,7 +28,7 @@ Frozen integration names, 2026-11-07. Module `spacetime/src/index.ts`; all backi
 
 ## Authorized views and row fields
 
-Every row has `workstationId:string` unless workstation itself (`id`). Fields listed below are exact and required. Views use membership index by ctx.sender; no unscoped public tables. Owner/reviewer/service can read case data. Mac/Jetson see station/session/health and own enrollment; only target Mac sees its lock requests. Approvals view is owner/authorized reviewer/service only and never contains secret credentials.
+Every row has `workstationId:string` unless workstation itself (`id`). Fields listed below are exact and required. Views use membership index by ctx.sender; no unscoped public tables. Owner/reviewer/service can read case data. An enabled enrolled Mac can also read its workstation's `my_incidents` and `my_device_events`, including correlated Jetson observations, for incident-to-voice delivery. Mac/Jetson see station/session/health and own enrollment; Jetson cannot read incidents/events. Only the target Mac identity sees its lock requests. Mac observation access grants no reviewer, protected-action, approval, agent-trace or audit permissions. Revocation or loss of the last matching enabled device removes access. Approvals view is owner/authorized reviewer/service only and never contains secret credentials.
 
 - `my_workstations`: `{id:string,name:string,owner:Identity,createdAtMs:u64,activeSessionId:string,autoLockEnabled:bool,policyVersion:u32,ownerPolicyHash:string,lockCooldownMs:u64,lastLockRequestedAtMs:u64,returnGraceUntilMs:u64}`
 - `my_memberships`: `{id:string,workstationId:string,identity:Identity,role:string,canApprove:bool,enabled:bool,createdAtMs:u64}`; own membership only.

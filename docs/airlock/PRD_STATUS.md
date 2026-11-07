@@ -127,3 +127,33 @@ Actual prerecorded ASR proof: `data/airlock-asr-proof/report.json` records pywhi
 The actual local voice service was safely restarted at **22:40:35 UTC**. `data/airlock-voice/service-resumed-proof.json` confirms microphone off, audio disabled, no conversation model loaded and no robot/control routes. An authorized start was refused with microphone permission disabled; an unauthorized start returned HTTP 401. No capture or playback occurred during this proof.
 
 **Full PRD acceptance is still incomplete.** These resumed results add software, real app-observer and prerecorded-human-ASR evidence; they do not close physical Jetson/USB trials, live microphone→ASR→Nemotron/fallback→speaker conversation, actual consented lock/unlock/confirmation, E4B model-selected investigation, existing upstream Code Quest integration or two-physical-computer/acoustic timing. No P0 requirement was silently removed.
+
+
+## Mac incident subscription correction
+
+Enabled enrolled Mac devices now receive their own workstation's `my_incidents`
+and `my_device_events`, including correlated Jetson observations. This fixes the
+server-side gap reported by Dhruv for incident-to-voice delivery. Lock requests
+remain restricted to their target Mac identity. Review/approval/agent/audit
+permissions are unchanged; disabled, revoked or reassigned devices lose reads.
+
+Type checking, **56 datastore tests** (47 existing plus nine new authorization
+regressions), and **28 policy tests** passed. The focused deployed verifier
+passed **8/8 groups locally and 8/8 on cloud `locki-w91bw`**, using separate
+identities, real SDK subscriptions and authenticated HTTP views. Both test
+stations were disarmed after each run; all observations and lock intents were
+explicitly synthetic, with no OS adapter or execution claim. The cloud change
+was published with `--delete-data=never` and no schema changes.
+
+An initial cloud verification attempt correctly rejected a fixture whose client
+timestamp preceded server arming. That failed evidence is retained. The test
+now uses the committed session timestamp for synthetic inputs; real event-time
+validation is unchanged. See [CONTRACTS.md](CONTRACTS.md) for exact metadata and
+health enums. Dhruv's unpushed `4277d99` was not available here and is not claimed
+merged or end-to-end voice-tested. His reported 262ms local warning remains a
+separate measurement. Full physical/model PRD acceptance remains incomplete.
+
+Two independent verification agents repeated the final checks: one passed type
+checking plus all 28 policy and 56 datastore tests and audited the narrow view
+change; the other passed all eight groups against the deployed cloud module
+again (`mac-views-1794092247232-68ae23b8`). Neither found a blocking issue.

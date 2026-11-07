@@ -585,5 +585,101 @@
     },
     "native_runtime_confirmed_cpu_only": true,
     "transcript_copied": false
+  },
+  "mac_observation_access_fix": {
+    "verified_at": "2026-11-07T22:57:59.760145+00:00",
+    "enabled_mac_reads": [
+      "my_incidents",
+      "my_device_events"
+    ],
+    "scope": "Enabled matching-role Mac enrollment and membership, own workstations only; includes correlated Jetson observations",
+    "lock_visibility": "Unchanged: only target Mac identity",
+    "other_privileges_expanded": false,
+    "datastore_tests": 56,
+    "new_authorization_regressions": 9,
+    "policy_tests": 28,
+    "deployed_proofs": {
+      "local": {
+        "run_id": "mac-views-1794092200895-3e1aa73e",
+        "groups_passed": 8,
+        "cleanup": {
+          "disarmed_stations": 2,
+          "failures": 0
+        },
+        "counts": {
+          "observation_events": 2,
+          "correlated_incidents": 1,
+          "synthetic_lock_requests": 1,
+          "os_adapter_invocations": 0,
+          "execution_claims": 0
+        },
+        "finished_at": "2026-11-07T22:56:41.349Z",
+        "source": {
+          "relative_path": "data/airlock-mac-views-proof/mac-views-1794092200895-3e1aa73e/report.json",
+          "sha256": "bb3df62840bf9d94a88cce5d7bcabc62639fb11e2b98844fbd123124765a4afa"
+        }
+      },
+      "cloud": {
+        "run_id": "mac-views-1794092200895-4fa99349",
+        "groups_passed": 8,
+        "cleanup": {
+          "disarmed_stations": 2,
+          "failures": 0
+        },
+        "counts": {
+          "observation_events": 2,
+          "correlated_incidents": 1,
+          "synthetic_lock_requests": 1,
+          "os_adapter_invocations": 0,
+          "execution_claims": 0
+        },
+        "finished_at": "2026-11-07T22:56:45.635Z",
+        "source": {
+          "relative_path": "data/airlock-mac-views-proof/mac-views-1794092200895-4fa99349/report.json",
+          "sha256": "358fff16f658be9fe78dcc53a53987ae5dcdefa986697f2cea1302ae9acc59ff"
+        }
+      }
+    },
+    "failed_attempts_preserved": [
+      "mac-views-1794092081569-effff58b",
+      "mac-views-1794092168842-6ffb9015"
+    ],
+    "failure_diagnosis": "Synthetic client timestamp preceded committed server armedAtMs. Fixture now fences to committed session time; production time validation unchanged.",
+    "dhruv_commit_4277d99_available_or_merged": false,
+    "physical_voice_latency_retested": false,
+    "independent_cloud_verification": {
+      "groups_passed": 8,
+      "cleanup": {
+        "disarmed_stations": 2,
+        "failures": 0
+      },
+      "node_version": "24.22.1",
+      "finished_at": "2026-11-07T22:57:31.058Z",
+      "source": {
+        "relative_path": "data/airlock-mac-views-proof/mac-views-1794092247232-68ae23b8/report.json",
+        "sha256": "7f1f16d2f38d1cfc665c1db677c2750c70a4d60757dce81b07d5a904564fc876"
+      }
+    },
+    "independent_source_verification": {
+      "node_version": "24.22.1",
+      "typecheck": "passed",
+      "policy_passed": 28,
+      "datastore_passed": 56,
+      "blocking_findings": 0,
+      "sources": [
+        {
+          "relative_path": "data/airlock-verifier1-typecheck.log",
+          "sha256": "ac907af526ae939d8cd2d9b478c6e5ac3dda8ae5c5c64fb0d414bdb20fb5ceb5"
+        },
+        {
+          "relative_path": "data/airlock-verifier1-policy.log",
+          "sha256": "9716dd5a959437e38ad8939f11b675cfb2c9807399059cf7575961aa6e13a334"
+        },
+        {
+          "relative_path": "data/airlock-verifier1-datastore.log",
+          "sha256": "f830c8b9548fc8cf7d0b096b11d13dfa2301b22e104554f4b2d0629808dbbd5c"
+        }
+      ]
+    }
   }
 }

@@ -428,3 +428,101 @@ it('owner panic is explicit manual intent and preserves all lock consent/claim g
 it('owner panic without frozen auto-lock consent creates review intent without an OS request',()=>{
   const test=setup();arm(test,false);test.withReducerTx(owner,ctx=>moduleExports.panic_session(ctx,{workstationId:'desk',reason:'Review only'}));expect(test.db.incidents.count()).toBe(1n);expect(test.db.lockRequests.count()).toBe(0n);
 });
+
+// Mac adapters need workstation observations for voice/investigation handoff.
+// This is deliberately narrower than case-administration or service access.
+const jetson = auth('jetson-observer', 8n);
+it('an enrolled Mac reads only its workstation incidents and all enrolled sensor observations', () => {
+  const test = setup(); enroll(test,mac,'mac','mac'); enroll(test,jetson,'jetson','jetson'); arm(test);
+  emit(test,'mac-usb',1n,'usb_added',{deviceId:'mac'},mac);
+  emit(test,'jetson-person',1n,'person_in_zone',{deviceId:'jetson'},jetson);
+  test.withReducerTx(owner,ctx=>moduleExports.register_workstation(ctx,{workstationId:'other',name:'Unrelated workstation'}));
+  test.withReducerTx(owner,ctx=>moduleExports.arm_session(ctx,{workstationId:'other',sessionId:'other-session',baselineJson:'[]',approvedAppsJson:'[]',durationMs:60000n,simulated:true}));
+  emit(test,'other-usb',1n,'usb_added',{workstationId:'other',sessionId:'other-session'});
+  expect(test.db.incidents.count()).toBe(2n); expect(test.db.deviceEvents.count()).toBe(3n);
+  expect(moduleExports.my_incidents(test.viewContext(mac)).map(row=>row.id)).toEqual(['incident:mac-usb']);
+  expect(moduleExports.my_device_events(test.viewContext(mac)).map(row=>row.id).sort()).toEqual(['jetson-person','mac-usb']);
+  expect(moduleExports.my_incidents(test.viewContext(mac))[0].severity).toBe('high');
+  expect(moduleExports.my_incidents(test.viewContext(outsider))).toEqual([]);
+  expect(moduleExports.my_device_events(test.viewContext(outsider))).toEqual([]);
+});
+it('enrolled Jetson membership still grants session/health coverage without incident or event reads', () => {
+  const test = setup(); enroll(test,jetson,'jetson','jetson'); arm(test); emit(test,'usb',1n);
+  expect(moduleExports.my_workstations(test.viewContext(jetson))).toHaveLength(1);
+  expect(moduleExports.my_sessions(test.viewContext(jetson))).toHaveLength(1);
+  expect(moduleExports.my_incidents(test.viewContext(jetson))).toEqual([]);
+  expect(moduleExports.my_device_events(test.viewContext(jetson))).toEqual([]);
+  expect(moduleExports.my_lock_requests(test.viewContext(jetson))).toEqual([]);
+});
+for (const change of ['device-disabled','membership-disabled','revoked','reassigned'] as const) {
+  it(`Mac observation reads disappear immediately when its enrollment is ${change}`, () => {
+    const test = setup(); enroll(test,mac,'mac','mac'); arm(test); emit(test,'usb',1n);
+    expect(moduleExports.my_incidents(test.viewContext(mac))).toHaveLength(1);
+    expect(moduleExports.my_device_events(test.viewContext(mac))).toHaveLength(1);
+    if (change === 'device-disabled') {
+      const device = test.db.devices.id.find('mac')!;
+      test.db.devices.id.update({...device,enabled:false});
+      // Even an otherwise enabled stale membership cannot retain device access.
+      expect([...test.db.memberships.iter()].find(row=>row.identity.isEqual(test.viewContext(mac).sender))?.enabled).toBe(true);
+    } else if (change === 'membership-disabled') {
+      const membership = [...test.db.memberships.iter()].find(row=>row.identity.isEqual(test.viewContext(mac).sender))!;
+      test.db.memberships.id.update({...membership,enabled:false});
+      expect(test.db.devices.id.find('mac')?.enabled).toBe(true);
+    } else if (change === 'revoked') {
+      test.withReducerTx(owner,ctx=>moduleExports.revoke_member(ctx,{workstationId:'desk',identityHex:test.viewContext(mac).sender.toHexString()}));
+    } else {
+      test.withReducerTx(owner,ctx=>moduleExports.disarm_session(ctx,{workstationId:'desk'}));
+      enroll(test,macB,'mac','mac');
+      expect(moduleExports.my_incidents(test.viewContext(macB))).toHaveLength(1);
+      expect(moduleExports.my_device_events(test.viewContext(macB))).toHaveLength(1);
+    }
+    expect(moduleExports.my_incidents(test.viewContext(mac))).toEqual([]);
+    expect(moduleExports.my_device_events(test.viewContext(mac))).toEqual([]);
+    expect(test.db.incidents.count()).toBe(1n); expect(test.db.deviceEvents.count()).toBe(1n);
+  });
+}
+it('Mac observation access persists for a second enabled device and ends when the last one is reassigned', () => {
+  const test = setup(); enroll(test,mac,'mac-usb','mac'); enroll(test,mac,'mac-apps','mac'); arm(test); emit(test,'usb',1n);
+  test.withReducerTx(owner,ctx=>moduleExports.disarm_session(ctx,{workstationId:'desk'}));
+  enroll(test,macB,'mac-usb','mac');
+  expect(moduleExports.my_incidents(test.viewContext(mac))).toHaveLength(1);
+  expect(moduleExports.my_device_events(test.viewContext(mac))).toHaveLength(1);
+  enroll(test,macB,'mac-apps','mac');
+  expect(moduleExports.my_incidents(test.viewContext(mac))).toEqual([]);
+  expect(moduleExports.my_device_events(test.viewContext(mac))).toEqual([]);
+});
+it('Mac incident visibility does not expose lock requests targeted to another enrolled Mac', () => {
+  const test = setup(); enroll(test,mac,'mac','mac'); enroll(test,macB,'mac-b','mac');
+  capture(test,'[]','com.apple.finder',macB,'mac-b');
+  test.withReducerTx(owner,ctx=>moduleExports.set_policy(ctx,{workstationId:'desk',autoLockEnabled:true,lockCooldownMs:30000n}));
+  liveArm(test); emit(test,'targeted-usb',1n,'usb_added',{deviceId:'mac-b',simulated:false},macB);
+  const lock = [...test.db.lockRequests.iter()][0];
+  expect(lock.targetDeviceId).toBe('mac-b');
+  expect(moduleExports.my_incidents(test.viewContext(mac))).toHaveLength(1);
+  expect(moduleExports.my_incidents(test.viewContext(macB))).toHaveLength(1);
+  expect(moduleExports.my_lock_requests(test.viewContext(mac))).toEqual([]);
+  expect(moduleExports.my_lock_requests(test.viewContext(macB)).map(row=>row.id)).toEqual([lock.id]);
+});
+it('Mac observation reads grant neither private case administration nor protected-action authority', () => {
+  const test = setup(); enroll(test,mac,'mac','mac'); enroll(test,serviceA,'service-a','service'); arm(test); emit(test,'usb',1n);
+  propose(test); const approval = approve(test);
+  expect(moduleExports.my_incidents(test.viewContext(mac))).toHaveLength(1);
+  expect(moduleExports.my_device_events(test.viewContext(mac))).toHaveLength(1);
+  expect(moduleExports.my_protected_actions(test.viewContext(owner))).toHaveLength(1);
+  expect(moduleExports.my_approvals(test.viewContext(owner))).toHaveLength(1);
+  expect(moduleExports.my_audit_events(test.viewContext(owner)).length).toBeGreaterThan(0);
+  for (const view of [moduleExports.my_protected_actions,moduleExports.my_approvals,moduleExports.my_audit_events,moduleExports.my_agent_runs,moduleExports.my_agent_steps,moduleExports.my_acknowledgements]) {
+    expect(view(test.viewContext(mac))).toEqual([]);
+  }
+  const auditCount = test.db.auditEvents.count();
+  expect(()=>test.withReducerTx(mac,ctx=>moduleExports.acknowledge_incident(ctx,{incidentId:'incident:usb',note:'No reviewer grant'}))).toThrow(/reviewer/);
+  expect(()=>test.withReducerTx(mac,ctx=>moduleExports.request_incident_info(ctx,{incidentId:'incident:usb',note:'No reviewer grant'}))).toThrow(/reviewer/);
+  expect(()=>test.withReducerTx(mac,ctx=>moduleExports.resolve_incident(ctx,{incidentId:'incident:usb',note:'No owner grant'}))).toThrow(/owner/);
+  expect(()=>test.withReducerTx(mac,ctx=>moduleExports.request_lock(ctx,{incidentId:'incident:usb'}))).toThrow(/owner/);
+  expect(()=>test.withReducerTx(mac,ctx=>moduleExports.grant_reviewer(ctx,{workstationId:'desk',identityHex:test.viewContext(mac).sender.toHexString(),canApprove:true}))).toThrow(/owner/);
+  expect(()=>test.withReducerTx(mac,ctx=>moduleExports.decide_action(ctx,{actionId:'action',approve:true,ttlMs:30000n,note:'No approver grant'}))).toThrow(/reviewer/);
+  expect(()=>test.withReducerTx(mac,ctx=>moduleExports.consume_approval(ctx,approval))).toThrow(/service/);
+  expect(test.db.protectedActions.id.find('action')?.status).toBe('approved');
+  expect(test.db.incidents.id.find('incident:usb')?.state).toBe('open');
+  expect(test.db.acknowledgements.count()).toBe(0n); expect(test.db.auditEvents.count()).toBe(auditCount);
+});

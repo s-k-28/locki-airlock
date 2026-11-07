@@ -96,7 +96,7 @@ From another runtime, POST a JSON positional array to `/v1/database/locki-airloc
  confidence, JSON.stringify(metadata), simulated, 1]
 ```
 
-Clients should use generated SDK subscriptions to the authorized `my_*` views for incident/lock state. There is no unscoped incident feed. Raw private tables are intentionally inaccessible.
+Clients should use generated SDK subscriptions to the authorized `my_*` views for incident/lock state. An enabled enrolled `mac` identity receives `my_incidents` and `my_device_events` for its own workstation, including correlated physical evidence; `my_lock_requests` remains restricted to requests targeting that Mac identity. Reuse the enrolled Mac token; do not grant it reviewer/service rights to enable speech. There is no unscoped incident feed. Raw private tables are intentionally inaccessible. Exact metadata and health values are listed in [the Mac integration contract](CONTRACTS.md).
 
 ## Synthetic fixtures
 
