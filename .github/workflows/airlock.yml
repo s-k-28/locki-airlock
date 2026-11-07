@@ -37,6 +37,7 @@ jobs:
           npm test --prefix spacetime
       - name: Dashboard production build and dependency audit
         run: |
+          npm test --prefix frontend
           npm run build --prefix frontend
           npm audit --prefix frontend --audit-level=low
           npm audit --prefix spacetime --audit-level=low
@@ -46,7 +47,7 @@ jobs:
           uv sync --project backend --frozen
       - name: Adapter and protected callback tests without OS actions
         run: |
-          node frontend/node_modules/tsx/dist/cli.mjs --test scripts/airlock_mac_bridge.test.ts scripts/airlock_nemotron_tools.test.ts scripts/tests/airlock_voice_bridge.test.ts scripts/tests/airlock_lock_adapter.test.ts scripts/airlock_sandbox.test.ts
+          node frontend/node_modules/tsx/dist/cli.mjs --test scripts/airlock_mac_bridge.test.ts scripts/airlock_nemotron_tools.test.ts scripts/tests/airlock_voice_bridge.test.ts scripts/tests/airlock_lock_adapter.test.ts scripts/airlock_sandbox.test.ts scripts/airlock_publisher.test.ts scripts/airlock_publish_stream.test.ts
       - name: Read-only Mac parsing and voice policy tests
         env:
           PYTHONPATH: backend
