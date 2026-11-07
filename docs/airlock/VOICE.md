@@ -19,7 +19,28 @@ The first command creates a new private `0600` local capability and refuses to o
 
 The existing Vite `/api` and `/ws` proxy targets port 8077, so the AIRLOCK voice panel and existing Voice Studio can inspect genuine voice state/history. `GET /api/airlock/voice-status` explicitly distinguishes text-only versus cached-system playback. The displayed adapter is the macOS system voice; this is not a claim that Fish Audio, Kokoro, Parakeet or a model ran.
 
-The service constructs the existing runtime with mock transport **disconnected**, automatic connection off, vision disabled, microphone/ASR disabled, `llm_provider="none"`, `enable_llm=False`, offline mode, judge-demo personality and profanity off. It starts with `NullTTS` to avoid the legacy full-library prewarm or neural voice/model loading.
+The service now constructs a standalone `SpeechSurface` using the preserved `EventBus`, `Speaker`, and lazily created `VoiceService`. It does **not import or initialize the robot runtime**, safety controller, camera, transport, companion, or legacy command dispatcher. It starts with `NullTTS`, judge-demo defaults and no conversation model. Existing voice-engine/runtime source remains unchanged.
+
+## Explicit microphone permission and local ASR
+
+Microphone permission is independent of speaker output. To permit a future explicit recording request, an operator can restart with:
+
+```bash
+PYTHONPATH=backend backend/.venv/bin/python -m app.security.voice_service \
+  --token-file data/airlock-voice/local-token.private.json \
+  --data-dir data/airlock-voice/service --allow-microphone \
+  --models-dir backend/models
+```
+
+That flag **does not open a microphone or load ASR at startup**. The operator must then click **Enable mic** in the trusted local console. The backend checks the exact installed `pywhispercpp` package and local `backend/models/whispercpp/ggml-base.en.bin`, verifies its pinned SHA256 and a 200 MiB size ceiling, and requires at least 2 GiB available memory before creating the existing CPU-only Whisper worker. It never calls the downloadable `make_transcriber` fallback or selects another engine/model. Silero is optional only after consent (`--vad-engine silero`); the default energy detector requires no VAD model.
+
+The 2 GiB headroom and exact small-model bound are conservative engineering choices informed by the separately measured 312 MiB prerecorded CPU ASR worker. Historical macOS swap occupancy alone is not used as a proxy for current free headroom. The much larger Nemotron resource guard is unchanged. A readiness failure reports unavailable and leaves the microphone closed; it does not download assets or fabricate a transcript.
+
+Once input is running, hold **Hold to talk** and release to submit the short utterance. The WebSocket packet remains `{type:"ptt",action:"start"|"stop"}`; `POST /api/voice/ptt` accepts the equivalent `{action:"start"|"stop"}`. Starting input/PTT requires the trusted local UI origin or private local bearer capability. Voice snapshots expose the actual `voice.input.running` state. Input/output device preferences and mute are supported; device changes require input stopped. Unsupported legacy cloud/personality settings return an explicit error.
+
+A lost stop packet cannot leave PTT open: the existing ten-second buffer cap is backed by an independent ten-second watchdog that stops input. The microphone permission lease expires after five minutes (configurable within 10–900 seconds), and a console WebSocket disconnect stops input, discards pending ownership, and requires explicit re-enabling. This disconnect policy is deliberately privacy-conservative even when another local console remains connected. Generation checks drop late ASR callbacks after stop/restart. Startup and teardown serialize native ownership, including request cancellation; no new input may start before prior cleanup completes.
+
+Recognized speech is untrusted and never enters `LockedInRuntime.handle_utterance`. Only stop/mute, voice help/status, and a factual description of the last received committed incident are supported. Arm, disarm, panic, approval, resolution, OS locking and robot actions remain authenticated-console operations. Fixed read-only replies are not model inference; a general ASR→Nemotron/Qwen conversation remains an incomplete integration. No Parakeet implementation was found in this checkout, so the adapter does not claim Parakeet support. Raw audio and recognized turns remain in bounded in-memory queues/history; the adapter writes no raw recording or transcript log.
 
 ## Connect the enrolled service
 
@@ -57,15 +78,19 @@ P0 warning submission interrupts an existing lower-priority conversation and cle
 
 The service durably claims a deterministic warning ID in SQLite before queueing. The bridge also persists acknowledged IDs with a 1024-entry bound. The service retains at most 4096 dedup records, accepts only updates at most 30 seconds old with bounded future skew, admits at most ten warning attempts per minute, limits the queued warning backlog, and applies a per-workstation cooldown while allowing a medium→high upgrade. Retries remain bounded; failures are reported as degraded. A crash after a durable claim and before audio may leave an uncertain silent warning; the visible incident remains, and the code does not pretend external playback is exactly once.
 
-`stop_talking`, the stop button, and mute only stop speech. They call no security reducer. The service does not mount `/api/command`, `/api/robot/*`, `/api/session/*`, camera routes, or microphone-test routes. `POST /api/voice/start` explicitly reports that this announcement adapter has no microphone/ASR. Existing Voice Studio configuration is readable; unsupported legacy configuration/microphone/cloud-generation actions are not exposed through this restricted adapter.
+`stop_talking` and mute only control speech. The Stop mic button also closes input and ASR; none calls a security reducer. The service does not mount `/api/command`, `/api/robot/*`, `/api/session/*`, camera routes, or microphone-test routes. Without `--allow-microphone`, `POST /api/voice/start` explicitly refuses to create input/ASR. Existing Voice Studio configuration remains readable; unsupported cloud/full-personality actions return an error rather than enabling another pipeline.
 
-The announcement endpoint requires the local bearer capability, accepts loopback clients only, restricts browser origins to the local AIRLOCK UI, and rejects oversized announced bodies. Health/state/history/config and the existing WebSocket snapshot format are reused. Incoming WebSocket PTT cannot record because no voice-input service exists.
+The announcement endpoint requires the local bearer capability, accepts loopback clients only, restricts browser origins to the local AIRLOCK UI, and rejects oversized announced bodies. Health/state/history/config and the existing WebSocket packet shape remain compatible without importing the robot runtime. Incoming PTT cannot record until the separate process permission, explicit input start and successful local-ASR readiness checks all succeed.
 
 ## Verified evidence
 
 `backend/tests/test_airlock_announcements.py`: **21 tests passed**. These use no real audio and cover strict facts, factual/rehearsal text, bearer/origin controls, absent hardware/control routes, inactive mic/model/camera/transport, durable dedup, bounded queue/cooldown, mute, owner-panic severity/manual-intent policy, and a genuine existing-`Speaker` test in which a P0 incident interrupts a playing P2 request and removes a waiting P3 request.
 
 `scripts/tests/airlock_voice_bridge.test.ts`: **2 tests passed** without network/audio. They verify that the owner-panic mapping carries only typed manual intent, excludes untrusted owner-summary/sensor/response claims, and rejects an unknown manual-sounding rule.
+
+The standalone input change adds **23 tests** in `backend/tests/test_airlock_voice_input.py`, for **44 Python voice tests combined**. They inject fake input/transcribers and never activate hardware or load a model. Coverage includes lazy permission, no robot/model import, exact-local asset/resource failures, safe transcript intents, late-result rejection, lost-release watchdog, lease expiry, actual API/WebSocket consent/disconnect behavior, pending-start cancellation and concurrent/cancelled teardown ownership. Independent review found and verified fixes for late-callback and stop/start races.
+
+Separately, the integration owner recorded one real **prerecorded** CPU ASR proof at `data/airlock-asr-proof/report.json`: official 11-second JFK sample, pinned base.en model and `pywhispercpp` 1.5.1, GPU off, one worker thread, 616.06 ms transcription, 7139.32 ms cold load and approximately 312 MiB peak RSS. No microphone, playback or camera ran. This proves the installed ASR assets/runtime on that one sample, not live-microphone or full-conversation acceptance. No microphone/audio/model was activated while testing the new service wiring.
 
 One explicitly authorized rehearsal exercised the actual path against local `locki-airlock-sid` before the two manual-panic templates were added. Its historical cache count is six; no additional audio was played for the panic change:
 

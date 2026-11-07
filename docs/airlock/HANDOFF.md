@@ -15,7 +15,7 @@ At handoff, the integration owner reports:
 
 A read-only Mac baseline bridge was enrolled through the owner console and started for one hour at approximately 21:47 UTC. It keeps fresh captures available for live arming; it never opens a camera/microphone, loads a model or invokes the lock adapter. The owner console was left **disarmed**, with automatic lock disabled.
 
-A model download may still be running. Inspect its existing terminal before starting another download or interrupting it. An installed/downloading model is different from a loaded inference model.
+The exact `nemotron-3.5-bolt:e4b` MLX model finished downloading at 22:03 UTC. Manifest verification confirmed the installed tag and no loaded models; inference remains blocked by the resource guard on this 16 GiB host. Do not start a duplicate download or bypass the guard. The intended 24GB Mac still needs to be connected.
 
 ## Start, inspect and stop
 
@@ -56,7 +56,7 @@ PYTHONPATH=backend backend/.venv/bin/python -m app.security.voice_service \
   --token-file "$VOICE_CAPABILITY_FILE" --data-dir "$VOICE_STATE_DIRECTORY"
 ```
 
-Omit `--enable-audio`. Do not initialize a replacement capability over an existing one. The read-only status endpoint is `http://127.0.0.1:8077/api/airlock/voice-status`. `ollama ps` checks loaded models without requesting inference. See [VOICE.md](VOICE.md) and [NVIDIA.md](NVIDIA.md) for the separate opt-in paths.
+Omit `--enable-audio` and `--allow-microphone`. Do not initialize a replacement capability over an existing one. The read-only status endpoint is `http://127.0.0.1:8077/api/airlock/voice-status`. `ollama ps` checks loaded models without requesting inference. See [VOICE.md](VOICE.md) and [NVIDIA.md](NVIDIA.md) for the separate opt-in paths.
 
 ## Verify safely
 
@@ -100,7 +100,7 @@ frontend/node_modules/.bin/tsx scripts/airlock_nemotron.ts --preflight
 ## Remaining acceptance
 
 - **Physical:** Areeb must verify the exact Jetson, power supply, JetPack and camera; run a consented 10-minute stream/unplug/recovery trial, measured person/benign trials and a two-device proof. The camera adapter requires explicit `--capture`; motion-only fallback never claims person evidence. See [Jetson instructions](../../edge/jetson/README.md).
-- **Mac:** Test a harmless real USB insertion and app launch across two physical consoles, then measure capture-to-warning timing. Actual lock/unlock requires the local operator's explicit opt-in and an independent truthful lock observation; shortcut posting alone is unconfirmed.
+- **Mac:** Real Calculator app launch was verified again with nine committed app/heartbeat events. Test a harmless real USB insertion across two physical consoles, then measure capture-to-warning timing. Actual lock/unlock requires the local operator's explicit opt-in and an independent truthful lock observation; shortcut posting alone is unconfirmed.
 - **Model/voice:** Exact E4B inference, three genuinely model-selected tools, model-mediated attack resistance, real microphone/ASR conversation and acoustic P0 timing remain distinct acceptance work. Native Relay/tool checks and synthetic cached playback do not establish those results.
 
 Keep all wheels stationary. **No motor commands or firmware flashing.** Use the AIRLOCK targets for this handoff; legacy hardware/download/reset targets are outside this procedure. Credential files, tokens, private checkpoints and local captures stay outside public documentation and source control.

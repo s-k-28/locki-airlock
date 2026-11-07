@@ -9,6 +9,8 @@ Verified on 2026-11-07 against cloud database `locki-w91bw` at `https://mainclou
 - **The native conditional guardrail enforces the real approval boundary.** `airlock_relay_gateway.ts` awaits committed `consume_approval` inside Relay conditional-execution middleware before its tool callback can begin. It runs only the existing explicit managed-tool allowlist, using the server's immutable digest-bound arguments, then records the outcome. Pending, denied, expired, replayed, and unknown operations never reach a callback.
 - **Nemotron is intentionally unavailable under current memory pressure.** The measured preflight saw approximately 2.7 GB available memory and 90.5% swap use. The exact requested model is `nemotron-3.5-bolt:e4b`; no replacement model or synthetic model response was used. A real failed run records that no inference occurred. No LLM span is emitted for the initial resource-preflight refusal.
 
+The exact MLX E4B artifact finished downloading at 22:03 UTC. At 22:24 UTC, Ollama 0.40.15 reported tag `nemotron-3.5-bolt:e4b`, digest `fe4af3f5907b9275322dfea4fc3e4208c64469d0a47e3c05030c10cd27b49b38`, size 7,199,272,376 bytes, and no loaded models. This matches the official tag manifest. Current preflight remains blocked (approximately 3.5 GB available, 91.6% swap use); no inference was attempted. Local evidence: `data/airlock/nvidia-install-proof.json`.
+
 ## Evidence collected
 
 | Evidence | Result |

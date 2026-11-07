@@ -404,6 +404,8 @@ it('Mac and Jetson replacement revokes the old sensor identity without escalatin
   const test=setup();enroll(test,serviceA,'service','service');expect(()=>enroll(test,serviceA,'sensor','mac')).toThrow(/another role/);expect(test.db.devices.id.find('sensor')).toBeFalsy();
 });
 
+// Functional retention stress coverage, not a latency SLA: allow slower shared CI
+// runners to complete all 10,001 transactions without weakening the assertions.
 it('10001 valid heartbeats retain bounded rows and do not starve a later USB incident',()=>{
   const test=setup();test.withReducerTx(owner,ctx=>moduleExports.arm_session(ctx,{workstationId:'desk',sessionId:'session',baselineJson:'[]',approvedAppsJson:'[]',durationMs:86400000n,simulated:true}));
   for(let n=1;n<=10001;n++){time(test,1000000n+BigInt(n)*1001n);emit(test,'heartbeat-'+n,BigInt(n),'heartbeat');}
@@ -412,7 +414,7 @@ it('10001 valid heartbeats retain bounded rows and do not starve a later USB inc
   test.withReducerTx(owner,ctx=>moduleExports.ingest_device_event(ctx,{workstationId:'desk',sessionId:'session',deviceId:'fixture',eventId:retry.id,kind:'heartbeat',observedAtMs:retry.observedAtMs,seq:retry.seq,confidence:retry.confidence,metadataJson:retry.metadataJson,simulated:true,schemaVersion:1}));
   time(test,1000000n+10002n*1001n);emit(test,'usb-after-heartbeats',10002n);
   expect(test.db.incidents.count()).toBe(1n);expect(test.db.deviceEvents.count()).toBe(129n);
-});
+},30_000);
 
 it('owner panic is explicit manual intent and preserves all lock consent/claim gates',()=>{
   const test=setup();enroll(test,mac,'mac','mac');arm(test,true,false);

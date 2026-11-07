@@ -4,7 +4,7 @@
  */
 import { randomUUID } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
-import { managedTool } from './airlock_gateway';
+import { managedTool, assertManagedScope } from './airlock_gateway';
 import { call, closeAirlock, connectAirlock, rows, type AirlockClient } from './airlock_sdk';
 import { withNativeRelay } from './airlock_relay.mjs';
 
@@ -21,7 +21,7 @@ export async function executeRelayApprovedAction(client: AirlockClient, actionId
     result = await relay.tool(action.toolName, immutableArgs, async (args:any) => {
       // This validator executes inside NVIDIA's conditional-execution guardrail.
       managedTool(action.toolName,args);
-      if (!['airlock:read-only','fixture:read-only'].includes(action.scope)) throw new Error('Unsupported protected scope');
+      assertManagedScope(action.toolName, action.scope);
       if (JSON.stringify(args)!==JSON.stringify(immutableArgs)) throw new Error('Immutable arguments changed');
       if (action.proposedBy.toHexString() !== client.identity) throw new Error('Only proposing service may execute');
       if (action.status!=='approved'||!action.approvalId) throw new Error('No unused approved action');

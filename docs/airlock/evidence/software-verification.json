@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-07T21:45:42+00:00",
+  "generated_at": "2026-11-07T22:44:20.680312+00:00",
   "project": "LOCKI AIRLOCK",
-  "status": "Software prototype verified in the listed scopes; full PRD acceptance remains incomplete.",
+  "status": "Resumed software and bounded actual prerecorded-ASR/app-observer evidence verified in the listed scopes; full PRD acceptance remains incomplete.",
   "evidence_policy": {
     "credentials_copied": false,
     "absolute_private_paths_copied": false,
@@ -32,28 +32,47 @@
     },
     {
       "name": "Node boundary/unit tests",
-      "passed": 70,
+      "passed": 74,
       "failed": 0,
       "breakdown": {
         "lock_policy_and_execution": 59,
         "nvidia_evidence_tools": 6,
         "mac_bridge": 3,
-        "voice_mapping": 2
+        "voice_mapping": 2,
+        "fixed_sandbox_callbacks": 4
       },
       "source": {
-        "relative_path": "data/airlock-node-unit-final.log",
-        "sha256": "1d3b195b554e980ef2fff6132a4adef6e53e5ee863cff0cbc7b2dca6db4304c4"
+        "relative_path": "data/airlock-node-resumed.log",
+        "sha256": "5b2af9719a8208a82008ecec7ee63ec7396d06ce2f13d00f1307d7f1203669fd"
+      },
+      "previous_run": {
+        "passed": 70,
+        "source": {
+          "relative_path": "data/airlock-node-unit-final.log",
+          "sha256": "1d3b195b554e980ef2fff6132a4adef6e53e5ee863cff0cbc7b2dca6db4304c4"
+        }
       }
     },
     {
-      "name": "New backend Mac and announcement tests",
-      "passed": 26,
+      "name": "Resumed targeted backend voice-input, announcement and Mac tests",
+      "passed": 49,
       "failed": 0,
       "breakdown": {
-        "mac_usb_observer": 5,
-        "announcement_and_voice_service": 21
+        "announcement_and_voice_service": 21,
+        "explicit_voice_input": 23,
+        "mac_usb_observer": 5
       },
-      "verification_basis": "Completed run reported by integration owner; the 21 announcement tests were also directly executed during voice work."
+      "verification_basis": "Completed main integration-owner run at 22:39 UTC; reviewer confirmed collection: 44 voice tests plus 5 Mac tests. No combined full-backend rerun is implied.",
+      "previous_run": {
+        "passed": 26,
+        "scope": "21 announcement/voice-service and 5 Mac observer tests"
+      },
+      "completed_at_utc": "2026-11-07T22:39:00Z (minute precision)",
+      "test_files": [
+        "backend/tests/test_airlock_announcements.py",
+        "backend/tests/test_airlock_voice_input.py",
+        "backend/tests/test_airlock_mac_observer.py"
+      ]
     },
     {
       "name": "Model transport/resource guard tests",
@@ -186,17 +205,27 @@
   },
   "native_visible_app": {
     "passed": true,
-    "run_id": "observer-1794085079490-bc285c",
+    "run_id": "observer-1794090942299-ef5abc",
     "actual_test_app": "Calculator",
+    "launch_origin": "External CUA launch observed by the integration owner; observer script did not request launch",
+    "observer_script_requested_launch": false,
     "capture_mode": "NSWorkspace.didLaunchApplicationNotification",
-    "committed_events": 5,
+    "committed_events": 9,
     "evidence_simulated": false,
-    "usb_snapshot_duration_ms": 25.979,
+    "usb_snapshot_duration_ms": 22.977,
     "usb_baseline_count": 0,
     "physical_usb_insertion_tested": false,
     "artifact": {
-      "relative_path": "data/airlock-observer-proof/observer-1794085079490-bc285c/report.json",
-      "sha256": "eeb3723bc3ddd01758beaee40045899d65864c81cd38c1d9932688b29754f417"
+      "relative_path": "data/airlock-observer-proof/observer-1794090942299-ef5abc/report.json",
+      "sha256": "9c401e0bdf59ac64b4d408b5a650914c30727e82320d4a68134efdeb46216baf"
+    },
+    "previous_run": {
+      "run_id": "observer-1794085079490-bc285c",
+      "committed_events": 5,
+      "artifact": {
+        "relative_path": "data/airlock-observer-proof/observer-1794085079490-bc285c/report.json",
+        "sha256": "eeb3723bc3ddd01758beaee40045899d65864c81cd38c1d9932688b29754f417"
+      }
     }
   },
   "voice": {
@@ -223,11 +252,27 @@
       "audio_enabled": false,
       "status": "duplicate; no new playback"
     },
-    "safe_default_restored_at": "2026-11-07T21:18:33Z",
+    "safe_default_restored_at": "2026-11-07T22:40:35.753567+00:00",
     "limits": "One explicitly spoken Rehearsal; no microphone/acoustic end-to-end measurement, no physical intrusion/USB insertion or screen lock.",
     "artifact": {
       "relative_path": "data/airlock-voice/proof/report.json",
       "sha256": "a7a0366560972d69de3af88c76cec7ef3a1183dd5f8273b7cd642d70ab55ae34"
+    },
+    "resumed_safe_service": {
+      "observed_at_utc": "2026-11-07T22:40:35.753567+00:00",
+      "passed": true,
+      "microphone": "off",
+      "audio_enabled": false,
+      "conversation_model_loaded": false,
+      "robot_initialized": false,
+      "robot_control_routes_present": false,
+      "authorized_start_refused_with_permission_disabled": true,
+      "unauthorized_start_http_status": 401,
+      "artifact": {
+        "relative_path": "data/airlock-voice/service-resumed-proof.json",
+        "sha256": "388e858c3bbfbd7411b1119e467fbbdde6b0f84cef8a13b01ae0099847b9d61a"
+      },
+      "scope": "Actual restarted local service in safe disabled state; no microphone, playback, camera, inference or lock activation."
     }
   },
   "native_relay": {
@@ -269,13 +314,24 @@
     "requested_tag": "nemotron-3.5-bolt:e4b",
     "actual_local_inference_performed": false,
     "model_selected_three_tool_workflow_verified": false,
-    "status": "Resource preflight blocked inference on the pressured Apple M5 16 GiB host; no replacement model or fabricated inference. Download initiated, completion not established by this evidence snapshot.",
-    "download_status_reported_by_integration_owner": "In progress at 21:42 UTC; a download is not inference or readiness proof.",
+    "status": "Exact nemotron-3.5-bolt:e4b MLX artifact is installed and manifest/runtime metadata verified; resource preflight still blocks E4B inference. No replacement or fabricated inference.",
+    "download_status_reported_by_integration_owner": "Completed 2026-11-07 22:03 UTC; verified installed at 22:24 UTC. Installation is not inference or readiness proof.",
     "native_blocked_run_export": {
       "relative_path": "data/airlock/nvidia-resource-blocked/events.jsonl",
       "sha256": "c5d12d19559e2752667013041b75cc2d306c2c2207fc411b41d2bbe978374633"
     },
-    "blocked_run_llm_span_count": 0
+    "blocked_run_llm_span_count": 0,
+    "installation_verified": true,
+    "installation_artifact": {
+      "relative_path": "data/airlock/nvidia-install-proof.json",
+      "sha256": "5b8b43f2f8df96688160b4951b407a490ec94b9e4fa479353909c0e8ee89a624"
+    },
+    "installed_digest": "fe4af3f5907b9275322dfea4fc3e4208c64469d0a47e3c05030c10cd27b49b38",
+    "installed_size_bytes": 7199272376,
+    "installed_format": "safetensors",
+    "installed_runner": "mlx",
+    "ollama_version": "0.40.15",
+    "scope": "Nemotron E4B installation/inference status only; separate actual Whisper ASR evidence is under prerecorded_asr."
   },
   "browser_observation": {
     "verification_basis": "Integration owner observed real Chrome owner/reviewer contexts on the cloud module.",
@@ -320,7 +376,7 @@
     "person detector accuracy or false-alarm rate",
     "physical USB insertion/removal trial",
     "actual OS lock/unlock or lock confirmation",
-    "real microphone/VAD/ASR/model conversation",
+    "live microphone/VAD/ASR/model conversation (prerecorded CPU ASR engine proof completed)",
     "genuine E4B inference and model-selected multi-tool investigation",
     "LLM lifecycle spans or model-mediated injection resistance",
     "automatic integration into a separate existing Code Quest host",
@@ -332,17 +388,19 @@
     "available_bytes": 3172810752,
     "swap_percent": 93.6,
     "model_loaded": false,
-    "observed_at_utc": "2026-11-07 21:45 UTC (minute precision)"
+    "observed_at_utc": "2026-11-07 21:45 UTC (minute precision)",
+    "scope": "Historical E4B resource-preflight observation at its stated time; no new inference/readiness claim."
   },
   "release": {
     "public_source_repository": "https://github.com/s-k-28/locki-airlock",
     "visibility": "public",
-    "source_snapshot_files": 340,
+    "source_snapshot_files": 346,
     "private_git_history_included": false,
     "secret_scan": {
       "tool": "gitleaks 8.30.1",
       "findings": 0,
-      "boundary": "reviewed current source-only snapshot; runtime data, recordings, models and credentials excluded"
+      "boundary": "Current reviewed 346-file source-only export; zero leaks confirmed by integration owner before packaging. Runtime data, model weights, recordings and credentials excluded.",
+      "source_files": 346
     },
     "team_draft_pull_request": "https://github.com/Dhruvjain35/locked-in/pull/1",
     "ci": {
@@ -359,7 +417,173 @@
         "10 model resource-guard tests",
         "22 camera-free edge tests"
       ],
-      "physical_or_model_inference_claim": false
+      "physical_or_model_inference_claim": false,
+      "scope_note": "Historical success for this exact source_commit only; it does not certify the resumed 346-file source tree or new tests.",
+      "latest_resumed_source_ci_pending": true
+    },
+    "historical_published_source_snapshot_files": 340,
+    "source_count_command": "git ls-files --cached --others --exclude-standard (unique paths; ignored files excluded)",
+    "source_snapshot_boundary": "Current resumed local reviewed source tree; publication/CI for these resumed changes is pending.",
+    "resumed_source_publication_pending": true
+  },
+  "resumed_acceptance": {
+    "node_tests_passed": 74,
+    "sandbox": {
+      "groups_passed": 8,
+      "native_tool_starts": 1,
+      "pytest_passed": 4,
+      "native_trace_id": "01a1b81f-8545-70a1-af97-d87cad0c4939",
+      "approval_provenance": "AUTOMATED separate owner identity fixture; not live human approval",
+      "existing_host_instrumented": false,
+      "model_inference": false,
+      "report_sha256": "c4f5979fa399c11723f39f9d8b880ed55dde9f663152a56f1841a46f68d9e10c"
+    },
+    "model_installation": {
+      "observed_at": "2026-11-07T22:24:37.161423+00:00",
+      "runtime": {
+        "version": "0.40.15"
+      },
+      "installed_models": {
+        "models": [
+          {
+            "name": "nemotron-3.5-bolt:e4b",
+            "model": "nemotron-3.5-bolt:e4b",
+            "modified_at": "2026-11-07T16:03:20.09119505-06:00",
+            "size": 7199272376,
+            "digest": "fe4af3f5907b9275322dfea4fc3e4208c64469d0a47e3c05030c10cd27b49b38",
+            "details": {
+              "parent_model": "",
+              "format": "safetensors",
+              "family": "",
+              "families": null,
+              "parameter_size": "",
+              "quantization_level": "",
+              "runner": "mlx"
+            },
+            "capabilities": [
+              "completion",
+              "vision",
+              "audio",
+              "tools",
+              "thinking"
+            ]
+          }
+        ]
+      },
+      "loaded_models": {
+        "models": []
+      },
+      "inference_performed": false,
+      "artifact": {
+        "relative_path": "data/airlock/nvidia-install-proof.json",
+        "sha256": "5b8b43f2f8df96688160b4951b407a490ec94b9e4fa479353909c0e8ee89a624"
+      }
+    },
+    "mac_observer_resumed": {
+      "run_id": "observer-1794090942299-ef5abc",
+      "passed": true,
+      "committed_events": 9,
+      "app_launch_tested": true,
+      "launch_origin": "External CUA launch; actual native Calculator event captured",
+      "physical_usb_tested": false,
+      "artifact": {
+        "relative_path": "data/airlock-observer-proof/observer-1794090942299-ef5abc/report.json",
+        "sha256": "9c401e0bdf59ac64b4d408b5a650914c30727e82320d4a68134efdeb46216baf"
+      }
+    },
+    "node_tests_failed": 0,
+    "node_test_artifact": {
+      "relative_path": "data/airlock-node-resumed.log",
+      "sha256": "5b2af9719a8208a82008ecec7ee63ec7396d06ce2f13d00f1307d7f1203669fd"
+    },
+    "backend_tests": {
+      "passed": 49,
+      "failed": 0,
+      "completed_at_utc": "2026-11-07T22:39:00Z (minute precision)",
+      "breakdown": {
+        "announcement_and_voice_service": 21,
+        "explicit_voice_input": 23,
+        "mac_usb_observer": 5
+      },
+      "verification_basis": "Completed integration-owner run; reviewer confirmed test collection."
+    },
+    "prerecorded_asr_artifact": {
+      "relative_path": "data/airlock-asr-proof/report.json",
+      "sha256": "05c394f446d1befc4b8b6bb51d2d0b9e52d1cc397d230a979c556cf6492505bb"
+    },
+    "safe_voice_service": {
+      "observed_at_utc": "2026-11-07T22:40:35.753567+00:00",
+      "passed": true,
+      "microphone": "off",
+      "audio_enabled": false,
+      "conversation_model_loaded": false,
+      "robot_initialized": false,
+      "robot_control_routes_present": false,
+      "authorized_start_refused_with_permission_disabled": true,
+      "unauthorized_start_http_status": 401,
+      "artifact": {
+        "relative_path": "data/airlock-voice/service-resumed-proof.json",
+        "sha256": "388e858c3bbfbd7411b1119e467fbbdde6b0f84cef8a13b01ae0099847b9d61a"
+      },
+      "scope": "Actual restarted local service in safe disabled state; no microphone, playback, camera, inference or lock activation."
     }
+  },
+  "prerecorded_asr": {
+    "passed": true,
+    "scope": "one official prerecorded human JFK speech sample, NOT live-microphone VOX acceptance",
+    "n": 1,
+    "pywhispercpp_version": "1.5.1",
+    "context_params": {
+      "use_gpu": false
+    },
+    "n_threads": 1,
+    "n_processors": 1,
+    "model_sha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+    "model_bytes": 147964211,
+    "model_load_ms": 7139.32,
+    "transcription_ms": 616.06,
+    "total_ms": 7755.38,
+    "audio_duration_seconds": 11.0,
+    "real_time_factor": 0.056,
+    "peak_rss_bytes_worker": 327139328,
+    "normalized_reference_words": 22,
+    "normalized_word_edit_distance": 0,
+    "normalized_word_error_rate": 0.0,
+    "word_error_scope": "single manually specified quotation; no dataset/general accuracy claim",
+    "microphone_opened": false,
+    "audio_playback": false,
+    "camera_opened": false,
+    "automatic_model_download": false,
+    "started_at_utc": "2026-11-07T22:32:14.059352+00:00",
+    "finished_at_utc": "2026-11-07T22:32:22.156928+00:00",
+    "subprocess_exit_code": 0,
+    "bounded_wall_timeout_seconds": 45,
+    "bounded_cpu_seconds": 30,
+    "worker_rss_limit_bytes": 1073741824,
+    "system_memory_stop_floor_bytes": 536870912,
+    "minimum_system_available_bytes_observed": 2788786176,
+    "sample_source": "https://raw.githubusercontent.com/ggml-org/whisper.cpp/6a8addd258eadd6563f8c582e8acc535e6325364/samples/jfk.wav",
+    "sample_commit": "6a8addd258eadd6563f8c582e8acc535e6325364",
+    "sample_sha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+    "sample_bytes": 352078,
+    "sample_format": {
+      "channels": 1,
+      "sample_rate_hz": 16000,
+      "sample_width_bytes": 2,
+      "frames": 176000,
+      "duration_seconds": 11.0
+    },
+    "limitations": [
+      "No live microphone capture",
+      "No ASR-to-model-to-speaker acceptance",
+      "No acoustic or hardware latency measurement",
+      "No general ASR quality estimate from one sample"
+    ],
+    "artifact": {
+      "relative_path": "data/airlock-asr-proof/report.json",
+      "sha256": "05c394f446d1befc4b8b6bb51d2d0b9e52d1cc397d230a979c556cf6492505bb"
+    },
+    "native_runtime_confirmed_cpu_only": true,
+    "transcript_copied": false
   }
 }

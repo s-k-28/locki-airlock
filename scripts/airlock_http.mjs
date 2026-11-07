@@ -13,6 +13,7 @@ export function airlockEndpoint(value = process.env.AIRLOCK_SPACETIME_URI || 'ht
 }
 
 export class AirlockHttp {
+  /** @param {{uri?: string, database?: string, token?: string}} [options] */
   constructor({ uri, database = process.env.AIRLOCK_DATABASE || 'locki-airlock-sid', token } = {}) {
     this.uri = airlockEndpoint(uri);
     this.database = database;

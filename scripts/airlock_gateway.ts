@@ -3,6 +3,7 @@
 import { randomUUID } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { call, closeAirlock, connectAirlock, rows, until, type AirlockClient } from './airlock_sdk';
+import { sandboxTool, SANDBOX_SCOPE } from './airlock_sandbox';
 
 type ToolContext = { client: AirlockClient; workstationId: string; incidentId: string };
 type Tool = { validate: (args: unknown) => Record<string, any>; run: (args: Record<string, any>, context: ToolContext) => Promise<Record<string, unknown>> };
@@ -14,6 +15,7 @@ function objectWithKeys(value: unknown, keys: string[]): Record<string, any> {
 }
 
 const tools: Record<string, Tool> = {
+  run_pytest_in_sandbox: sandboxTool,
   fixture_word_count: {
     validate(value) {
       const args = objectWithKeys(value, ['text']);
@@ -52,12 +54,18 @@ export function managedTool(toolName: string, args: unknown) {
   return { tool, args: tool.validate(args) };
 }
 
+export function assertManagedScope(toolName: string, scope: string): void {
+  if (toolName === 'run_pytest_in_sandbox' ? scope !== SANDBOX_SCOPE : !['airlock:read-only', 'fixture:read-only'].includes(scope)) {
+    throw new Error('DENIED scope does not permit the exact managed tool');
+  }
+}
+
 /** No callback occurs until consume_approval has committed successfully. */
 export async function executeApprovedAction(client: AirlockClient, actionId: string) {
   const action = rows(client, 'myProtectedActions').find(row => row.id === actionId);
   if (!action) throw new Error('Action is unavailable to this service identity');
   const selected = managedTool(action.toolName, JSON.parse(action.argsJson));
-  if (action.scope !== 'airlock:read-only' && action.scope !== 'fixture:read-only') throw new Error('DENIED unsupported managed-runner scope');
+  assertManagedScope(action.toolName, action.scope);
   if (!action.approvalId) throw new Error('DENIED pending action has no authenticated approval');
   const executionId = `runner-exec-${randomUUID()}`;
   await call(client, 'consumeApproval', { actionId: action.id, approvalId: action.approvalId, actionDigest: action.actionDigest, executionId });
@@ -87,7 +95,7 @@ async function main() {
   const argv = process.argv.slice(2);
   const value = (name: string) => { const i = argv.indexOf(name); return i < 0 ? undefined : argv[i + 1]; };
   if (!argv.length || argv.includes('--help')) {
-    console.log(`AIRLOCK managed runner — explicit read-only callback allowlist\n\nNegative tool check (no DB needed):\n  frontend/node_modules/.bin/tsx scripts/airlock_gateway.ts --deny-demo\n\nPropose as an enrolled service and wait for SEPARATE owner/reviewer approval:\n  AIRLOCK_SERVICE_TOKEN_FILE=data/airlock/service-token.json frontend/node_modules/.bin/tsx scripts/airlock_gateway.ts --workstation ID --tool fixture_word_count --args '{"text":"harmless fixture"}' --wait-seconds 120\n\nExecute an existing approved action as its proposing service:\n  AIRLOCK_SERVICE_TOKEN_FILE=data/airlock/service-token.json frontend/node_modules/.bin/tsx scripts/airlock_gateway.ts --execute ACTION_ID\n\nAllowed callbacks: fixture_word_count {text}, read_incident {incidentId}, read_health {}.\nAll callback inputs come from the immutable, digest-bound DB action.\nNo shell, arbitrary file read, screen lock, motors or external notification.\nThis runner has no native Relay/Code Quest integration or model inference.`);
+    console.log(`AIRLOCK managed runner — explicit callback allowlist\n\nNegative tool check (no DB needed):\n  frontend/node_modules/.bin/tsx scripts/airlock_gateway.ts --deny-demo\n\nPropose as an enrolled service and wait for SEPARATE owner/reviewer approval:\n  AIRLOCK_SERVICE_TOKEN_FILE=data/airlock/service-token.json frontend/node_modules/.bin/tsx scripts/airlock_gateway.ts --workstation ID --tool fixture_word_count --args '{"text":"harmless fixture"}' --wait-seconds 120\n\nExecute an existing approved action as its proposing service:\n  AIRLOCK_SERVICE_TOKEN_FILE=data/airlock/service-token.json frontend/node_modules/.bin/tsx scripts/airlock_gateway.ts --execute ACTION_ID\n\nAllowed callbacks: fixture_word_count {text}, read_incident {incidentId}, read_health {}, run_pytest_in_sandbox {fixture:positive-sum-v1,candidate:correct|buggy}.\nAll callback inputs come from the immutable, digest-bound DB action.\nNo shell, arbitrary file read, screen lock, motors or external notification.\nUse airlock_relay_gateway.ts for native Relay execution. The fixed pytest exercise does not instrument a separate Code Quest host or claim model inference.`);
     return;
   }
   if (argv.includes('--deny-demo')) {
@@ -109,7 +117,7 @@ async function main() {
       const args = JSON.parse(value('--args') || '{}');
       managedTool(toolName, args); // Deny unknown tools/schema before proposing.
       actionId = value('--action-id') || `runner-action-${randomUUID()}`;
-      await call(client, 'proposeProtectedAction', { workstationId, actionId, missionId: value('--mission') || `runner-mission-${randomUUID()}`, incidentId: value('--incident') || '', toolName, argsJson: JSON.stringify(args), scope: 'airlock:read-only', ttlMs: 120_000n });
+      await call(client, 'proposeProtectedAction', { workstationId, actionId, missionId: value('--mission') || `runner-mission-${randomUUID()}`, incidentId: value('--incident') || '', toolName, argsJson: JSON.stringify(args), scope: toolName === 'run_pytest_in_sandbox' ? SANDBOX_SCOPE : 'airlock:read-only', ttlMs: 120_000n });
       const action = await until(() => rows(client, 'myProtectedActions', workstationId).find(row => row.id === actionId), 'proposed managed action');
       console.log(JSON.stringify({ status: 'pending_separate_human_approval', action_id: action.id, action_digest: action.actionDigest, tool: toolName, args: JSON.parse(action.argsJson), expires_at_ms: action.expiresAtMs.toString() }));
       const waitSeconds = Number(value('--wait-seconds') || '120');

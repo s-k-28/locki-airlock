@@ -190,21 +190,20 @@ def test_service_preserves_snapshot_ws_but_has_no_robot_commands_camera_or_micro
     rt = make_runtime(tmp_path / "runtime")
     app = create_voice_app(local_token, tmp_path / "runtime", runtime=rt)
     with TestClient(app) as client:
-        assert rt.driver == "mock" and rt.transport is None
-        assert rt.voice is None and rt.vision is None and rt.llm is None and rt.companion.llm is None
-        assert not rt.enable_llm and not rt.enable_vision and not rt.enable_voice
+        assert not hasattr(rt, "transport") and not hasattr(rt, "safety") and not hasattr(rt, "companion")
+        assert rt.voice is None and not rt.allow_microphone
         assert client.get("/api/health").status_code == 200
         assert client.get("/api/voice/config").json()["profile"]["provider"] == "system"
         assert client.get("/api/airlock/voice-status").json()["audio_enabled"] is False
         for path in ["/api/robot/arm", "/api/robot/move", "/api/command", "/api/session/start", "/api/vision/start", "/api/voice/test-mic"]:
             assert client.post(path, json={}).status_code == 404
-        assert client.post("/api/voice/start", json={}).json()["ok"] is False
+        assert client.post("/api/voice/start", json={}, headers={"Origin": "http://127.0.0.1:5174"}).json()["ok"] is False
         assert client.patch("/api/settings", json={"robot_driver": "zeus"}).status_code == 422
         assert client.post("/api/airlock/voice-control", json={"intent": "disarm"}).status_code == 422
         assert client.post("/api/airlock/voice-control", json={"intent": "stop_talking"}).json()["ok"]
         assert client.patch("/api/settings", json={"voice": {"muted": True}}).json()["ok"]
         assert rt.speaker.muted
-        assert rt.transport is None and rt.voice is None
+        assert not hasattr(rt, "transport") and rt.voice is None
         with client.websocket_connect("/ws") as ws:
             snapshot = ws.receive_json()
             assert snapshot["type"] == "snapshot"
