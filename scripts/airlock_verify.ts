@@ -72,15 +72,21 @@ async function captureFixtureBaseline(s: Station, overrides: Record<string, unkn
 async function arm(s: Station) {
   if (!s.simulated) await captureFixtureBaseline(s);
   await call(owner, 'armSession', { workstationId: s.id, sessionId: s.session, baselineJson: JSON.stringify(['fixture:approved-usb']), approvedAppsJson: JSON.stringify(['fixture:approved-app']), durationMs: 600_000n, simulated: s.simulated });
+  await until(() => rows(owner, 'mySessions', s.id).find(row => row.id === s.session), 'owner committed armed session');
 }
 
 function event(s: Station, kind: string, source: 'mac' | 'jetson' = kind.startsWith('usb_') || kind === 'app_launched' ? 'mac' : 'jetson', options: any = {}) {
   const deviceId = source === 'mac' ? s.macId : s.jetsonId;
   const seq = options.seq ?? (sequences.get(deviceId) ?? 0n) + 1n;
   sequences.set(deviceId, seq);
+  // Fixture timestamps must not precede the server's committed arm time.
+  // Explicit time-boundary and malformed inputs below remain unchanged.
+  const session = rows(owner, 'mySessions', s.id).find(row => row.id === s.session);
+  assert.ok(session, 'Fixture requires the committed armed session');
+  const fixtureTime = BigInt(Date.now()) > session.armedAtMs ? BigInt(Date.now()) : session.armedAtMs;
   return {
     workstationId: s.id, sessionId: s.session, deviceId, eventId: `${runId}-event-${randomUUID()}`,
-    kind, observedAtMs: BigInt(options.observedAtMs ?? Date.now()), seq, confidence: 0.92,
+    kind, observedAtMs: BigInt(options.observedAtMs ?? fixtureTime), seq, confidence: 0.92,
     metadataJson: JSON.stringify(kind.startsWith('usb_') ? { deviceKey: 'fixture:unknown-usb', label: 'SIMULATED harmless USB' } : kind === 'app_launched' ? { appId: 'fixture:unknown-app', label: 'SIMULATED test app' } : { detail: 'SIMULATED camera metadata; no video inference' }),
     simulated: true, schemaVersion: 1, ...options,
   };
@@ -145,6 +151,10 @@ async function main() {
   console.log(`AIRLOCK real-database verification ${runId}`);
   [owner, reviewer, approver, mac, jetson, service, outsider] = await Promise.all(Array.from({ length: 7 }, () => connectAirlock()));
   clients.push(owner, reviewer, approver, mac, jetson, service, outsider);
+  // Retain only this test identity for recovery even when a later group fails.
+  await mkdir(paths.output, { recursive: true });
+  await writeFile(`${paths.output}/checkpoint.private.json`, JSON.stringify({ run_id: runId, identity: owner.identity, token: owner.token, incidents: [] }), { mode: 0o600 });
+  report.checkpoint_file = `${paths.output}/checkpoint.private.json`;
   await test('Seven independent authenticated identities and empty outsider views', () => {
     assert.equal(new Set(clients.map(client => client.identity)).size, 7);
     assert.equal(rows(outsider, 'myIncidents').length, 0);
@@ -562,6 +572,15 @@ async function main() {
 async function run() {
   try { await main(); } catch (error) { process.exitCode = 1; console.error(error instanceof Error ? error.stack : error); }
   finally {
+    if (owner && !process.argv.includes('--check-checkpoint')) {
+      const cleanup = { disarmed: 0, failures: [] as string[], os_adapter_invocations: 0 };
+      for (const station of rows(owner, 'myWorkstations').filter(row => row.id.startsWith(`${runId}-`))) {
+        try { await call(owner, 'disarmSession', { workstationId: station.id }); cleanup.disarmed++; }
+        catch (error) { cleanup.failures.push(`${station.id}: ${error instanceof Error ? error.message : String(error)}`); }
+      }
+      report.cleanup = cleanup;
+      if (cleanup.failures.length) process.exitCode = 1;
+    }
     closeAirlock(clients);
     report.finished_at = new Date().toISOString();
     report.passed = !process.exitCode;

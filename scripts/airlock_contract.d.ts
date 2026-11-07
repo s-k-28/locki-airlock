@@ -18,6 +18,10 @@ export interface SecurityEventV1 {
   source: AirlockSource;
   kind: AirlockEventKind;
   observed_at: number;
+  /** Positive safe-integer counter starting at 1; persist across sessions.
+   * Server accepts a forward delta of at most 1,000,000 from its last value.
+   * This is a counter, not an epoch timestamp.
+   */
   seq: number;
   confidence?: number;
   metadata: AirlockMetadata;

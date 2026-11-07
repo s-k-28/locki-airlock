@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { AirlockHttp } from './airlock_http.mjs';
 
 const kinds = new Set(['usb_added', 'usb_removed', 'app_launched', 'person_in_zone', 'person_cleared', 'camera_offline', 'camera_online', 'heartbeat']);
+const envelopeKeys = new Set(['schema_version', 'workstation_id', 'session_id', 'device_id', 'event_id', 'source', 'kind', 'observed_at', 'seq', 'confidence', 'metadata', 'simulated']);
 const sourceKinds = {
   mac: new Set(['usb_added', 'usb_removed', 'app_launched', 'heartbeat']),
   jetson: new Set(['person_in_zone', 'person_cleared', 'camera_offline', 'camera_online', 'heartbeat']),
@@ -16,12 +17,14 @@ const sourceKinds = {
 /** @param {import('./airlock_contract').SecurityEventV1} event */
 export function validateSecurityEvent(event) {
   if (!event || typeof event !== 'object' || Array.isArray(event)) throw new Error('SecurityEventV1 must be an object');
+  if (Object.keys(event).some(key => !envelopeKeys.has(key))) throw new Error('SecurityEventV1 contains unknown envelope fields');
   if (event.schema_version !== 1) throw new Error('schema_version must be 1');
   for (const key of ['workstation_id', 'session_id', 'device_id', 'event_id']) {
     if (typeof event[key] !== 'string' || !/^[a-zA-Z0-9_.:-]{1,128}$/.test(event[key])) throw new Error(`${key} must contain 1-128 letters, digits, _, ., :, or -`);
   }
   if (!sourceKinds[event.source]?.has(event.kind)) throw new Error('Event kind does not belong to the declared source');
-  for (const key of ['observed_at', 'seq']) if (!Number.isSafeInteger(event[key]) || event[key] < 0) throw new Error(`${key} must be a nonnegative safe integer`);
+  if (!Number.isSafeInteger(event.observed_at) || event.observed_at < 0) throw new Error('observed_at must be a nonnegative safe integer');
+  if (!Number.isSafeInteger(event.seq) || event.seq < 1) throw new Error('seq must be a positive safe integer starting at 1');
   if (event.confidence !== undefined && (typeof event.confidence !== 'number' || !Number.isFinite(event.confidence) || event.confidence < 0 || event.confidence > 1)) throw new Error('confidence must be in [0,1]');
   if (typeof event.simulated !== 'boolean') throw new Error('simulated provenance is mandatory');
   if (event.source === 'fixture' && !event.simulated) throw new Error('Fixtures must be labeled simulated:true');

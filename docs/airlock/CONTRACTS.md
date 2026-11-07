@@ -77,6 +77,19 @@ The observation must fall inside the committed armed interval, be no more than
 real capture times; do not relabel a pre-arm observation to make it admissible.
 Check clock synchronization if genuine post-arm observations are rejected.
 
+`seq` is a positive safe-integer **counter**. Start at **1** after a new or
+owner-reset enrollment: the server initializes its last accepted sequence to
+zero, so a first event numbered zero is rejected. Persist the counter across
+sessions and reconnects. Every new event must increase it, with a forward delta
+of at most **1,000,000** from the server's last accepted value. That delta is
+stateful; a persisted counter may grow above 1,000,000. Do not use an epoch
+timestamp as the sequence. Exact retries keep the original event ID and counter.
+
+The portable publisher rejects unknown top-level envelope keys, matching the
+JSON Schema's `additionalProperties:false`. For example, `workstationId` must
+not be added alongside `workstation_id`; use the documented portable names.
+The reducer argument order and permitted metadata keys are unchanged.
+
 ## Full health status and component lists
 
 `report_health` accepts exactly **`online`, `degraded`, `offline`,
@@ -103,10 +116,16 @@ await connection.reducers.reportHealth({
 
 Report a component online only when it is actually available. A generic Mac
 heartbeat refreshes `watcher`; it does not establish microphone/audio health.
-USB/app observations refresh `usb`/`apps` respectively. Refresh active component
-health every 3–5 seconds: online/degraded records become offline after more than
-15 seconds without an update, processed by the five-second server maintenance
-timer. Gateway liveness never makes model health online.
+USB/app observations update `usb`/`apps` respectively using their original
+capture time, capped at server receipt time. Delayed evidence older than 15
+seconds cannot revive online health, and an older capture does not replace a
+newer component health report. Explicit `report_health` is a current liveness
+assertion, so a publisher must not use it to declare stale replay healthy.
+Refresh active component health every 3–5 seconds: online/degraded records
+become offline after more than 15 seconds without an update, processed by the
+five-second server maintenance timer. Gateway liveness never makes model
+health online. Revoked/disabled publisher health is excluded from caller views;
+server-owned database capacity warnings remain visible.
 
 ## End-to-end verification boundary
 

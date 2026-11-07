@@ -1,8 +1,9 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Cable, Check, Copy, KeyRound, Laptop, LockKeyhole, ShieldCheck, Users, Wifi } from "lucide-react";
 import type { ConnectionConfig } from "./client";
 import { type Row, textValue, shortId, parseJson } from "./format";
 import { Badge, Button, FormField, Modal } from "./ui";
+import { armConsent, maySubmitLiveArm } from "./armConsent";
 
 export type Perform = (reducer: string, args: Row, success?: string) => Promise<boolean>;
 const asList = (s: string) => s.split(/[\n,]/).map(x => x.trim()).filter(Boolean);
@@ -35,16 +36,21 @@ export function ArmForm({ station, previous, snapshots, perform, onClose, pendin
   const [simulated, setSimulated] = useState(true);
   const [baseline, setBaseline] = useState((parseJson(previous?.baselineJson, []) as string[]).join("\n"));
   const [apps, setApps] = useState((parseJson(previous?.approvedAppsJson, []) as string[]).join("\n"));
-  const [verified, setVerified] = useState(false);
+  const [consentedFingerprint, setConsentedFingerprint] = useState<string | null>(null);
   const [duration, setDuration] = useState("60");
   const latest = [...snapshots].filter(s => !s.sessionId).sort((a, b) => Number(b.observedAtMs) - Number(a.observedAtMs))[0];
   const captureAge = latest ? Date.now() - Number(latest.observedAtMs) : Infinity;
   const fresh = Boolean(latest) && captureAge >= -5000 && captureAge <= 30000;
-  const capturedKeys = parseJson(latest?.baselineJson, []) as string[];
+  const reviewed = armConsent(station, latest, asList(apps), duration);
+  const fingerprint = reviewed?.fingerprint ?? null;
+  const verified = fingerprint !== null && consentedFingerprint === fingerprint;
+  // The derived match also gates submit immediately, before this effect runs.
+  useEffect(() => { setConsentedFingerprint(null); }, [fingerprint, simulated]);
+  const capturedKeys = reviewed ? JSON.parse(reviewed.baselineJson) as string[] : [];
   return <Modal title="Arm the workstation" subtitle="Freeze a device baseline and response policy for this session." onClose={onClose}><form className="al-form" onSubmit={async e => {
     e.preventDefault();
-    if (!simulated && !fresh) return;
-    const ok = await perform("armSession", { workstationId: station.id, sessionId: `session-${crypto.randomUUID()}`, baselineJson: simulated ? JSON.stringify(asList(baseline)) : "", approvedAppsJson: JSON.stringify(asList(apps)), durationMs: BigInt(Number(duration) * 60000), simulated }, simulated ? "Synthetic session armed. Real screen locks are disabled." : "Live session armed with the enrolled Mac's fresh baseline.");
+    if (!simulated && !maySubmitLiveArm(consentedFingerprint, reviewed, latest?.observedAtMs, Date.now())) return;
+    const ok = await perform("armSession", { workstationId: station.id, sessionId: `session-${crypto.randomUUID()}`, baselineJson: simulated ? JSON.stringify(asList(baseline)) : reviewed!.baselineJson, approvedAppsJson: JSON.stringify(asList(apps)), durationMs: BigInt(Number(duration) * 60000), simulated }, simulated ? "Synthetic session armed. Real screen locks are disabled." : "Live session armed with the enrolled Mac's fresh baseline.");
     if (ok) onClose();
   }}>
     <div className="al-mode-choice"><button type="button" aria-pressed={simulated} onClick={() => setSimulated(true)} className={simulated ? "selected" : ""}><Badge tone="amber">Synthetic</Badge><strong>Fixture rehearsal</strong><span>DB-backed events. Never requests a real lock.</span></button><button type="button" aria-pressed={!simulated} onClick={() => setSimulated(false)} className={!simulated ? "selected" : ""}><Badge tone="cyan">Live</Badge><strong>Owned workstation</strong><span>Uses enrolled Mac and Jetson publishers.</span></button></div>
@@ -52,7 +58,7 @@ export function ArmForm({ station, previous, snapshots, perform, onClose, pendin
     {!simulated && <div className="al-form-note"><Laptop size={17} /><div><strong>{fresh ? "Fresh authenticated capture" : "Mac capture unavailable or stale"}</strong><p>Active app: {latest?.activeAppId || "unknown"}. Camera at capture: {latest?.cameraStatus || "unavailable"}. Camera loss does not prevent USB protection.</p></div></div>}
     <FormField label="Approved app identifiers" hint="One app identifier per line. Only metadata is monitored."><textarea rows={2} value={apps} onChange={e => setApps(e.target.value)} placeholder="com.apple.Terminal" /></FormField>
     <div className="al-form-inline"><FormField label="Session length"><select value={duration} onChange={e => setDuration(e.target.value)}><option value="15">15 minutes</option><option value="60">1 hour</option><option value="240">4 hours</option><option value="480">8 hours</option></select></FormField><div className="al-policy-readout"><LockKeyhole size={15} /><span>Auto-lock policy</span><strong>{station.autoLockEnabled ? "Enabled" : "Disabled"}</strong><small>{simulated ? "Suppressed for synthetic sessions" : `Policy version ${station.policyVersion}`}</small></div></div>
-    {!simulated && <label className="al-checkbox"><input type="checkbox" required checked={verified} onChange={e => setVerified(e.target.checked)} /><span>I verified this Mac baseline and consent to the displayed policy on my workstation.</span></label>}
+    {!simulated && <label className="al-checkbox"><input type="checkbox" required checked={verified} disabled={!reviewed || !fresh} onChange={e => setConsentedFingerprint(e.target.checked ? fingerprint : null)} /><span>I verified this Mac baseline and consent to the displayed policy on my workstation.</span></label>}
     <div className="al-modal-actions"><Button type="button" onClick={onClose}>Cancel</Button><Button kind="primary" disabled={pending || (!simulated && (!verified || !fresh))} type="submit"><ShieldCheck size={15} />Arm {simulated ? "synthetic" : "live"} session</Button></div>
   </form></Modal>;
 }

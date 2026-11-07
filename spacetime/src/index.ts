@@ -174,10 +174,19 @@ function cleanupMetadata(ctx: Ctx, ws: string) {
   }
 }
 const SECURITY_EVENT_CAPACITY = 100_000;
-function putHealth(ctx: Ctx, ws: string, deviceId: string, component: string, status: string, detail: string) {
+function putHealth(ctx: Ctx, ws: string, deviceId: string, component: string, status: string, detail: string, observedAtMs?: bigint) {
+  const time = now(ctx), id = `${ws}:${deviceId}:${component}`;
+  // Buffered evidence is not a fresh liveness report. Keep capture-time ordering,
+  // and never let permitted future clock skew extend the health lease.
+  const lastSeenMs = observedAtMs === undefined || observedAtMs > time ? time : observedAtMs;
+  const existing = ctx.db.deviceHealth.id.find(id);
+  if (observedAtMs !== undefined && existing && existing.lastSeenMs > lastSeenMs) return;
   if (status === 'online' && component !== 'capacity' && ctx.db.workstations.id.find(ws)?.activeSessionId && ctx.db.deviceHealth.id.find(`${ws}:database:capacity`)?.status === 'degraded') { status = 'degraded'; detail = 'Security event capacity reached; disarm and rearm after owner review. Sensor liveness is not effective protection.'; }
-  const row = { id: `${ws}:${deviceId}:${component}`, workstationId: ws, deviceId, component, status, lastSeenMs: now(ctx), detail: text(detail) };
-  if (ctx.db.deviceHealth.id.find(row.id)) ctx.db.deviceHealth.id.update(row); else ctx.db.deviceHealth.insert(row);
+  if (observedAtMs !== undefined && ['online', 'degraded'].includes(status) && lastSeenMs + 15_000n < time) {
+    status = 'offline'; detail = 'Buffered observation accepted as evidence; capture is older than 15 seconds and does not establish current coverage.';
+  }
+  const row = { id, workstationId: ws, deviceId, component, status, lastSeenMs, detail: text(detail) };
+  if (existing) ctx.db.deviceHealth.id.update(row); else ctx.db.deviceHealth.insert(row);
 }
 function snapshotHealth(ctx: Ctx, ws: string) {
   const time = now(ctx);
@@ -326,7 +335,7 @@ export const ingest_device_event = spacetimedb.reducer({ workstationId: t.string
   const event = { id: a.eventId, workstationId: a.workstationId, sessionId: s.id, deviceId: a.deviceId, source: fixture ? 'fixture' : d.role, kind: a.kind, observedAtMs: a.observedAtMs, receivedAtMs: now(ctx), seq: a.seq, confidence: a.confidence, metadataJson, simulated: a.simulated, schemaVersion: 1, classification };
   ctx.db.deviceEvents.insert(event); ctx.db.devices.id.update({ ...d, lastSeq: a.seq, lastEventAtMs: now(ctx) });
   const component = a.kind.startsWith('camera_') || a.kind.startsWith('person_') ? 'camera' : a.kind.startsWith('usb_') ? 'usb' : a.kind === 'app_launched' ? 'apps' : d.role === 'service' ? 'gateway' : d.role === 'jetson' ? 'jetson' : 'watcher';
-  putHealth(ctx, a.workstationId, a.deviceId, component, a.kind === 'camera_offline' ? 'offline' : 'online', typeof meta.detail === 'string' ? meta.detail : '');
+  putHealth(ctx, a.workstationId, a.deviceId, component, a.kind === 'camera_offline' ? 'offline' : 'online', typeof meta.detail === 'string' ? meta.detail : '', a.observedAtMs);
   if (a.kind === 'heartbeat') {
     const protectedIds = new Set<string>();
     for (const i of ctx.db.incidents.sessionId.filter(s.id)) for (const id of JSON.parse(i.eventIdsJson) as string[]) protectedIds.add(id);
@@ -486,7 +495,16 @@ export const my_devices = spacetimedb.view({ name: 'my_devices', public: true },
 export const my_sessions = spacetimedb.view({ name: 'my_sessions', public: true }, t.array(sessions.rowType), ctx => ownMemberships(ctx).flatMap(m => [...ctx.db.sessions.workstationId.filter(m.workstationId)]));
 export const my_device_events = spacetimedb.view({ name: 'my_device_events', public: true }, t.array(deviceEvents.rowType), ctx => ownMemberships(ctx).filter(m => canReadObservations(m.role)).flatMap(m => [...ctx.db.deviceEvents.workstationId.filter(m.workstationId)]));
 export const my_incidents = spacetimedb.view({ name: 'my_incidents', public: true }, t.array(incidents.rowType), ctx => ownMemberships(ctx).filter(m => canReadObservations(m.role)).flatMap(m => [...ctx.db.incidents.workstationId.filter(m.workstationId)]));
-export const my_device_health = spacetimedb.view({ name: 'my_device_health', public: true }, t.array(deviceHealth.rowType), ctx => ownMemberships(ctx).flatMap(m => [...ctx.db.deviceHealth.workstationId.filter(m.workstationId)]));
+export const my_device_health = spacetimedb.view({ name: 'my_device_health', public: true }, t.array(deviceHealth.rowType), ctx => ownMemberships(ctx).flatMap(m =>
+  [...ctx.db.deviceHealth.workstationId.filter(m.workstationId)].filter(health => {
+    // Capacity is server-owned coverage state and has no device enrollment.
+    if (health.deviceId === 'database' && health.component === 'capacity') return true;
+    const device = ctx.db.devices.id.find(health.deviceId);
+    if (!device?.enabled || device.workstationId !== m.workstationId) return false;
+    const publisher = ctx.db.memberships.id.find(memberId(m.workstationId, device.identity));
+    return publisher?.enabled === true && publisher.role === device.role;
+  })
+));
 export const my_lock_requests = spacetimedb.view({ name: 'my_lock_requests', public: true }, t.array(lockRequests.rowType), ctx => ownMemberships(ctx).filter(m => canReadCases(m.role) || m.role === 'mac').flatMap(m => [...ctx.db.lockRequests.workstationId.filter(m.workstationId)].filter(l => canReadCases(m.role) || ctx.db.devices.id.find(l.targetDeviceId)?.identity.isEqual(ctx.sender))));
 export const my_protected_actions = spacetimedb.view({ name: 'my_protected_actions', public: true }, t.array(protectedActions.rowType), ctx => ownMemberships(ctx).filter(m => canReadCases(m.role)).flatMap(m => [...ctx.db.protectedActions.workstationId.filter(m.workstationId)]));
 export const my_approvals = spacetimedb.view({ name: 'my_approvals', public: true }, t.array(approvals.rowType), ctx => ownMemberships(ctx).filter(m => m.role === 'owner' || m.role === 'service' || (m.role === 'reviewer' && m.canApprove)).flatMap(m => [...ctx.db.approvals.workstationId.filter(m.workstationId)]));

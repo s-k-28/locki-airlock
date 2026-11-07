@@ -33,6 +33,14 @@ async function httpIds(actor: AirlockClient, view: string, ws: string): Promise<
     assert.ok(index >= 0); return statement.rows.map((row: any[]) => String(row[index]));
   }).sort();
 }
+async function httpHealth(actor: AirlockClient, ws: string): Promise<Array<{ id: string; status: string; lastSeenMs: string }>> {
+  const result: any = await new AirlockHttp({ token: actor.token }).sql(`SELECT * FROM my_device_health WHERE workstation_id = '${ws}'`);
+  return result.flatMap((statement: any) => {
+    const column = (name: string) => statement.schema.elements.findIndex((field: any) => field.name.some === name);
+    const id = column('id'), status = column('status'), lastSeen = column('last_seen_ms'); assert.ok(id >= 0 && status >= 0 && lastSeen >= 0);
+    return statement.rows.map((row: any[]) => ({ id: String(row[id]), status: String(row[status]), lastSeenMs: String(row[lastSeen]) }));
+  });
+}
 const sdkIds = (actor: AirlockClient, view: string, ws: string) => rows(actor, view, ws).map(row => String(row.id)).sort();
 async function emptyObservations(actor: AirlockClient, ws: string) {
   await until(() => sdkIds(actor, 'myIncidents', ws).length === 0 && sdkIds(actor, 'myDeviceEvents', ws).length === 0, 'observation rows removed');
@@ -104,9 +112,60 @@ async function main() {
     await until(() => rows(owner, 'myIncidents', unrelated).length === 1, 'unrelated owner incident');
     for (const actor of [mac, secondMac, jetson, outsider]) await emptyObservations(actor, unrelated);
   });
+  await test('Buffered app and camera evidence retain capture-time offline health across duplicate retries', async () => {
+    const capturedAtMs = observedAtMs + 1n;
+    const waitMs = Math.max(0, Number(capturedAtMs + 16100n) - Date.now());
+    assert.ok(waitMs <= 21000, 'Fixture clock fence exceeds bounded wait');
+    if (waitMs) await new Promise(resolve => setTimeout(resolve, waitMs));
+    const buffered = [
+      { actor: mac, deviceId: deviceIds[0], eventId: `${runId}-buffered-app`, kind: 'app_launched', component: 'apps', seq: 1n, metadataJson: '{"appId":"fixture:buffered-app"}' },
+      { actor: jetson, deviceId: deviceIds[2], eventId: `${runId}-buffered-camera`, kind: 'camera_online', component: 'camera', seq: 2n, metadataJson: '{"detail":"SIMULATED buffered capture; no camera opened"}' },
+    ];
+    const receiptAges: number[] = [];
+    for (const sample of buffered) {
+      const { actor, component, ...input } = sample;
+      const args = { ...input, workstationId: ws, sessionId: `${ws}-session`, observedAtMs: capturedAtMs, confidence: 1, simulated: true, schemaVersion: 1 };
+      await call(actor, 'ingestDeviceEvent', args);
+      const committed = await until(() => rows(owner, 'myDeviceEvents', ws).find(row => row.id === sample.eventId), 'buffered evidence accepted');
+      const receiptAge = Number(committed.receivedAtMs - committed.observedAtMs); assert.ok(receiptAge > 15000); receiptAges.push(receiptAge);
+      if (sample.kind === 'app_launched') await until(() => rows(owner, 'myIncidents', ws).find(row => row.digitalEventId === sample.eventId && row.ruleId === 'unapproved_app'), 'buffered app remains review evidence');
+      const healthId = `${ws}:${sample.deviceId}:${component}`;
+      const checkHealth = async () => {
+        for (const viewer of [owner, mac, secondMac]) {
+          await until(() => rows(viewer, 'myDeviceHealth', ws).some(row => row.id === healthId && row.status === 'offline' && row.lastSeenMs === capturedAtMs), 'buffered capture stays offline');
+          const health = (await httpHealth(viewer, ws)).find(row => row.id === healthId);
+          assert.equal(health?.status, 'offline'); assert.equal(health?.lastSeenMs, capturedAtMs.toString());
+        }
+      };
+      await checkHealth();
+      await call(actor, 'ingestDeviceEvent', args); // Lost-ACK retry must not grant a new health lease.
+      await checkHealth();
+      assert.equal(rows(owner, 'myDeviceEvents', ws).filter(row => row.id === sample.eventId).length, 1);
+    }
+    report.capture_time_health = { buffered_events: 2, duplicate_retries: 2, captured_at_ms: capturedAtMs.toString(), receipt_age_ms: receiptAges, offline_rows: 2, capture_timestamps_preserved: true };
+  });
+  const revokedDeviceId = otherMac === mac ? deviceIds[0] : deviceIds[1];
+  const revokedHealthId = `${ws}:${revokedDeviceId}:usb`, activeHealthId = `${ws}:${lock.targetDeviceId}:usb`;
+  report.ids.revoked_health_row = revokedHealthId; report.ids.active_health_row = activeHealthId;
+  // Fresh synthetic health prevents an empty or already-stale row from passing the removal check.
+  for (const [actor, deviceId] of [[mac, deviceIds[0]], [secondMac, deviceIds[1]]] as const)
+    await call(actor, 'reportHealth', { workstationId: ws, deviceId, component: 'usb', status: 'online', detail: 'SIMULATED verifier publisher liveness; no physical USB trial' });
+  for (const viewer of [owner, mac, secondMac]) {
+    await until(() => [revokedHealthId, activeHealthId].every(id => rows(viewer, 'myDeviceHealth', ws).some(row => row.id === id && row.status === 'online')), 'fresh health visible before revocation');
+    const health = await httpHealth(viewer, ws);
+    for (const id of [revokedHealthId, activeHealthId]) assert.equal(health.find(row => row.id === id)?.status, 'online');
+  }
   await test('Revocation removes Mac observations and token reconnect cannot restore them', async () => {
     await call(owner, 'revokeMember', { workstationId: ws, identityHex: otherMac.identity }); await emptyObservations(otherMac, ws);
     otherMac.conn.disconnect(); const reconnected = await connectAirlock(otherMac.token); clients.push(reconnected); assert.equal(reconnected.identity, otherMac.identity); await emptyObservations(reconnected, ws);
+  });
+  await test('Revoked device health disappears from owner and active Mac while active health remains', async () => {
+    for (const viewer of [owner, target]) {
+      await until(() => !rows(viewer, 'myDeviceHealth', ws).some(row => row.id === revokedHealthId) && rows(viewer, 'myDeviceHealth', ws).some(row => row.id === activeHealthId && row.status === 'online'), 'revoked health removed without hiding active publisher');
+      const health = await httpHealth(viewer, ws);
+      assert.equal(health.some(row => row.id === revokedHealthId), false);
+      assert.equal(health.find(row => row.id === activeHealthId)?.status, 'online');
+    }
   });
   await test('Device reassignment removes the old Mac observations across reconnect', async () => {
     await call(owner, 'disarmSession', { workstationId: ws });
@@ -115,7 +174,7 @@ async function main() {
     await until(() => rows(outsider, 'myIncidents', ws).find(row => row.id === incident.id), 'explicitly enrolled replacement reads');
     await emptyObservations(outsider, unrelated);
   });
-  report.counts = { observation_events: 2, correlated_incidents: 1, synthetic_lock_requests: 1, os_adapter_invocations: 0, execution_claims: 0 };
+  report.counts = { observation_events: rows(owner, 'myDeviceEvents', ws).length, correlated_incidents: rows(owner, 'myIncidents', ws).filter(row => row.ruleId === 'correlated_usb_physical').length, buffered_app_incidents: rows(owner, 'myIncidents', ws).filter(row => row.digitalEventId === `${runId}-buffered-app`).length, synthetic_lock_requests: rows(owner, 'myLockRequests', ws).length, fresh_mac_health_reports: 2, revoked_health_rows_visible_after_revocation: 0, active_mac_health_rows_preserved: 1, os_adapter_invocations: 0, execution_claims: 0 };
 }
 void (async () => {
   let failed = false;

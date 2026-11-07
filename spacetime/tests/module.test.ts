@@ -432,6 +432,61 @@ it('owner panic without frozen auto-lock consent creates review intent without a
 // Mac adapters need workstation observations for voice/investigation handoff.
 // This is deliberately narrower than case-administration or service access.
 const jetson = auth('jetson-observer', 8n);
+it.each([
+  ['mac','usb_added','usb'], ['mac','app_launched','apps'], ['mac','heartbeat','watcher'],
+  ['jetson','person_in_zone','camera'], ['jetson','camera_online','camera'], ['jetson','heartbeat','jetson'],
+  ['service','heartbeat','gateway'],
+])('buffered %s %s remains evidence without reviving %s health', (role,kind,component)=>{
+  const test=setup();const actor=role==='mac'?mac:role==='jetson'?jetson:serviceA;
+  enroll(test,actor,'publisher',role);arm(test);time(test,1_030_000n);
+  emit(test,'buffered',1n,kind,{deviceId:'publisher',observedAtMs:1_010_000n,...(kind==='app_launched'?{metadataJson:'{"appId":"unknown-app"}'}:{})},actor);
+  expect(test.db.deviceEvents.id.find('buffered')?.receivedAtMs).toBe(1_030_000n);
+  const health=test.db.deviceHealth.id.find(`desk:publisher:${component}`)!;
+  expect(health.status).toBe('offline');expect(health.lastSeenMs).toBe(1_010_000n);expect(health.detail).toMatch(/Buffered observation.*older than 15 seconds/);
+  if(kind==='usb_added'||kind==='app_launched')expect(test.db.incidents.count()).toBe(1n);
+});
+it('capture liveness includes exactly 15 seconds but expires immediately beyond the boundary',()=>{
+  const test=setup();enroll(test,mac,'mac','mac');arm(test);time(test,1_015_000n);
+  emit(test,'boundary',1n,'heartbeat',{deviceId:'mac',observedAtMs:1_000_000n},mac);
+  expect(test.db.deviceHealth.id.find('desk:mac:watcher')?.status).toBe('online');
+  time(test,1_015_001n);test.withReducerTx(owner,ctx=>moduleExports.refresh_workstation(ctx,{workstationId:'desk'}));
+  expect(test.db.deviceHealth.id.find('desk:mac:watcher')?.status).toBe('offline');
+});
+it('future-skew observations cannot extend liveness beyond 15 seconds from server receipt',()=>{
+  const test=setup();enroll(test,mac,'mac','mac');arm(test);
+  emit(test,'future-skew',1n,'heartbeat',{deviceId:'mac',observedAtMs:1_005_000n},mac);
+  expect(test.db.deviceEvents.id.find('future-skew')?.observedAtMs).toBe(1_005_000n);
+  expect(test.db.deviceHealth.id.find('desk:mac:watcher')?.lastSeenMs).toBe(1_000_000n);
+  time(test,1_015_001n);test.withReducerTx(owner,ctx=>moduleExports.refresh_workstation(ctx,{workstationId:'desk'}));
+  expect(test.db.deviceHealth.id.find('desk:mac:watcher')?.status).toBe('offline');
+});
+it('older buffered camera transitions never overwrite newer capture health',()=>{
+  const test=setup();enroll(test,jetson,'jetson','jetson');arm(test);time(test,1_010_000n);
+  emit(test,'camera-down',1n,'camera_offline',{deviceId:'jetson'},jetson);
+  time(test,1_011_000n);emit(test,'old-camera-up',2n,'camera_online',{deviceId:'jetson',observedAtMs:1_005_000n},jetson);
+  expect(test.db.deviceHealth.id.find('desk:jetson:camera')?.status).toBe('offline');
+  expect(test.db.deviceHealth.id.find('desk:jetson:camera')?.lastSeenMs).toBe(1_010_000n);
+  emit(test,'new-camera-up',3n,'camera_online',{deviceId:'jetson'},jetson);
+  time(test,1_012_000n);emit(test,'old-camera-down',4n,'camera_offline',{deviceId:'jetson',observedAtMs:1_006_000n},jetson);
+  expect(test.db.deviceHealth.id.find('desk:jetson:camera')?.status).toBe('online');
+  expect(test.db.deviceHealth.id.find('desk:jetson:camera')?.lastSeenMs).toBe(1_011_000n);
+  expect(test.db.deviceEvents.count()).toBe(4n);
+});
+it('current explicit component reports outrank old backlog and keep server receipt semantics',()=>{
+  const test=setup();enroll(test,jetson,'jetson','jetson');arm(test);time(test,1_030_000n);
+  test.withReducerTx(jetson,ctx=>moduleExports.report_health(ctx,{workstationId:'desk',deviceId:'jetson',component:'camera',status:'online',detail:'Current capture is available'}));
+  emit(test,'buffered-offline',1n,'camera_offline',{deviceId:'jetson',observedAtMs:1_010_000n},jetson);
+  const health=test.db.deviceHealth.id.find('desk:jetson:camera')!;
+  expect(health.status).toBe('online');expect(health.lastSeenMs).toBe(1_030_000n);expect(health.detail).toBe('Current capture is available');
+});
+it('retry after a lost acknowledgement does not extend a committed observation health lease',()=>{
+  const test=setup();enroll(test,mac,'mac','mac');arm(test);
+  const args=emit(test,'committed',1n,'heartbeat',{deviceId:'mac'},mac);
+  time(test,1_020_000n);test.withReducerTx(mac,ctx=>moduleExports.ingest_device_event(ctx,args));
+  expect(test.db.deviceEvents.count()).toBe(1n);expect(test.db.deviceHealth.id.find('desk:mac:watcher')?.lastSeenMs).toBe(1_000_000n);
+  test.withReducerTx(owner,ctx=>moduleExports.refresh_workstation(ctx,{workstationId:'desk'}));
+  expect(test.db.deviceHealth.id.find('desk:mac:watcher')?.status).toBe('offline');
+});
 it('an enrolled Mac reads only its workstation incidents and all enrolled sensor observations', () => {
   const test = setup(); enroll(test,mac,'mac','mac'); enroll(test,jetson,'jetson','jetson'); arm(test);
   emit(test,'mac-usb',1n,'usb_added',{deviceId:'mac'},mac);
@@ -525,4 +580,48 @@ it('Mac observation reads grant neither private case administration nor protecte
   expect(test.db.protectedActions.id.find('action')?.status).toBe('approved');
   expect(test.db.incidents.id.find('incident:usb')?.state).toBe('open');
   expect(test.db.acknowledgements.count()).toBe(0n); expect(test.db.auditEvents.count()).toBe(auditCount);
+});
+
+
+it('revoked healthy-device rows disappear for owner reviewer and active Mac without deleting history',()=>{
+  const test=setup();enroll(test,mac,'active-mac','mac');enroll(test,macB,'revoked-mac','mac');enroll(test,jetson,'active-jetson','jetson');
+  const reviewerIdentity=test.viewContext(reviewer).sender.toHexString();
+  test.withReducerTx(owner,ctx=>moduleExports.grant_reviewer(ctx,{workstationId:'desk',identityHex:reviewerIdentity,canApprove:false}));
+  for(const[actor,deviceId,component]of [[mac,'active-mac','usb'],[macB,'revoked-mac','usb'],[jetson,'active-jetson','camera']]as const)
+    test.withReducerTx(actor,ctx=>moduleExports.report_health(ctx,{workstationId:'desk',deviceId,component,status:'online',detail:'Authenticated test publisher reported healthy'}));
+  test.db.deviceHealth.insert({id:'desk:database:capacity',workstationId:'desk',deviceId:'database',component:'capacity',status:'degraded',lastSeenMs:1000000n,detail:'Server-owned capacity state'});
+  for(const viewer of [owner,reviewer,mac])expect(moduleExports.my_device_health(test.viewContext(viewer))).toHaveLength(4);
+  const oldIdentity=test.viewContext(macB).sender.toHexString();
+  test.withReducerTx(owner,ctx=>moduleExports.revoke_member(ctx,{workstationId:'desk',identityHex:oldIdentity}));
+  for(const viewer of [owner,reviewer,mac])expect(moduleExports.my_device_health(test.viewContext(viewer)).map(row=>row.id).sort()).toEqual(['desk:active-jetson:camera','desk:active-mac:usb','desk:database:capacity']);
+  expect(test.db.deviceHealth.count()).toBe(4n);
+  expect(test.db.deviceHealth.id.find('desk:revoked-mac:usb')?.status).toBe('online');
+  expect(moduleExports.my_device_health(test.viewContext(macB))).toEqual([]);
+});
+for(const change of ['device-disabled','publisher-membership-disabled']as const)it(`health visibility rejects ${change} even while another Mac remains active`,()=>{
+  const test=setup();enroll(test,mac,'active-mac','mac');enroll(test,macB,'old-mac','mac');
+  for(const[actor,deviceId]of [[mac,'active-mac'],[macB,'old-mac']]as const)
+    test.withReducerTx(actor,ctx=>moduleExports.report_health(ctx,{workstationId:'desk',deviceId,component:'usb',status:'online',detail:'Healthy before enrollment changed'}));
+  expect(moduleExports.my_device_health(test.viewContext(mac))).toHaveLength(2);
+  if(change==='device-disabled'){
+    const old=test.db.devices.id.find('old-mac')!;test.db.devices.id.update({...old,enabled:false});
+  }else{
+    const oldIdentity=test.viewContext(macB).sender;
+    const membership=[...test.db.memberships.identity.filter(oldIdentity)].find(row=>row.workstationId==='desk')!;
+    test.db.memberships.id.update({...membership,enabled:false});
+    expect(test.db.devices.id.find('old-mac')?.enabled).toBe(true);
+  }
+  for(const viewer of [owner,mac])expect(moduleExports.my_device_health(test.viewContext(viewer)).map(row=>row.id)).toEqual(['desk:active-mac:usb']);
+  expect(test.db.deviceHealth.count()).toBe(2n);expect(test.db.deviceHealth.id.find('desk:old-mac:usb')?.status).toBe('online');
+});
+it('health ignores missing and cross-workstation devices and preserves only the exact server capacity exception',()=>{
+  const test=setup();enroll(test,mac,'active-mac','mac');
+  test.withReducerTx(mac,ctx=>moduleExports.report_health(ctx,{workstationId:'desk',deviceId:'active-mac',component:'usb',status:'online',detail:'Current enrolled device'}));
+  test.withReducerTx(owner,ctx=>moduleExports.register_workstation(ctx,{workstationId:'other',name:'Other workstation'}));
+  const otherIdentity=test.viewContext(macB).sender.toHexString();
+  test.withReducerTx(owner,ctx=>moduleExports.enroll_device(ctx,{workstationId:'other',deviceId:'other-mac',identityHex:otherIdentity,role:'mac',label:'Other workstation device'}));
+  for(const[id,deviceId,component]of [['desk:other-mac:usb','other-mac','usb'],['desk:missing:camera','missing','camera'],['desk:database:usb','database','usb'],['desk:database:capacity','database','capacity']]as const)
+    test.db.deviceHealth.insert({id,workstationId:'desk',deviceId,component,status:component==='capacity'?'degraded':'online',lastSeenMs:1000000n,detail:'Retained test metadata'});
+  expect(moduleExports.my_device_health(test.viewContext(mac)).map(row=>row.id).sort()).toEqual(['desk:active-mac:usb','desk:database:capacity']);
+  expect(test.db.deviceHealth.count()).toBe(5n);expect(moduleExports.my_device_health(test.viewContext(outsider))).toEqual([]);
 });

@@ -14,7 +14,7 @@
     "source": { "enum": ["mac", "jetson", "fixture", "service"] },
     "kind": { "enum": ["usb_added", "usb_removed", "app_launched", "person_in_zone", "person_cleared", "camera_offline", "camera_online", "heartbeat"] },
     "observed_at": { "type": "integer", "minimum": 0, "maximum": 9007199254740991, "description": "UTC Unix epoch milliseconds, not seconds or an ISO string" },
-    "seq": { "type": "integer", "minimum": 0, "maximum": 9007199254740991, "description": "Monotonically increasing per enrolled device, including across sessions" },
+    "seq": { "type": "integer", "minimum": 1, "maximum": 9007199254740991, "description": "Positive safe-integer counter starting at 1 for a new enrollment, increasing across sessions. The server permits at most a 1000000 forward delta from its last accepted sequence. Persist the counter; do not use timestamps as sequence values." },
     "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
     "metadata": {
       "type": "object", "additionalProperties": false,
